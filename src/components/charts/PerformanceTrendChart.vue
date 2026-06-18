@@ -1,12 +1,14 @@
 <template>
-  <Card class="border-slate-200 bg-white shadow-sm">
+  <Card class="border-slate-200 bg-white shadow-sm flex flex-col">
     <CardHeader class="pb-2">
       <CardTitle class="text-[0.98rem] font-semibold text-slate-900">Performance Trend</CardTitle>
     </CardHeader>
-    <CardContent class="h-[240px] pb-4 pt-0 sm:h-[280px] lg:h-[312px]">
+    <CardContent class="flex-1 pb-0 pt-0 min-h-[240px] sm:min-h-[280px] lg:min-h-[300px]">
       <Line :data="chartData" :options="options" />
-      <AccessibleChartSummary summary="Weekly clicks and conversions are trending upward with a mild plateau this week." />
     </CardContent>
+    <div class="border-t border-slate-100 px-4 py-2 text-xs text-slate-500">
+      <AccessibleChartSummary summary="Weekly clicks and conversions are trending upward with a mild plateau this week." />
+    </div>
   </Card>
 </template>
 

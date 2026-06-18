@@ -59,7 +59,7 @@
         <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">Performance</h2>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
+      <div class="grid grid-cols-1 gap-3 lg:grid-cols-12">
         <div class="lg:col-span-7">
           <PerformanceTrendChart :clicks="totals.clicks" :conversions="totals.conversions" class="h-full dashboard-card dashboard-card-interactive" />
         </div>
@@ -115,7 +115,7 @@
         </div>
       </div>
 
-      <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+      <div class="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-12">
         <div class="lg:col-span-7"><ChannelPerformanceCards :metrics="filteredChannelMetrics" class="h-full dashboard-card dashboard-card-interactive" /></div>
         <div class="lg:col-span-5"><CreativePerformanceCard class="h-full dashboard-card dashboard-card-interactive" /></div>
       </div>
@@ -127,9 +127,9 @@
         <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">Audience</h2>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
+      <div class="grid grid-cols-1 gap-3 lg:grid-cols-12">
         <div class="lg:col-span-5">
-          <Card class="h-full dashboard-card dashboard-card-interactive">
+          <Card class="h-full dashboard-card dashboard-card-interactive flex flex-col">
             <CardHeader class="pb-3">
               <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Users class="size-4 text-pink-500" />Audience Signals</CardTitle>
               <CardDescription>Segment, device, and geography shifts in active campaigns.</CardDescription>
@@ -206,12 +206,12 @@
       </AlertDescription>
     </Alert>
 
-      <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="mb-4 grid grid-cols-1 gap-3 lg:grid-cols-2">
         <InsightsPanel :insights="insights" class="h-full dashboard-card dashboard-card-interactive" />
         <AlertsPanel :alerts="filteredAlerts" class="h-full dashboard-card dashboard-card-interactive" />
       </div>
 
-      <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="mb-4 grid grid-cols-1 gap-3 lg:grid-cols-2">
         <CampaignComparisonTable :campaigns="filteredCampaigns" class="dashboard-card" />
         <PastCampaignHighlights :campaigns="filteredCampaigns" class="dashboard-card" />
       </div>
@@ -223,7 +223,7 @@
         <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">Destination Context</h2>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
         <BudgetPacingCard :budget="totals.budget" :spend="totals.spend" class="h-full dashboard-card dashboard-card-interactive" />
         <QuickActionsCard class="h-full dashboard-card dashboard-card-interactive" />
 
