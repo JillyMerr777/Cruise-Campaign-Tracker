@@ -6,7 +6,7 @@
         <span class="topbar-brand-text font-bold">SunWave Cruise Intelligence</span>
       </div>
 
-      <Badge class="topbar-context-chip bg-slate-100 text-slate-700 hover:bg-slate-100">
+      <Badge class="topbar-context-chip hover:bg-cyan-50/90">
         <ChartLine class="mr-1 size-3.5" />
         {{ currentContext }}
       </Badge>
@@ -28,12 +28,12 @@
           Filter
         </Button>
         <Button size="icon-sm" variant="outline" class="h-8 w-8" aria-label="Refresh dashboard"><RotateCcw class="size-4" /></Button>
-        <RouterLink :to="'/campaigns/new'" :class="buttonVariants({ size: 'sm' }) + ' h-8 bg-blue-600 px-3 text-white hover:bg-blue-500'">
+        <RouterLink :to="'/campaigns/new'" :class="buttonVariants({ size: 'sm' }) + ' h-8 bg-[#142e95] px-3 text-white shadow-[0_8px_20px_rgba(20,46,149,0.24)] hover:bg-[#0d2478]'">
           <Plus class="mr-1 size-3.5" />
           New Campaign
         </RouterLink>
         <Button size="icon-sm" variant="ghost" class="h-8 w-8" aria-label="Open alerts"><Bell class="size-4" /></Button>
-        <div class="ml-1 grid size-[34px] place-items-center rounded-full bg-pink-100 text-xs font-bold text-pink-700">AM</div>
+        <div class="ml-1 grid size-[34px] place-items-center rounded-full bg-fuchsia-100 text-xs font-bold text-fuchsia-700 ring-1 ring-fuchsia-200">AM</div>
       </div>
     </div>
   </header>

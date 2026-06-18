@@ -1,7 +1,10 @@
 <template>
   <div class="app-shell min-h-screen py-3 md:py-5">
+    <div class="app-shell-art" aria-hidden="true">
+      <img class="app-shell-art-logo" :src="cruiseLogo" alt="" />
+    </div>
     <a class="skip-link" href="#main-content">Skip to main content</a>
-    <div class="app-frame mx-auto max-w-[1540px] px-2 md:px-4">
+    <div class="app-frame relative z-10 mx-auto max-w-[1540px] px-2 md:px-4">
       <AppTopBar />
       <div class="pb-3">
         <div class="flex flex-col gap-3 md:flex-row md:items-start md:gap-4">
@@ -21,4 +24,5 @@
 import AppNavDrawer from './AppNavDrawer.vue';
 import AppTopBar from './AppTopBar.vue';
 import PageContainer from './PageContainer.vue';
+import cruiseLogo from '../../assets/Cruise_Logo.png';
 </script>

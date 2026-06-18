@@ -40,8 +40,8 @@
           item.disabled
             ? 'cursor-not-allowed border-transparent bg-transparent text-slate-400 opacity-75'
             : isActive(item.to)
-              ? 'border-slate-300 bg-slate-100 text-slate-900 shadow-sm'
-              : 'border-transparent text-slate-700 hover:border-slate-200 hover:bg-slate-50',
+              ? 'border-cyan-200 bg-cyan-50/90 text-[#142e95] shadow-[0_10px_20px_rgba(0,194,255,0.12)]'
+              : 'border-transparent text-slate-700 hover:border-fuchsia-100 hover:bg-fuchsia-50/40',
           rail ? 'justify-center px-0 py-2.5' : ''
         ]"
       >
@@ -62,9 +62,9 @@
     </nav>
 
     <div class="drawer-footer mt-auto p-3">
-      <div class="rounded-lg border border-slate-200 bg-white p-2 shadow-sm">
+      <div class="rounded-lg border border-cyan-100/80 bg-white/95 p-2 shadow-[0_10px_24px_rgba(16,42,120,0.08)]">
         <div class="flex items-center gap-2">
-          <div class="grid size-9 place-items-center rounded-full bg-pink-100 text-xs font-bold text-pink-700">AM</div>
+          <div class="grid size-9 place-items-center rounded-full bg-fuchsia-100 text-xs font-bold text-fuchsia-700 ring-1 ring-fuchsia-200">AM</div>
           <div v-if="!rail" class="min-w-0 flex-1">
             <div class="truncate text-sm font-medium text-slate-800">Ava Martinez</div>
             <div class="truncate text-xs text-slate-500">Senior Marketing Analyst</div>
