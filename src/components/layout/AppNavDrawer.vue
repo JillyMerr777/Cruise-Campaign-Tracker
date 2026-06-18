@@ -1,6 +1,8 @@
 <template>
   <v-navigation-drawer
     v-model:rail="rail"
+    :rail-width="72"
+    :width="280"
     permanent
     class="app-drawer"
     color="transparent"
@@ -28,16 +30,38 @@
     </div>
 
     <v-list nav density="comfortable" class="py-2">
-      <v-list-item
-        v-for="item in items"
-        :key="item.to"
-        :to="item.to"
-        :prepend-icon="item.icon"
-        :title="item.title"
-        :subtitle="rail ? undefined : item.description"
-        :aria-label="`Go to ${item.title}`"
-        rounded="lg"
-      />
+      <template v-for="item in items" :key="item.title">
+        <v-tooltip v-if="rail" location="right">
+          <template #activator="{ props }">
+            <v-list-item
+              v-bind="props"
+              :to="item.to"
+              :disabled="item.disabled"
+              :prepend-icon="item.icon"
+              :title="item.title"
+              :aria-label="item.disabled ? `${item.title} coming soon` : `Go to ${item.title}`"
+              rounded="lg"
+            />
+          </template>
+          <div class="text-body-2 font-weight-semibold">{{ item.title }}</div>
+          <div class="text-caption">{{ item.description }}</div>
+        </v-tooltip>
+
+        <v-list-item
+          v-else
+          :to="item.to"
+          :disabled="item.disabled"
+          :prepend-icon="item.icon"
+          :title="item.title"
+          :subtitle="item.description"
+          :aria-label="item.disabled ? `${item.title} coming soon` : `Go to ${item.title}`"
+          rounded="lg"
+        >
+          <template #append>
+            <v-chip v-if="item.disabled" size="x-small" color="info" variant="tonal">Soon</v-chip>
+          </template>
+        </v-list-item>
+      </template>
     </v-list>
 
     <template #append>
@@ -47,10 +71,17 @@
             <v-avatar size="36" color="secondary"><span class="text-caption font-weight-bold">AM</span></v-avatar>
             <div v-if="!rail" class="flex-1-1">
               <div class="text-body-2 font-weight-medium">Ava Martinez</div>
-              <div class="text-caption text-medium-emphasis">Campaign Operations Lead</div>
+              <div class="text-caption text-medium-emphasis">Senior Marketing Analyst</div>
             </div>
-            <v-btn icon="mdi-logout" variant="text" size="small" aria-label="Sign out" />
+            <v-tooltip location="top" text="Sign Out">
+              <template #activator="{ props }">
+                <v-btn v-bind="props" icon="mdi-logout" variant="text" size="small" aria-label="Sign out" />
+              </template>
+            </v-tooltip>
           </div>
+          <v-btn v-if="!rail" class="mt-2" block variant="text" prepend-icon="mdi-logout" aria-label="Sign out">
+            Sign Out
+          </v-btn>
         </v-card>
       </div>
     </template>
@@ -77,19 +108,36 @@ const items = [
     to: '/',
     title: 'Dashboard',
     icon: 'mdi-view-dashboard-outline',
-    description: 'Monitor KPIs, campaign health, and channel performance.'
+    description: 'Campaign performance overview.',
+    disabled: false
   },
   {
     to: '/campaigns/new',
-    title: 'New Campaign',
+    title: 'Campaigns',
     icon: 'mdi-plus-box-outline',
-    description: 'Create campaign plans, targets, and channel mix.'
+    description: 'Manage and optimize campaigns.',
+    disabled: false
   },
   {
     to: '/lifecycle',
-    title: 'Lifecycle Tracker',
-    icon: 'mdi-chart-timeline-variant',
-    description: 'Track approvals, QA, blockers, and launch readiness.'
+    title: 'Analytics',
+    icon: 'mdi-chart-line-variant',
+    description: 'Performance reporting and stage insights.',
+    disabled: false
+  },
+  {
+    to: undefined,
+    title: 'Audiences',
+    icon: 'mdi-account-group-outline',
+    description: 'Customer segments and reach analysis.',
+    disabled: true
+  },
+  {
+    to: undefined,
+    title: 'Settings',
+    icon: 'mdi-cog-outline',
+    description: 'Platform configuration.',
+    disabled: true
   }
 ];
 </script>

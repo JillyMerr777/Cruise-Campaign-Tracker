@@ -39,7 +39,16 @@ const chartData = computed(() => ({
   datasets: [
     {
       data: props.metrics.map((m) => m.spend),
-      backgroundColor: [chartPalette.teal, chartPalette.coral, chartPalette.amber, chartPalette.mint, chartPalette.sky],
+      backgroundColor: [
+        chartPalette.teal,
+        chartPalette.aqua,
+        chartPalette.coral,
+        chartPalette.violet,
+        chartPalette.lavender,
+        chartPalette.mint,
+        chartPalette.sky,
+        chartPalette.amber
+      ],
       borderColor: 'rgba(255,255,255,0.9)',
       borderWidth: 2,
       hoverOffset: 8

@@ -38,28 +38,39 @@
             <v-icon color="success" icon="mdi-podium-gold" />
             Top 3 Campaigns
           </v-card-title>
-          <v-card-subtitle>Ranked by conversion momentum, ROI, and attributable revenue.</v-card-subtitle>
+          <v-card-subtitle>Ranked by performance score, budget efficiency, and revenue impact.</v-card-subtitle>
           <v-card-text>
-            <v-list v-if="performanceLeaders.length > 0" class="bg-transparent" lines="two">
-              <v-list-item v-for="(campaign, index) in performanceLeaders" :key="campaign.id" class="px-0">
-                <template #prepend>
-                  <v-avatar size="30" :color="index === 0 ? 'warning' : 'info'" variant="tonal">
-                    <span class="text-caption font-weight-bold">{{ index + 1 }}</span>
-                  </v-avatar>
-                </template>
+            <v-row v-if="performanceLeaders.length > 0" dense>
+              <v-col v-for="(campaign, index) in performanceLeaders" :key="campaign.id" cols="12">
+                <v-sheet class="pa-3 rounded-lg" color="transparent" border>
+                  <div class="d-flex justify-space-between align-center mb-2">
+                    <div class="d-flex align-center ga-2">
+                      <v-avatar size="28" :color="index === 0 ? 'warning' : 'info'" variant="tonal">
+                        <span class="text-caption font-weight-bold">{{ index + 1 }}</span>
+                      </v-avatar>
+                      <div>
+                        <div class="text-subtitle-2 font-weight-semibold">{{ campaign.name }}</div>
+                        <div class="text-caption text-medium-emphasis">{{ campaign.status }} | {{ campaign.destination }}</div>
+                      </div>
+                    </div>
+                    <v-chip size="x-small" color="success" variant="tonal">Score {{ campaign.performanceScore }}</v-chip>
+                  </div>
 
-                <v-list-item-title class="font-weight-semibold">{{ campaign.name }}</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ campaign.destination }} | ROI {{ campaign.roi.toFixed(2) }}x | {{ formatCurrency(campaign.revenue ?? 0) }} revenue
-                </v-list-item-subtitle>
+                  <div class="d-flex justify-space-between text-caption mb-1">
+                    <span>Budget Utilization</span>
+                    <span>{{ campaign.budgetUtilization.toFixed(1) }}%</span>
+                  </div>
+                  <v-progress-linear :model-value="campaign.budgetUtilization" color="primary" rounded height="8" class="mb-2" />
 
-                <template #append>
-                  <v-chip size="small" color="success" variant="tonal" prepend-icon="mdi-trending-up">
-                    {{ campaign.conversions }} conv
-                  </v-chip>
-                </template>
-              </v-list-item>
-            </v-list>
+                  <div class="d-flex flex-wrap ga-2">
+                    <v-chip size="x-small" color="info" variant="tonal">{{ formatCompact(campaign.impressions) }} impressions</v-chip>
+                    <v-chip size="x-small" color="info" variant="tonal">CTR {{ campaign.ctr.toFixed(2) }}%</v-chip>
+                    <v-chip size="x-small" color="success" variant="tonal">{{ campaign.conversions }} conversions</v-chip>
+                    <v-chip size="x-small" color="secondary" variant="tonal">{{ formatCurrency(campaign.revenue) }} revenue</v-chip>
+                  </div>
+                </v-sheet>
+              </v-col>
+            </v-row>
             <EmptyState v-else message="No campaign performance leaders in this filter set." />
           </v-card-text>
         </v-card>
@@ -67,7 +78,50 @@
     </v-row>
 
     <v-row class="mb-4">
-      <v-col cols="12" lg="5"><ChannelMixChart :metrics="filteredChannelMetrics" /></v-col>
+      <v-col cols="12" lg="5">
+        <v-card class="h-100">
+          <v-card-title class="d-flex align-center ga-2">
+            <v-icon color="secondary" icon="mdi-account-group-outline" />
+            Audience Insights
+          </v-card-title>
+          <v-card-subtitle>Segment, device, and geography breakdown for active campaigns.</v-card-subtitle>
+          <v-card-text>
+            <div class="text-caption text-medium-emphasis mb-2">Top Audience Segments</div>
+            <div class="d-flex flex-wrap ga-2 mb-3">
+              <v-chip v-for="item in audienceSegments" :key="item.label" size="small" color="secondary" variant="tonal">
+                {{ item.label }} {{ item.share }}%
+              </v-chip>
+            </div>
+
+            <div class="text-caption text-medium-emphasis mb-2">Device Usage</div>
+            <div class="d-flex ga-3 mb-3 flex-wrap">
+              <div v-for="device in deviceMix" :key="device.label" class="text-center">
+                <v-progress-circular :model-value="device.share" size="56" width="6" color="info">
+                  <span class="text-caption">{{ device.share }}%</span>
+                </v-progress-circular>
+                <div class="text-caption mt-1">{{ device.label }}</div>
+              </div>
+            </div>
+
+            <div class="text-caption text-medium-emphasis mb-2">Demographic Distribution</div>
+            <div class="d-flex flex-wrap ga-2 mb-3">
+              <v-chip v-for="item in demographicMix" :key="item.label" size="small" color="primary" variant="tonal">
+                {{ item.label }} {{ item.share }}%
+              </v-chip>
+            </div>
+
+            <div class="text-caption text-medium-emphasis mt-3 mb-2">Geographic Performance</div>
+            <v-list density="compact" class="bg-transparent py-0">
+              <v-list-item v-for="geo in audienceGeography" :key="geo.label" class="px-0" :title="geo.label">
+                <template #append>
+                  <v-chip size="x-small" color="primary" variant="tonal">{{ geo.share }}%</v-chip>
+                </template>
+              </v-list-item>
+            </v-list>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
       <v-col cols="12" lg="7">
         <v-card class="h-100">
           <v-card-title class="d-flex align-center ga-2">
@@ -95,6 +149,11 @@
     </v-row>
 
     <v-row class="mb-4">
+      <v-col cols="12" lg="7"><ChannelPerformanceCards :metrics="filteredChannelMetrics" /></v-col>
+      <v-col cols="12" lg="5"><CreativePerformanceCard /></v-col>
+    </v-row>
+
+    <v-row class="mb-4">
       <v-col cols="12" lg="6"><InsightsPanel :insights="insights" /></v-col>
       <v-col cols="12" lg="6"><AlertsPanel :alerts="filteredAlerts" /></v-col>
     </v-row>
@@ -104,7 +163,6 @@
       <v-col cols="12" lg="6"><QuickActionsCard /></v-col>
     </v-row>
 
-    <ChannelPerformanceCards :metrics="filteredChannelMetrics" class="mb-4" />
     <CampaignComparisonTable :campaigns="filteredCampaigns" class="mb-4" />
     <PastCampaignHighlights :campaigns="filteredCampaigns" class="mb-4" />
   </template>
@@ -123,7 +181,7 @@ import InsightsPanel from '../components/dashboard/InsightsPanel.vue';
 import KpiSummaryGrid from '../components/dashboard/KpiSummaryGrid.vue';
 import PastCampaignHighlights from '../components/dashboard/PastCampaignHighlights.vue';
 import QuickActionsCard from '../components/dashboard/QuickActionsCard.vue';
-import ChannelMixChart from '../components/charts/ChannelMixChart.vue';
+import CreativePerformanceCard from '../components/campaign/CreativePerformanceCard.vue';
 import PerformanceTrendChart from '../components/charts/PerformanceTrendChart.vue';
 import EmptyState from '../components/shared/EmptyState.vue';
 import FilterBar from '../components/shared/FilterBar.vue';
@@ -198,13 +256,45 @@ const percentDelta = (latest: number, previous: number): number => {
 
 const safeDelta = (value: number): number => (Number.isFinite(value) ? value : 0);
 
-const roiDelta = computed(() => {
-  const allAverage = campaigns.length === 0 ? 0 : campaigns.reduce((sum, campaign) => sum + campaign.roi, 0) / campaigns.length;
-  const filteredAverage =
-    filteredCampaigns.value.length === 0
-      ? 0
-      : filteredCampaigns.value.reduce((sum, campaign) => sum + campaign.roi, 0) / filteredCampaigns.value.length;
-  return safeDelta(percentDelta(filteredAverage, allAverage));
+const campaignRevenue = (campaign: Campaign): number => campaign.revenue ?? campaign.spend * campaign.roi;
+
+const totalRevenue = computed(() => filteredCampaigns.value.reduce((sum, campaign) => sum + campaignRevenue(campaign), 0));
+const allRevenue = computed(() => campaigns.reduce((sum, campaign) => sum + campaignRevenue(campaign), 0));
+
+const weightedEngagement = (metrics: typeof channelMetrics): number => {
+  const totalImpressions = metrics.reduce((sum, metric) => sum + metric.impressions, 0);
+  if (totalImpressions === 0) return 0;
+
+  return (
+    metrics.reduce((sum, metric) => {
+      const rate = metric.engagementRate ?? 0;
+      return sum + rate * metric.impressions;
+    }, 0) / totalImpressions
+  );
+};
+
+const filteredEngagementRate = computed(() => weightedEngagement(filteredChannelMetrics.value));
+const allEngagementRate = computed(() => weightedEngagement(channelMetrics));
+
+const filteredConversionRate = computed(() => {
+  if (totals.value.clicks === 0) return 0;
+  return (totals.value.conversions / totals.value.clicks) * 100;
+});
+
+const previousConversionRate = computed(() => {
+  if (trendTotals.value.previous.clicks === 0) return 0;
+  return (trendTotals.value.previous.conversions / trendTotals.value.previous.clicks) * 100;
+});
+
+const filteredRoas = computed(() => {
+  if (totals.value.spend === 0) return 0;
+  return totalRevenue.value / totals.value.spend;
+});
+
+const allRoas = computed(() => {
+  const overallSpend = campaigns.reduce((sum, campaign) => sum + campaign.spend, 0);
+  if (overallSpend === 0) return 0;
+  return allRevenue.value / overallSpend;
 });
 
 const topRoiCampaign = computed(() => {
@@ -235,11 +325,22 @@ const weakestChannelAgainstBenchmark = computed(() => {
 const performanceLeaders = computed(() => {
   return [...filteredCampaigns.value]
     .sort((a, b) => {
-      const aScore = a.roi * 80 + a.conversions * 2 + (a.revenue ?? 0) / 5000;
-      const bScore = b.roi * 80 + b.conversions * 2 + (b.revenue ?? 0) / 5000;
+      const aScore = a.roi * 45 + a.conversions * 0.4 + campaignRevenue(a) / 10000;
+      const bScore = b.roi * 45 + b.conversions * 0.4 + campaignRevenue(b) / 10000;
       return bScore - aScore;
     })
-    .slice(0, 3);
+    .slice(0, 3)
+    .map((campaign) => {
+      const budgetUtilization = campaign.budget === 0 ? 0 : (campaign.spend / campaign.budget) * 100;
+      const performanceScore = Math.round(campaign.roi * 30 + campaign.ctr * 12 + campaign.conversions / 8);
+
+      return {
+        ...campaign,
+        revenue: campaignRevenue(campaign),
+        budgetUtilization: Math.min(100, Math.max(0, budgetUtilization)),
+        performanceScore
+      };
+    });
 });
 
 const channelIntelligence = computed(() => {
@@ -257,53 +358,152 @@ const channelIntelligence = computed(() => {
 
 const kpis = computed(() => [
   {
-    label: 'Impressions',
-    value: formatCompact(totals.value.impressions),
-    delta: safeDelta(percentDelta(trendTotals.value.latest.impressions, trendTotals.value.previous.impressions)),
-    deltaContext: 'Change versus previous week (filtered campaigns).',
-    icon: 'mdi-image-multiple-outline'
-  },
-  {
-    label: 'Clicks',
-    value: formatCompact(totals.value.clicks),
-    delta: safeDelta(percentDelta(trendTotals.value.latest.clicks, trendTotals.value.previous.clicks)),
-    deltaContext: 'Change versus previous week (filtered campaigns).',
-    icon: 'mdi-cursor-default-click-outline'
-  },
-  {
-    label: 'CTR',
-    value: `${(totals.value.clicks / Math.max(totals.value.impressions, 1) * 100).toFixed(2)}%`,
-    delta: safeDelta(
-      percentDelta(
-        (trendTotals.value.latest.clicks / Math.max(trendTotals.value.latest.impressions, 1)) * 100,
-        (trendTotals.value.previous.clicks / Math.max(trendTotals.value.previous.impressions, 1)) * 100
-      )
-    ),
-    deltaContext: 'CTR change versus previous week using aggregated trend points.',
-    icon: 'mdi-trending-up'
-  },
-  {
-    label: 'Conversions',
-    value: formatCompact(totals.value.conversions),
-    delta: safeDelta(percentDelta(trendTotals.value.latest.conversions, trendTotals.value.previous.conversions)),
-    deltaContext: 'Change versus previous week (filtered campaigns).',
-    icon: 'mdi-check-decagram-outline'
-  },
-  {
-    label: 'Spend',
+    label: 'Total Campaign Spend',
     value: formatCurrency(totals.value.spend),
     delta: safeDelta(percentDelta(trendTotals.value.latest.spend, trendTotals.value.previous.spend)),
-    deltaContext: 'Change versus previous week (filtered campaigns).',
+    deltaContext: 'Spend change versus previous week (filtered campaigns).',
     icon: 'mdi-cash-multiple'
   },
   {
-    label: 'ROI',
-    value: `${(filteredCampaigns.value.length === 0 ? 0 : filteredCampaigns.value.reduce((sum, campaign) => sum + campaign.roi, 0) / filteredCampaigns.value.length).toFixed(2)}x`,
-    delta: roiDelta.value,
-    deltaContext: 'Delta versus overall campaign ROI baseline in the full dataset.',
+    label: 'Revenue Generated',
+    value: formatCurrency(totalRevenue.value),
+    delta: safeDelta(percentDelta(totalRevenue.value, allRevenue.value === 0 ? totalRevenue.value : allRevenue.value)),
+    deltaContext: 'Relative revenue versus overall dataset baseline.',
+    icon: 'mdi-bank-outline'
+  },
+  {
+    label: 'Impressions',
+    value: formatCompact(totals.value.impressions),
+    delta: safeDelta(percentDelta(trendTotals.value.latest.impressions, trendTotals.value.previous.impressions)),
+    deltaContext: 'Impressions change versus previous week (filtered campaigns).',
+    icon: 'mdi-image-multiple-outline'
+  },
+  {
+    label: 'Engagement Rate',
+    value: `${filteredEngagementRate.value.toFixed(2)}%`,
+    delta: safeDelta(percentDelta(filteredEngagementRate.value, allEngagementRate.value === 0 ? filteredEngagementRate.value : allEngagementRate.value)),
+    deltaContext: 'Weighted engagement rate relative to overall channel baseline.',
+    icon: 'mdi-heart-pulse'
+  },
+  {
+    label: 'Conversion Rate',
+    value: `${filteredConversionRate.value.toFixed(2)}%`,
+    delta: safeDelta(percentDelta(filteredConversionRate.value, previousConversionRate.value === 0 ? filteredConversionRate.value : previousConversionRate.value)),
+    deltaContext: 'Conversion rate change versus previous week.',
+    icon: 'mdi-check-decagram-outline'
+  },
+  {
+    label: 'ROAS',
+    value: `${filteredRoas.value.toFixed(2)}x`,
+    delta: safeDelta(percentDelta(filteredRoas.value, allRoas.value === 0 ? filteredRoas.value : allRoas.value)),
+    deltaContext: 'Delta versus overall ROAS baseline in the full dataset.',
     icon: 'mdi-finance'
   }
 ]);
+
+const audienceSegments = computed(() => {
+  const counts = filteredCampaigns.value.reduce<Record<string, number>>((acc, campaign) => {
+    acc[campaign.segment] = (acc[campaign.segment] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const total = Math.max(filteredCampaigns.value.length, 1);
+
+  return Object.entries(counts)
+    .map(([label, count]) => ({
+      label,
+      share: Math.round((count / total) * 100)
+    }))
+    .sort((a, b) => b.share - a.share)
+    .slice(0, 4);
+});
+
+const audienceGeography = computed(() => {
+  const counts = filteredCampaigns.value.reduce<Record<string, number>>((acc, campaign) => {
+    acc[campaign.destination] = (acc[campaign.destination] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const total = Math.max(filteredCampaigns.value.length, 1);
+
+  return Object.entries(counts)
+    .map(([label, count]) => ({
+      label,
+      share: Math.round((count / total) * 100)
+    }))
+    .sort((a, b) => b.share - a.share)
+    .slice(0, 4);
+});
+
+const demographicMix = computed(() => {
+  const cohortCounts = filteredCampaigns.value.reduce<Record<string, number>>((acc, campaign) => {
+    const segment = campaign.segment.toLowerCase();
+
+    if (segment.includes('family')) {
+      acc.Families = (acc.Families ?? 0) + 1;
+      return acc;
+    }
+
+    if (segment.includes('retiree') || segment.includes('luxury')) {
+      acc.Premium = (acc.Premium ?? 0) + 1;
+      return acc;
+    }
+
+    if (segment.includes('adventure') || segment.includes('younger')) {
+      acc.Explorers = (acc.Explorers ?? 0) + 1;
+      return acc;
+    }
+
+    acc.General = (acc.General ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const total = Math.max(filteredCampaigns.value.length, 1);
+
+  return Object.entries(cohortCounts)
+    .map(([label, count]) => ({
+      label,
+      share: Math.round((count / total) * 100)
+    }))
+    .sort((a, b) => b.share - a.share)
+    .slice(0, 4);
+});
+
+const deviceMix = computed(() => {
+  const base = { mobile: 0, desktop: 0, tablet: 0 };
+
+  filteredChannelMetrics.value.forEach((metric) => {
+    const weight = metric.impressions || 1;
+    const channel = metric.channel.toLowerCase();
+
+    if (channel.includes('youtube') || channel.includes('social') || channel.includes('meta') || channel.includes('instagram')) {
+      base.mobile += weight * 0.68;
+      base.desktop += weight * 0.24;
+      base.tablet += weight * 0.08;
+      return;
+    }
+
+    if (channel.includes('email') || channel.includes('organic') || channel.includes('search') || channel.includes('google')) {
+      base.mobile += weight * 0.52;
+      base.desktop += weight * 0.4;
+      base.tablet += weight * 0.08;
+      return;
+    }
+
+    base.mobile += weight * 0.58;
+    base.desktop += weight * 0.32;
+    base.tablet += weight * 0.1;
+  });
+
+  const total = base.mobile + base.desktop + base.tablet;
+  const safeTotal = total === 0 ? 1 : total;
+
+  return [
+    { label: 'Mobile', share: Math.round((base.mobile / safeTotal) * 100) },
+    { label: 'Desktop', share: Math.round((base.desktop / safeTotal) * 100) },
+    { label: 'Tablet', share: Math.round((base.tablet / safeTotal) * 100) }
+  ];
+});
 
 const insights = computed(() => {
   if (filteredCampaigns.value.length === 0) {

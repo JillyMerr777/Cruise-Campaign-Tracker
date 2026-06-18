@@ -1,8 +1,10 @@
 export const chartPalette = {
-  teal: '#00a8b9',
+  teal: '#2fcfd6',
+  aqua: '#6be8f0',
   sky: '#67c8ff',
-  coral: '#ff6f91',
+  coral: '#ff7f9f',
   violet: '#8c7cff',
+  lavender: '#b39cff',
   mint: '#26cfa9',
   amber: '#ffc86b'
 };

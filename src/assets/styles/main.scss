@@ -91,6 +91,12 @@ body,
   box-shadow: 0 12px 30px rgba(41, 71, 125, 0.12);
 }
 
+.app-drawer,
+.app-drawer .v-navigation-drawer,
+.app-drawer .v-navigation-drawer__content {
+  transition: width 220ms ease, transform 220ms ease, opacity 220ms ease !important;
+}
+
 .drawer-header {
   border-bottom: 1px solid rgba(95, 130, 190, 0.14);
 }
@@ -102,6 +108,7 @@ body,
 .app-drawer .v-list-item {
   margin: 4px 8px;
   min-height: 56px;
+  border: 1px solid transparent;
 }
 
 .app-drawer .v-list-item--active {
@@ -109,10 +116,20 @@ body,
   border: 1px solid rgba(88, 206, 255, 0.3);
   color: #0f2a46 !important;
   font-weight: 700;
+  box-shadow: 0 8px 18px rgba(94, 167, 255, 0.22), 0 0 0 1px rgba(88, 206, 255, 0.12) inset;
 }
 
 .app-drawer .v-list-item--active .v-icon {
   color: #0f2a46 !important;
+}
+
+.app-drawer .v-list-item:not(.v-list-item--active):hover {
+  background: rgba(94, 167, 255, 0.09);
+  border-color: rgba(94, 167, 255, 0.2);
+}
+
+.app-drawer .v-list-item--disabled {
+  opacity: 0.72;
 }
 
 .v-main {
