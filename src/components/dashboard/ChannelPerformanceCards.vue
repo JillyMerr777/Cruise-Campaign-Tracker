@@ -7,7 +7,7 @@
       </CardTitle>
       <CardDescription>Comparative ranking across paid, social, video, email, and organic channels.</CardDescription>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4 pt-0">
       <div v-if="rankedChannels.length > 0">
         <div v-for="channel in rankedChannels" :key="channel.label" class="mb-3">
           <div class="mb-1 flex items-center justify-between">

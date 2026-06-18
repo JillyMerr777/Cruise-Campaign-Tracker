@@ -1,9 +1,9 @@
 <template>
-  <Card class="border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+  <Card class="border-slate-200 bg-white shadow-sm">
     <CardHeader class="pb-2">
-      <CardTitle class="text-base font-semibold text-slate-900">Performance Trend</CardTitle>
+      <CardTitle class="text-[0.98rem] font-semibold text-slate-900">Performance Trend</CardTitle>
     </CardHeader>
-    <CardContent class="h-[320px]">
+    <CardContent class="h-[312px] pb-4 pt-0">
       <Line :data="chartData" :options="options" />
       <AccessibleChartSummary summary="Weekly clicks and conversions are trending upward with a mild plateau this week." />
     </CardContent>

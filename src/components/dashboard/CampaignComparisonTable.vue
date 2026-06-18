@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Campaign Comparison</CardTitle>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4 pt-0">
       <Table>
         <TableHeader>
           <TableRow>

@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Quick Actions</CardTitle>
     </CardHeader>
-    <CardContent class="flex flex-wrap gap-2">
+    <CardContent class="flex flex-wrap gap-2 pb-4 pt-0">
       <RouterLink :to="'/campaigns/new'" :class="buttonVariants({ variant: 'default' }) + ' bg-cyan-500 text-white hover:bg-cyan-400'">
         <Plus class="mr-1 size-4" />
         Create Campaign

@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Past Campaign Highlights</CardTitle>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4 pt-0">
       <div class="space-y-2">
         <div v-for="campaign in completed" :key="campaign.id" class="rounded-lg border border-sky-100/70 bg-sky-50/30 px-3 py-2">
           <div class="text-sm font-medium text-slate-800">{{ campaign.name }}</div>

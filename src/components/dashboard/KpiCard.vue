@@ -1,8 +1,8 @@
 <template>
-  <Card class="kpi-card h-full border-sky-100/60 bg-white/85 shadow-[0_12px_26px_rgba(41,71,125,0.12)] backdrop-blur-sm" size="sm">
-    <CardContent class="flex h-full flex-col pt-3">
+  <Card class="kpi-card h-full border-slate-200 bg-white shadow-sm" size="sm">
+    <CardContent class="flex h-full flex-col pb-3 pt-3.5">
       <div class="mb-2 flex items-start justify-between gap-2">
-        <div class="min-h-9 max-w-[80%] flex items-start gap-1 text-[11px] font-semibold uppercase tracking-[0.03em] text-slate-500">
+        <div class="min-h-9 max-w-[80%] flex items-start gap-1 text-[10.5px] font-semibold uppercase tracking-[0.045em] text-slate-500">
           <span class="line-clamp-2">{{ label }}</span>
           <TooltipProvider v-if="deltaContext">
             <Tooltip>
@@ -25,12 +25,12 @@
         </span>
       </div>
 
-      <div class="mb-2 min-h-9 text-[1.95rem] leading-none font-bold tabular-nums tracking-tight text-slate-900">{{ value }}</div>
+      <div class="mb-2 min-h-9 text-[1.82rem] leading-none font-bold tabular-nums tracking-tight text-slate-900">{{ value }}</div>
 
       <div class="mt-auto flex items-center justify-between gap-2">
         <MetricDelta :delta="delta" />
         <Badge
-          class="text-[11px] font-semibold tracking-[0.01em]"
+          class="text-[10.5px] font-semibold tracking-[0.015em]"
           :class="delta >= 0 ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200/80 hover:bg-emerald-50' : 'bg-rose-50 text-rose-800 ring-1 ring-rose-200/80 hover:bg-rose-50'"
         >
           {{ delta >= 0 ? 'Improving' : 'Declining' }}

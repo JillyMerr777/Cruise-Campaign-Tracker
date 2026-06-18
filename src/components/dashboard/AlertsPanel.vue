@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Alerts</CardTitle>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4 pt-0">
       <div class="space-y-2">
         <div v-for="alert in alerts" :key="alert.id" class="flex gap-2 rounded-lg border border-sky-100/70 bg-sky-50/30 px-3 py-2">
           <component :is="icon(alert.type)" class="mt-0.5 size-4 text-amber-500" />

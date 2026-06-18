@@ -1,11 +1,11 @@
 <template>
-  <Card class="mb-4 border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm" role="search" aria-label="Campaign filters">
-    <CardContent class="pt-4">
+  <Card class="mb-5 border-slate-200 bg-white shadow-sm" role="search" aria-label="Campaign filters">
+    <CardContent class="pb-3 pt-3.5">
       <div class="grid grid-cols-1 gap-3 md:grid-cols-4">
         <div class="space-y-2">
-          <label class="text-sm font-medium text-slate-700">Channel</label>
+          <label class="text-xs font-semibold uppercase tracking-wide text-slate-500">Channel</label>
           <Select :model-value="model.channel" @update:model-value="(value) => updateField('channel', String(value ?? 'All'))">
-            <SelectTrigger class="w-full" aria-label="Filter by channel">
+            <SelectTrigger class="w-full border-slate-200" aria-label="Filter by channel">
               <SelectValue placeholder="Channel" />
             </SelectTrigger>
             <SelectContent>
@@ -15,9 +15,9 @@
         </div>
 
         <div class="space-y-2">
-          <label class="text-sm font-medium text-slate-700">Status</label>
+          <label class="text-xs font-semibold uppercase tracking-wide text-slate-500">Status</label>
           <Select :model-value="model.status" @update:model-value="(value) => updateField('status', String(value ?? 'All'))">
-            <SelectTrigger class="w-full" aria-label="Filter by status">
+            <SelectTrigger class="w-full border-slate-200" aria-label="Filter by status">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -27,9 +27,9 @@
         </div>
 
         <div class="space-y-2">
-          <label class="text-sm font-medium text-slate-700">Destination</label>
+          <label class="text-xs font-semibold uppercase tracking-wide text-slate-500">Destination</label>
           <Select :model-value="model.destination" @update:model-value="(value) => updateField('destination', String(value ?? 'All'))">
-            <SelectTrigger class="w-full" aria-label="Filter by destination">
+            <SelectTrigger class="w-full border-slate-200" aria-label="Filter by destination">
               <SelectValue placeholder="Destination" />
             </SelectTrigger>
             <SelectContent>
@@ -39,9 +39,10 @@
         </div>
 
         <div class="space-y-2">
-          <label for="segment-filter" class="text-sm font-medium text-slate-700">Audience Segment</label>
+          <label for="segment-filter" class="text-xs font-semibold uppercase tracking-wide text-slate-500">Audience Segment</label>
           <Input
             id="segment-filter"
+            class="border-slate-200"
             v-model="model.segment"
             aria-label="Filter by audience segment"
             placeholder="Families, Luxury..."
@@ -50,7 +51,7 @@
       </div>
 
       <div class="mt-3 flex justify-end">
-        <Button variant="ghost" class="text-slate-600" @click="clearFilters">
+        <Button variant="outline" size="sm" class="text-slate-600" @click="clearFilters">
           <FilterX class="mr-1 size-4" />
           Clear Filters
         </Button>

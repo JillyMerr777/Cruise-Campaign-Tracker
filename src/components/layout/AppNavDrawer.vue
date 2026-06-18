@@ -1,7 +1,7 @@
 <template>
   <aside
     class="app-drawer app-drawer-shell"
-    :class="rail ? 'w-[84px]' : 'w-[280px]'"
+    :class="rail ? 'w-[78px]' : 'w-[280px]'"
     aria-label="Primary navigation"
   >
     <div class="drawer-header px-3 py-3">
@@ -40,12 +40,12 @@
           item.disabled
             ? 'cursor-not-allowed border-transparent bg-transparent text-slate-400 opacity-75'
             : isActive(item.to)
-              ? 'border-cyan-200 bg-cyan-100/60 text-slate-900 shadow-sm'
-              : 'border-transparent text-slate-700 hover:border-sky-200 hover:bg-sky-50',
-          rail ? 'justify-center' : ''
+              ? 'border-slate-300 bg-slate-100 text-slate-900 shadow-sm'
+              : 'border-transparent text-slate-700 hover:border-slate-200 hover:bg-slate-50',
+          rail ? 'justify-center px-0 py-2.5' : ''
         ]"
       >
-        <component :is="item.icon" class="size-4 shrink-0" />
+        <component :is="item.icon" :class="rail ? 'size-[18px] shrink-0 text-slate-700' : 'size-4 shrink-0'" />
         <template v-if="!rail">
           <div class="min-w-0 flex-1">
             <div class="truncate text-sm font-medium">{{ item.title }}</div>
@@ -53,7 +53,7 @@
           </div>
           <span
             v-if="item.disabled"
-            class="rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sky-700"
+            class="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600"
           >
             Soon
           </span>
@@ -62,7 +62,7 @@
     </nav>
 
     <div class="drawer-footer mt-auto p-3">
-      <div class="rounded-lg border border-sky-100/80 bg-white/70 p-2">
+      <div class="rounded-lg border border-slate-200 bg-white p-2 shadow-sm">
         <div class="flex items-center gap-2">
           <div class="grid size-9 place-items-center rounded-full bg-pink-100 text-xs font-bold text-pink-700">AM</div>
           <div v-if="!rail" class="min-w-0 flex-1">

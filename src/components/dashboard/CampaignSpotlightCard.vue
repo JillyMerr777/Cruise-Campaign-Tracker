@@ -4,7 +4,7 @@
       <span>Campaign Spotlight</span>
       <HealthStatusBadge :health="campaign.health" />
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4 pt-0">
       <h3 class="mb-1 text-2xl font-semibold text-slate-900">{{ campaign.name }}</h3>
       <p class="mb-3 text-sm text-slate-600">{{ campaign.objective }}</p>
       <div class="grid grid-cols-2 gap-2 md:grid-cols-4">

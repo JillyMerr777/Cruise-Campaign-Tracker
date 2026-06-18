@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Budget Pacing</CardTitle>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4 pt-0">
       <div class="mb-2 flex justify-between text-sm">
         <span>Spend</span>
         <strong>{{ spendLabel }} / {{ budgetLabel }}</strong>
