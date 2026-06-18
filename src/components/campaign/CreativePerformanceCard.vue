@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Creative Performance</CardTitle>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4 pt-0">
       <div class="mb-3 grid grid-cols-1 gap-3 md:grid-cols-2">
         <div class="rounded-lg border border-sky-100/70 bg-sky-50/35 p-4">
           <div class="mb-1 text-xs text-slate-500">Top Creative</div>

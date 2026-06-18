@@ -1,9 +1,9 @@
 <template>
-  <Card class="border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+  <Card class="flex flex-col border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Channel Mix</CardTitle>
     </CardHeader>
-    <CardContent class="h-[228px] sm:h-[248px] lg:h-[260px]">
+    <CardContent class="flex-1 pt-0 min-h-[240px] sm:min-h-[260px] lg:min-h-[280px]">
       <Doughnut :data="chartData" :options="options" />
     </CardContent>
   </Card>

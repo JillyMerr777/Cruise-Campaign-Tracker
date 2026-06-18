@@ -31,7 +31,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import HealthStatusBadge from './HealthStatusBadge.vue';
 import type { Campaign } from '../../types/campaign';
-import spotlightVisual from '../../assets/CAMPAIGN IMAGES/Campaign-1.png';
+import spotlightVisual from '../../assets/CAMPAIGN IMAGES/Campaign-3.png';
 
 defineProps<{ campaign: Campaign }>();
 </script>
