@@ -1,1 +1,1014 @@
 []
+{
+  "meta": {
+    "generatedAt": "2026-06-17T19:35:00-04:00",
+    "currency": "USD",
+    "company": "OceanVista Cruises",
+    "dashboardName": "Cruise Marketing Campaign Dashboard"
+  },
+  "campaigns": [
+    {
+      "id": "camp-001",
+      "name": "Summer Caribbean Getaway",
+      "objective": "Drive bookings for late-summer Caribbean sailings",
+      "status": "Active",
+      "health": "Performing Well",
+      "priority": "High",
+      "owner": "Ava Martinez",
+      "segment": "Families",
+      "destination": "Caribbean",
+      "offerType": "Onboard Credit",
+      "channels": ["Instagram", "Email", "Website", "Mobile App"],
+      "startDate": "2026-06-01",
+      "endDate": "2026-08-15",
+      "budget": 120000,
+      "spend": 84500,
+      "revenue": 354900,
+      "featured": true,
+      "highlighted": true,
+      "kpis": {
+        "impressions": 2240000,
+        "clicks": 68900,
+        "ctr": 3.08,
+        "conversions": 2480,
+        "conversionRate": 3.6,
+        "roi": 4.2,
+        "cpc": 1.23,
+        "cpa": 34.07,
+        "bookingValue": 143.1
+      },
+      "weeklyTrend": [
+        {
+          "week": "2026-05-25",
+          "impressions": 360000,
+          "clicks": 9800,
+          "conversions": 320,
+          "spend": 12500
+        },
+        {
+          "week": "2026-06-01",
+          "impressions": 510000,
+          "clicks": 15100,
+          "conversions": 560,
+          "spend": 18200
+        },
+        {
+          "week": "2026-06-08",
+          "impressions": 620000,
+          "clicks": 19900,
+          "conversions": 760,
+          "spend": 24700
+        },
+        {
+          "week": "2026-06-15",
+          "impressions": 750000,
+          "clicks": 24100,
+          "conversions": 840,
+          "spend": 29100
+        }
+      ],
+      "channelMetrics": [
+        {
+          "channel": "Instagram",
+          "placement": "Organic + Paid Reels",
+          "impressions": 980000,
+          "engagements": 43200,
+          "engagementRate": 4.41,
+          "clicks": 29100,
+          "ctr": 2.97,
+          "conversions": 790,
+          "conversionRate": 2.71,
+          "spend": 32000,
+          "revenue": 109400,
+          "topCreative": "Kids Sail Bright Summer Reel",
+          "topCTA": "Book Summer Savings"
+        },
+        {
+          "channel": "Email",
+          "placement": "Promo Blast + Follow-up Journey",
+          "sends": 420000,
+          "delivered": 409500,
+          "deliveryRate": 97.5,
+          "opens": 141300,
+          "openRate": 34.5,
+          "clicks": 18300,
+          "clickRate": 4.47,
+          "ctr": 4.47,
+          "conversions": 980,
+          "conversionRate": 5.36,
+          "unsubscribes": 1100,
+          "bounceRate": 2.5,
+          "spend": 8500,
+          "revenue": 151600,
+          "topCreative": "Save on Caribbean Sailings",
+          "topCTA": "Reserve Your Cabin"
+        },
+        {
+          "channel": "Website",
+          "placement": "Homepage Hero + Offers Hub Tile",
+          "views": 510000,
+          "clicks": 12300,
+          "ctr": 2.41,
+          "conversions": 420,
+          "conversionRate": 3.41,
+          "spend": 27000,
+          "revenue": 60100,
+          "topCreative": "Summer Escape Homepage Hero",
+          "topCTA": "Explore Itineraries"
+        },
+        {
+          "channel": "Mobile App",
+          "placement": "Home Banner + Booking Reminder Card",
+          "views": 330000,
+          "clicks": 9200,
+          "ctr": 2.79,
+          "conversions": 290,
+          "conversionRate": 3.15,
+          "spend": 17000,
+          "revenue": 33800,
+          "topCreative": "App Exclusive Summer Offer",
+          "topCTA": "Unlock App Offer"
+        }
+      ]
+    },
+    {
+      "id": "camp-002",
+      "name": "Weekend Bahamas Flash Fare",
+      "objective": "Drive short-window bookings for weekend Bahamas sailings",
+      "status": "Active",
+      "health": "Needs Attention",
+      "priority": "High",
+      "owner": "Jordan Lee",
+      "segment": "Couples",
+      "destination": "Bahamas",
+      "offerType": "Flash Fare",
+      "channels": ["Instagram", "X", "Email", "Website"],
+      "startDate": "2026-06-10",
+      "endDate": "2026-07-05",
+      "budget": 65000,
+      "spend": 53300,
+      "revenue": 141700,
+      "featured": false,
+      "highlighted": false,
+      "kpis": {
+        "impressions": 1480000,
+        "clicks": 34100,
+        "ctr": 2.3,
+        "conversions": 980,
+        "conversionRate": 2.87,
+        "roi": 2.66,
+        "cpc": 1.56,
+        "cpa": 54.39,
+        "bookingValue": 144.59
+      },
+      "weeklyTrend": [
+        {
+          "week": "2026-06-01",
+          "impressions": 190000,
+          "clicks": 4100,
+          "conversions": 110,
+          "spend": 6200
+        },
+        {
+          "week": "2026-06-08",
+          "impressions": 320000,
+          "clicks": 7600,
+          "conversions": 220,
+          "spend": 11200
+        },
+        {
+          "week": "2026-06-15",
+          "impressions": 450000,
+          "clicks": 10200,
+          "conversions": 310,
+          "spend": 15900
+        },
+        {
+          "week": "2026-06-22",
+          "impressions": 520000,
+          "clicks": 12200,
+          "conversions": 340,
+          "spend": 20000
+        }
+      ],
+      "channelMetrics": [
+        {
+          "channel": "Instagram",
+          "placement": "Paid Stories + Carousel",
+          "impressions": 610000,
+          "engagements": 21100,
+          "engagementRate": 3.46,
+          "clicks": 14100,
+          "ctr": 2.31,
+          "conversions": 360,
+          "conversionRate": 2.55,
+          "spend": 19000,
+          "revenue": 53100,
+          "topCreative": "48-Hour Escape Stories",
+          "topCTA": "Book This Weekend"
+        },
+        {
+          "channel": "X",
+          "placement": "Promoted Tweets",
+          "impressions": 280000,
+          "engagements": 6800,
+          "engagementRate": 2.43,
+          "clicks": 5200,
+          "ctr": 1.86,
+          "conversions": 110,
+          "conversionRate": 2.12,
+          "spend": 9100,
+          "revenue": 12900,
+          "topCreative": "Last-Minute Bahamas Fare",
+          "topCTA": "See Weekend Deals"
+        },
+        {
+          "channel": "Email",
+          "placement": "Last Chance Fare Blast",
+          "sends": 280000,
+          "delivered": 272000,
+          "deliveryRate": 97.14,
+          "opens": 79000,
+          "openRate": 29.04,
+          "clicks": 9300,
+          "clickRate": 3.42,
+          "ctr": 3.42,
+          "conversions": 380,
+          "conversionRate": 4.09,
+          "unsubscribes": 980,
+          "bounceRate": 2.86,
+          "spend": 6200,
+          "revenue": 48800,
+          "topCreative": "Flash Fare Ends Sunday",
+          "topCTA": "Claim Weekend Fare"
+        },
+        {
+          "channel": "Website",
+          "placement": "Deals Landing Page Tile",
+          "views": 310000,
+          "clicks": 5500,
+          "ctr": 1.77,
+          "conversions": 130,
+          "conversionRate": 2.36,
+          "spend": 19000,
+          "revenue": 26900,
+          "topCreative": "Bahamas Countdown Tile",
+          "topCTA": "View Weekend Sailings"
+        }
+      ]
+    },
+    {
+      "id": "camp-003",
+      "name": "Loyalty Balcony Upgrade Push",
+      "objective": "Increase upgrade purchases among returning guests",
+      "status": "Active",
+      "health": "Performing Well",
+      "priority": "Medium",
+      "owner": "Nina Patel",
+      "segment": "Loyalty Members",
+      "destination": "Multiple Regions",
+      "offerType": "Balcony Upgrade",
+      "channels": ["Email", "Mobile App", "Website"],
+      "startDate": "2026-05-20",
+      "endDate": "2026-07-20",
+      "budget": 48000,
+      "spend": 30100,
+      "revenue": 168400,
+      "featured": false,
+      "highlighted": true,
+      "kpis": {
+        "impressions": 690000,
+        "clicks": 22400,
+        "ctr": 3.25,
+        "conversions": 1210,
+        "conversionRate": 5.4,
+        "roi": 5.6,
+        "cpc": 1.34,
+        "cpa": 24.88,
+        "bookingValue": 139.17
+      },
+      "weeklyTrend": [
+        {
+          "week": "2026-05-19",
+          "impressions": 120000,
+          "clicks": 3500,
+          "conversions": 170,
+          "spend": 4100
+        },
+        {
+          "week": "2026-05-26",
+          "impressions": 160000,
+          "clicks": 5100,
+          "conversions": 260,
+          "spend": 6200
+        },
+        {
+          "week": "2026-06-02",
+          "impressions": 190000,
+          "clicks": 6200,
+          "conversions": 350,
+          "spend": 8100
+        },
+        {
+          "week": "2026-06-09",
+          "impressions": 220000,
+          "clicks": 7600,
+          "conversions": 430,
+          "spend": 11700
+        }
+      ],
+      "channelMetrics": [
+        {
+          "channel": "Email",
+          "placement": "Member Upgrade Journey",
+          "sends": 210000,
+          "delivered": 205000,
+          "deliveryRate": 97.62,
+          "opens": 82200,
+          "openRate": 40.1,
+          "clicks": 9800,
+          "clickRate": 4.78,
+          "ctr": 4.78,
+          "conversions": 620,
+          "conversionRate": 6.33,
+          "unsubscribes": 320,
+          "bounceRate": 2.38,
+          "spend": 5900,
+          "revenue": 86200,
+          "topCreative": "Upgrade Your View",
+          "topCTA": "Upgrade to Balcony"
+        },
+        {
+          "channel": "Mobile App",
+          "placement": "Pre-Cruise Upgrade Card",
+          "views": 230000,
+          "clicks": 7700,
+          "ctr": 3.35,
+          "conversions": 360,
+          "conversionRate": 4.68,
+          "spend": 9600,
+          "revenue": 49800,
+          "topCreative": "Tap to Upgrade Before Departure",
+          "topCTA": "Upgrade in App"
+        },
+        {
+          "channel": "Website",
+          "placement": "Manage Booking Upgrade Module",
+          "views": 250000,
+          "clicks": 4900,
+          "ctr": 1.96,
+          "conversions": 230,
+          "conversionRate": 4.69,
+          "spend": 14600,
+          "revenue": 32400,
+          "topCreative": "See Balcony Upgrade Options",
+          "topCTA": "View Upgrade Pricing"
+        }
+      ]
+    },
+    {
+      "id": "camp-004",
+      "name": "Holiday at Sea Early Booking",
+      "objective": "Increase early bookings for year-end holiday cruises",
+      "status": "Paused",
+      "health": "Underperforming",
+      "priority": "Medium",
+      "owner": "Marcus Chen",
+      "segment": "Luxury Travelers",
+      "destination": "Mediterranean",
+      "offerType": "Suite Savings",
+      "channels": ["Instagram", "Email", "Website", "Mobile App"],
+      "startDate": "2026-04-15",
+      "endDate": "2026-06-30",
+      "budget": 95000,
+      "spend": 71400,
+      "revenue": 132900,
+      "featured": false,
+      "highlighted": false,
+      "kpis": {
+        "impressions": 1810000,
+        "clicks": 30200,
+        "ctr": 1.67,
+        "conversions": 620,
+        "conversionRate": 2.05,
+        "roi": 1.86,
+        "cpc": 2.36,
+        "cpa": 115.16,
+        "bookingValue": 214.35
+      },
+      "weeklyTrend": [
+        {
+          "week": "2026-05-12",
+          "impressions": 510000,
+          "clicks": 9200,
+          "conversions": 210,
+          "spend": 18800
+        },
+        {
+          "week": "2026-05-19",
+          "impressions": 470000,
+          "clicks": 8100,
+          "conversions": 180,
+          "spend": 17300
+        },
+        {
+          "week": "2026-05-26",
+          "impressions": 430000,
+          "clicks": 7000,
+          "conversions": 140,
+          "spend": 16400
+        },
+        {
+          "week": "2026-06-02",
+          "impressions": 400000,
+          "clicks": 5900,
+          "conversions": 90,
+          "spend": 18900
+        }
+      ],
+      "channelMetrics": [
+        {
+          "channel": "Instagram",
+          "placement": "Luxury Carousel + Stories",
+          "impressions": 760000,
+          "engagements": 19600,
+          "engagementRate": 2.58,
+          "clicks": 12000,
+          "ctr": 1.58,
+          "conversions": 240,
+          "conversionRate": 2.0,
+          "spend": 24500,
+          "revenue": 49600,
+          "topCreative": "Holiday Mediterranean Suites",
+          "topCTA": "Discover Holiday Sailings"
+        },
+        {
+          "channel": "Email",
+          "placement": "VIP Early Access Offer",
+          "sends": 240000,
+          "delivered": 233000,
+          "deliveryRate": 97.08,
+          "opens": 65500,
+          "openRate": 28.11,
+          "clicks": 6100,
+          "clickRate": 2.62,
+          "ctr": 2.62,
+          "conversions": 170,
+          "conversionRate": 2.79,
+          "unsubscribes": 1250,
+          "bounceRate": 2.92,
+          "spend": 7100,
+          "revenue": 34100,
+          "topCreative": "Unlock Holiday Suite Savings",
+          "topCTA": "Shop Holiday Cruises"
+        },
+        {
+          "channel": "Website",
+          "placement": "Luxury Offers Hub Banner",
+          "views": 470000,
+          "clicks": 7300,
+          "ctr": 1.55,
+          "conversions": 130,
+          "conversionRate": 1.78,
+          "spend": 24000,
+          "revenue": 28200,
+          "topCreative": "Holiday at Sea Banner",
+          "topCTA": "Explore Suite Offers"
+        },
+        {
+          "channel": "Mobile App",
+          "placement": "Holiday Offer Tile",
+          "views": 340000,
+          "clicks": 4800,
+          "ctr": 1.41,
+          "conversions": 80,
+          "conversionRate": 1.67,
+          "spend": 15800,
+          "revenue": 21000,
+          "topCreative": "App Holiday Preview",
+          "topCTA": "See Holiday Availability"
+        }
+      ]
+    },
+    {
+      "id": "camp-005",
+      "name": "Kids Sail Free Spring Push",
+      "objective": "Boost family bookings for spring break itineraries",
+      "status": "Completed",
+      "health": "Performing Well",
+      "priority": "Medium",
+      "owner": "Elena Brooks",
+      "segment": "Families",
+      "destination": "Alaska",
+      "offerType": "Kids Sail Free",
+      "channels": ["Instagram", "Email", "Website", "Mobile App"],
+      "startDate": "2026-02-01",
+      "endDate": "2026-04-15",
+      "budget": 88000,
+      "spend": 86700,
+      "revenue": 338500,
+      "featured": false,
+      "highlighted": true,
+      "kpis": {
+        "impressions": 2040000,
+        "clicks": 63100,
+        "ctr": 3.09,
+        "conversions": 2190,
+        "conversionRate": 3.47,
+        "roi": 3.9,
+        "cpc": 1.37,
+        "cpa": 39.59,
+        "bookingValue": 154.57
+      },
+      "weeklyTrend": [
+        {
+          "week": "2026-03-09",
+          "impressions": 430000,
+          "clicks": 12500,
+          "conversions": 390,
+          "spend": 16200
+        },
+        {
+          "week": "2026-03-16",
+          "impressions": 510000,
+          "clicks": 15600,
+          "conversions": 540,
+          "spend": 21400
+        },
+        {
+          "week": "2026-03-23",
+          "impressions": 530000,
+          "clicks": 16900,
+          "conversions": 610,
+          "spend": 23800
+        },
+        {
+          "week": "2026-03-30",
+          "impressions": 570000,
+          "clicks": 18100,
+          "conversions": 650,
+          "spend": 25300
+        }
+      ],
+      "channelMetrics": [
+        {
+          "channel": "Instagram",
+          "placement": "Family Offer Reel + Carousel",
+          "impressions": 860000,
+          "engagements": 39800,
+          "engagementRate": 4.63,
+          "clicks": 25800,
+          "ctr": 3.0,
+          "conversions": 710,
+          "conversionRate": 2.75,
+          "spend": 24600,
+          "revenue": 101200,
+          "topCreative": "Family Adventure Starts Here",
+          "topCTA": "Plan Spring Break"
+        },
+        {
+          "channel": "Email",
+          "placement": "Spring Break Family Journey",
+          "sends": 360000,
+          "delivered": 350000,
+          "deliveryRate": 97.22,
+          "opens": 119000,
+          "openRate": 34.0,
+          "clicks": 16100,
+          "clickRate": 4.6,
+          "ctr": 4.6,
+          "conversions": 840,
+          "conversionRate": 5.22,
+          "unsubscribes": 870,
+          "bounceRate": 2.78,
+          "spend": 7400,
+          "revenue": 141300,
+          "topCreative": "Kids Sail Free This Spring",
+          "topCTA": "Reserve Family Cruise"
+        },
+        {
+          "channel": "Website",
+          "placement": "Family Deals Hero Banner",
+          "views": 490000,
+          "clicks": 12100,
+          "ctr": 2.47,
+          "conversions": 420,
+          "conversionRate": 3.47,
+          "spend": 31400,
+          "revenue": 59300,
+          "topCreative": "Family Savings Banner",
+          "topCTA": "View Family Itineraries"
+        },
+        {
+          "channel": "Mobile App",
+          "placement": "Family Offer Tile",
+          "views": 330000,
+          "clicks": 9100,
+          "ctr": 2.76,
+          "conversions": 220,
+          "conversionRate": 2.42,
+          "spend": 23300,
+          "revenue": 36700,
+          "topCreative": "App Family Deal",
+          "topCTA": "Unlock Family Savings"
+        }
+      ]
+    },
+    {
+      "id": "camp-006",
+      "name": "App Booking Incentive Test",
+      "objective": "Increase bookings through the mobile app",
+      "status": "Completed",
+      "health": "Needs Attention",
+      "priority": "Low",
+      "owner": "Sofia Ramirez",
+      "segment": "First-Time Cruisers",
+      "destination": "Caribbean",
+      "offerType": "App Exclusive Discount",
+      "channels": ["Mobile App", "Email", "Website"],
+      "startDate": "2026-03-01",
+      "endDate": "2026-05-01",
+      "budget": 42000,
+      "spend": 39800,
+      "revenue": 78200,
+      "featured": false,
+      "highlighted": false,
+      "kpis": {
+        "impressions": 740000,
+        "clicks": 18800,
+        "ctr": 2.54,
+        "conversions": 510,
+        "conversionRate": 2.71,
+        "roi": 1.96,
+        "cpc": 2.12,
+        "cpa": 78.04,
+        "bookingValue": 153.33
+      },
+      "weeklyTrend": [
+        {
+          "week": "2026-03-10",
+          "impressions": 150000,
+          "clicks": 4300,
+          "conversions": 120,
+          "spend": 7200
+        },
+        {
+          "week": "2026-03-17",
+          "impressions": 170000,
+          "clicks": 4700,
+          "conversions": 140,
+          "spend": 8700
+        },
+        {
+          "week": "2026-03-24",
+          "impressions": 190000,
+          "clicks": 5000,
+          "conversions": 130,
+          "spend": 10400
+        },
+        {
+          "week": "2026-03-31",
+          "impressions": 230000,
+          "clicks": 4800,
+          "conversions": 120,
+          "spend": 13500
+        }
+      ],
+      "channelMetrics": [
+        {
+          "channel": "Mobile App",
+          "placement": "Exclusive Booking Banner",
+          "views": 390000,
+          "clicks": 10500,
+          "ctr": 2.69,
+          "conversions": 310,
+          "conversionRate": 2.95,
+          "spend": 18200,
+          "revenue": 42900,
+          "topCreative": "Book in App and Save",
+          "topCTA": "Book in App"
+        },
+        {
+          "channel": "Email",
+          "placement": "App Download + Incentive Journey",
+          "sends": 180000,
+          "delivered": 175200,
+          "deliveryRate": 97.33,
+          "opens": 49200,
+          "openRate": 28.08,
+          "clicks": 5200,
+          "clickRate": 2.97,
+          "ctr": 2.97,
+          "conversions": 140,
+          "conversionRate": 2.69,
+          "unsubscribes": 780,
+          "bounceRate": 2.67,
+          "spend": 5500,
+          "revenue": 19100,
+          "topCreative": "Download the App. Save More.",
+          "topCTA": "Get the App Offer"
+        },
+        {
+          "channel": "Website",
+          "placement": "App Promo Strip",
+          "views": 170000,
+          "clicks": 3100,
+          "ctr": 1.82,
+          "conversions": 60,
+          "conversionRate": 1.94,
+          "spend": 16100,
+          "revenue": 16200,
+          "topCreative": "Exclusive App Price Strip",
+          "topCTA": "Open in App"
+        }
+      ]
+    }
+  ],
+  "benchmarks": {
+    "overall": {
+      "ctr": 2.6,
+      "conversionRate": 3.1,
+      "openRate": 31.2,
+      "clickRate": 3.8,
+      "roi": 2.8,
+      "cpc": 1.75,
+      "cpa": 52.0
+    },
+    "byChannel": [
+      {
+        "channel": "Instagram",
+        "ctr": 2.8,
+        "conversionRate": 2.7,
+        "engagementRate": 3.9,
+        "cpc": 1.45
+      },
+      {
+        "channel": "X",
+        "ctr": 1.9,
+        "conversionRate": 1.9,
+        "engagementRate": 2.2,
+        "cpc": 1.75
+      },
+      {
+        "channel": "Email",
+        "openRate": 31.5,
+        "clickRate": 3.9,
+        "ctr": 3.9,
+        "conversionRate": 4.3,
+        "unsubscribeRate": 0.35
+      },
+      {
+        "channel": "Website",
+        "ctr": 2.1,
+        "conversionRate": 2.8
+      },
+      {
+        "channel": "Mobile App",
+        "ctr": 2.5,
+        "conversionRate": 3.1
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "id": "alert-001",
+      "campaignId": "camp-002",
+      "severity": "warning",
+      "title": "Budget pacing ahead of plan",
+      "message": "Spend is 82% consumed with 48% of campaign duration remaining.",
+      "createdAt": "2026-06-16T10:00:00-04:00"
+    },
+    {
+      "id": "alert-002",
+      "campaignId": "camp-004",
+      "severity": "critical",
+      "title": "Conversion rate below benchmark",
+      "message": "Campaign conversion rate has dropped below the target threshold for two consecutive weeks.",
+      "createdAt": "2026-06-14T15:30:00-04:00"
+    },
+    {
+      "id": "alert-003",
+      "campaignId": "camp-004",
+      "severity": "warning",
+      "title": "Email unsubscribes elevated",
+      "message": "Unsubscribes are trending higher than benchmark on the VIP early access email.",
+      "createdAt": "2026-06-13T09:20:00-04:00"
+    },
+    {
+      "id": "alert-004",
+      "campaignId": "camp-003",
+      "severity": "info",
+      "title": "Upgrade campaign outperforming benchmark",
+      "message": "Email open rate and conversion rate are currently above benchmark for loyalty campaigns.",
+      "createdAt": "2026-06-15T08:45:00-04:00"
+    },
+    {
+      "id": "alert-005",
+      "campaignId": "camp-006",
+      "severity": "warning",
+      "title": "Website support channel underperforming",
+      "message": "Website click-through rate remained below target throughout the test period.",
+      "createdAt": "2026-05-02T12:10:00-04:00"
+    }
+  ],
+  "lifecycle": [
+    {
+      "campaignId": "camp-001",
+      "stages": [
+        { "name": "Briefing", "status": "Complete", "owner": "Ava Martinez" },
+        { "name": "Planning", "status": "Complete", "owner": "Ava Martinez" },
+        { "name": "Copywriting", "status": "Complete", "owner": "Maya Ross" },
+        { "name": "Design", "status": "Complete", "owner": "Leo Grant" },
+        { "name": "Review / Approval", "status": "Complete", "owner": "Jordan Kim" },
+        { "name": "Launch", "status": "Complete", "owner": "Ava Martinez" },
+        { "name": "QA / Testing", "status": "Complete", "owner": "Sam Ortiz" },
+        { "name": "Monitoring", "status": "In Progress", "owner": "Ava Martinez" },
+        { "name": "Optimization", "status": "Pending", "owner": "Ava Martinez" },
+        { "name": "Archived", "status": "Pending", "owner": "Ava Martinez" }
+      ]
+    },
+    {
+      "campaignId": "camp-002",
+      "stages": [
+        { "name": "Briefing", "status": "Complete", "owner": "Jordan Lee" },
+        { "name": "Planning", "status": "Complete", "owner": "Jordan Lee" },
+        { "name": "Copywriting", "status": "Complete", "owner": "Kira Nolan" },
+        { "name": "Design", "status": "Complete", "owner": "Brianna Hale" },
+        { "name": "Review / Approval", "status": "Complete", "owner": "Jordan Lee" },
+        { "name": "Launch", "status": "Complete", "owner": "Jordan Lee" },
+        { "name": "QA / Testing", "status": "Complete", "owner": "Sam Ortiz" },
+        { "name": "Monitoring", "status": "In Progress", "owner": "Jordan Lee" },
+        { "name": "Optimization", "status": "In Progress", "owner": "Jordan Lee" },
+        { "name": "Archived", "status": "Pending", "owner": "Jordan Lee" }
+      ]
+    },
+    {
+      "campaignId": "camp-003",
+      "stages": [
+        { "name": "Briefing", "status": "Complete", "owner": "Nina Patel" },
+        { "name": "Planning", "status": "Complete", "owner": "Nina Patel" },
+        { "name": "Copywriting", "status": "Complete", "owner": "Maya Ross" },
+        { "name": "Design", "status": "Complete", "owner": "Leo Grant" },
+        { "name": "Review / Approval", "status": "Complete", "owner": "Nina Patel" },
+        { "name": "Launch", "status": "Complete", "owner": "Nina Patel" },
+        { "name": "QA / Testing", "status": "Complete", "owner": "Sam Ortiz" },
+        { "name": "Monitoring", "status": "In Progress", "owner": "Nina Patel" },
+        { "name": "Optimization", "status": "In Progress", "owner": "Nina Patel" },
+        { "name": "Archived", "status": "Pending", "owner": "Nina Patel" }
+      ]
+    },
+    {
+      "campaignId": "camp-004",
+      "stages": [
+        { "name": "Briefing", "status": "Complete", "owner": "Marcus Chen" },
+        { "name": "Planning", "status": "Complete", "owner": "Marcus Chen" },
+        { "name": "Copywriting", "status": "Complete", "owner": "Maya Ross" },
+        { "name": "Design", "status": "Complete", "owner": "Leo Grant" },
+        { "name": "Review / Approval", "status": "Complete", "owner": "Marcus Chen" },
+        { "name": "Launch", "status": "Complete", "owner": "Marcus Chen" },
+        { "name": "QA / Testing", "status": "Complete", "owner": "Sam Ortiz" },
+        { "name": "Monitoring", "status": "Paused", "owner": "Marcus Chen" },
+        { "name": "Optimization", "status": "Blocked", "owner": "Marcus Chen" },
+        { "name": "Archived", "status": "Pending", "owner": "Marcus Chen" }
+      ]
+    },
+    {
+      "campaignId": "camp-005",
+      "stages": [
+        { "name": "Briefing", "status": "Complete", "owner": "Elena Brooks" },
+        { "name": "Planning", "status": "Complete", "owner": "Elena Brooks" },
+        { "name": "Copywriting", "status": "Complete", "owner": "Maya Ross" },
+        { "name": "Design", "status": "Complete", "owner": "Leo Grant" },
+        { "name": "Review / Approval", "status": "Complete", "owner": "Elena Brooks" },
+        { "name": "Launch", "status": "Complete", "owner": "Elena Brooks" },
+        { "name": "QA / Testing", "status": "Complete", "owner": "Sam Ortiz" },
+        { "name": "Monitoring", "status": "Complete", "owner": "Elena Brooks" },
+        { "name": "Optimization", "status": "Complete", "owner": "Elena Brooks" },
+        { "name": "Archived", "status": "Complete", "owner": "Elena Brooks" }
+      ]
+    },
+    {
+      "campaignId": "camp-006",
+      "stages": [
+        { "name": "Briefing", "status": "Complete", "owner": "Sofia Ramirez" },
+        { "name": "Planning", "status": "Complete", "owner": "Sofia Ramirez" },
+        { "name": "Copywriting", "status": "Complete", "owner": "Maya Ross" },
+        { "name": "Design", "status": "Complete", "owner": "Leo Grant" },
+        { "name": "Review / Approval", "status": "Complete", "owner": "Sofia Ramirez" },
+        { "name": "Launch", "status": "Complete", "owner": "Sofia Ramirez" },
+        { "name": "QA / Testing", "status": "Complete", "owner": "Sam Ortiz" },
+        { "name": "Monitoring", "status": "Complete", "owner": "Sofia Ramirez" },
+        { "name": "Optimization", "status": "Complete", "owner": "Sofia Ramirez" },
+        { "name": "Archived", "status": "Complete", "owner": "Sofia Ramirez" }
+      ]
+    }
+  ],
+  "activityFeed": [
+    {
+      "id": "act-001",
+      "campaignId": "camp-001",
+      "timestamp": "2026-06-17T09:15:00-04:00",
+      "type": "optimization",
+      "user": "Ava Martinez",
+      "message": "Increased budget allocation to email after conversion rate exceeded benchmark."
+    },
+    {
+      "id": "act-002",
+      "campaignId": "camp-001",
+      "timestamp": "2026-06-16T14:10:00-04:00",
+      "type": "creative",
+      "user": "Leo Grant",
+      "message": "Updated homepage hero with family-focused image treatment and stronger CTA."
+    },
+    {
+      "id": "act-003",
+      "campaignId": "camp-002",
+      "timestamp": "2026-06-16T11:25:00-04:00",
+      "type": "alert",
+      "user": "System",
+      "message": "Budget pacing alert triggered for Weekend Bahamas Flash Fare."
+    },
+    {
+      "id": "act-004",
+      "campaignId": "camp-002",
+      "timestamp": "2026-06-15T16:05:00-04:00",
+      "type": "launch",
+      "user": "Jordan Lee",
+      "message": "Expanded flash-fare messaging into website promo tile and email reminder send."
+    },
+    {
+      "id": "act-005",
+      "campaignId": "camp-003",
+      "timestamp": "2026-06-15T08:40:00-04:00",
+      "type": "insight",
+      "user": "System",
+      "message": "Loyalty balcony upgrade campaign is outperforming email open rate benchmark by 8.6 points."
+    },
+    {
+      "id": "act-006",
+      "campaignId": "camp-004",
+      "timestamp": "2026-06-14T15:35:00-04:00",
+      "type": "pause",
+      "user": "Marcus Chen",
+      "message": "Campaign paused pending optimization review due to declining conversion performance."
+    },
+    {
+      "id": "act-007",
+      "campaignId": "camp-005",
+      "timestamp": "2026-04-16T09:00:00-04:00",
+      "type": "complete",
+      "user": "Elena Brooks",
+      "message": "Kids Sail Free Spring Push marked complete and archived as a top-performing campaign."
+    },
+    {
+      "id": "act-008",
+      "campaignId": "camp-006",
+      "timestamp": "2026-05-02T12:15:00-04:00",
+      "type": "report",
+      "user": "Sofia Ramirez",
+      "message": "App booking incentive test closed with strong app performance but weak website assist behavior."
+    }
+  ],
+  "filters": {
+    "segments": [
+      "Families",
+      "Couples",
+      "Loyalty Members",
+      "First-Time Cruisers",
+      "Luxury Travelers"
+    ],
+    "destinations": [
+      "Caribbean",
+      "Bahamas",
+      "Alaska",
+      "Mediterranean",
+      "Multiple Regions"
+    ],
+    "offerTypes": [
+      "Onboard Credit",
+      "Flash Fare",
+      "Balcony Upgrade",
+      "Suite Savings",
+      "Kids Sail Free",
+      "App Exclusive Discount"
+    ],
+    "statuses": [
+      "Active",
+      "Paused",
+      "Completed",
+      "Archived"
+    ],
+    "healthStates": [
+      "Performing Well",
+      "Needs Attention",
+      "Underperforming"
+    ],
+    "channels": [
+      "Instagram",
+      "X",
+      "Email",
+      "Website",
+      "Mobile App"
+    ]
+  }
+}

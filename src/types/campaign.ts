@@ -1,6 +1,14 @@
 export type CampaignStatus = 'Active' | 'Paused' | 'Completed' | 'Archived';
 export type CampaignHealth = 'Performing Well' | 'Needs Attention' | 'Underperforming';
 
+export interface CampaignTrendPoint {
+  week: string;
+  impressions: number;
+  clicks: number;
+  conversions: number;
+  spend: number;
+}
+
 export interface Campaign {
   id: string;
   name: string;
@@ -23,4 +31,5 @@ export interface Campaign {
   conversionRate: number;
   roi: number;
   featured?: boolean;
+  weeklyTrend?: CampaignTrendPoint[];
 }
