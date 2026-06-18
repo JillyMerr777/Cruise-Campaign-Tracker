@@ -1,7 +1,17 @@
 <template>
-  <div class="mb-4">
-    <h1 class="page-title">Campaign Performance Command Center</h1>
-    <p class="page-subtitle">Track cruise marketing outcomes, identify risk, and act quickly across touchpoints.</p>
+  <div class="mb-4 dashboard-hero-card pa-4 pa-md-5">
+    <div class="d-flex justify-space-between align-start flex-wrap ga-3">
+      <div>
+        <h1 class="page-title">Campaign Performance Command Center</h1>
+        <p class="page-subtitle mb-0">Operate with live cruise demand signals, weekly momentum, and high-impact campaign recommendations.</p>
+      </div>
+
+      <div class="d-flex ga-2 flex-wrap">
+        <v-chip color="primary" variant="tonal" prepend-icon="mdi-ferry">Cruise Marketing Ops</v-chip>
+        <v-chip color="info" variant="tonal" prepend-icon="mdi-calendar-week">Weekly Pulse</v-chip>
+        <v-chip color="warning" variant="tonal" prepend-icon="mdi-lightning-bolt-outline">Decision Window: 48h</v-chip>
+      </div>
+    </div>
   </div>
 
   <FilterBar v-model="filters" />
@@ -15,14 +25,73 @@
       variant="tonal"
       color="info"
       icon="mdi-information-outline"
-      text="KPI deltas are week-over-week for the current filtered campaigns unless a KPI tooltip states otherwise."
+      text="KPI deltas are week-over-week in the current filtered view. Use the Top 3 board to prioritize immediate budget and creative actions."
     />
 
-    <KpiSummaryGrid :items="kpis" class="mb-4" />
+    <KpiSummaryGrid :items="kpis" class="mb-5" />
 
     <v-row class="mb-4">
-      <v-col cols="12" lg="7"><PerformanceTrendChart :clicks="totals.clicks" :conversions="totals.conversions" /></v-col>
+      <v-col cols="12" lg="8"><PerformanceTrendChart :clicks="totals.clicks" :conversions="totals.conversions" /></v-col>
+      <v-col cols="12" lg="4">
+        <v-card class="h-100">
+          <v-card-title class="d-flex align-center ga-2">
+            <v-icon color="success" icon="mdi-podium-gold" />
+            Top 3 Campaigns
+          </v-card-title>
+          <v-card-subtitle>Ranked by conversion momentum, ROI, and attributable revenue.</v-card-subtitle>
+          <v-card-text>
+            <v-list v-if="performanceLeaders.length > 0" class="bg-transparent" lines="two">
+              <v-list-item v-for="(campaign, index) in performanceLeaders" :key="campaign.id" class="px-0">
+                <template #prepend>
+                  <v-avatar size="30" :color="index === 0 ? 'warning' : 'info'" variant="tonal">
+                    <span class="text-caption font-weight-bold">{{ index + 1 }}</span>
+                  </v-avatar>
+                </template>
+
+                <v-list-item-title class="font-weight-semibold">{{ campaign.name }}</v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ campaign.destination }} | ROI {{ campaign.roi.toFixed(2) }}x | {{ formatCurrency(campaign.revenue ?? 0) }} revenue
+                </v-list-item-subtitle>
+
+                <template #append>
+                  <v-chip size="small" color="success" variant="tonal" prepend-icon="mdi-trending-up">
+                    {{ campaign.conversions }} conv
+                  </v-chip>
+                </template>
+              </v-list-item>
+            </v-list>
+            <EmptyState v-else message="No campaign performance leaders in this filter set." />
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row class="mb-4">
       <v-col cols="12" lg="5"><ChannelMixChart :metrics="filteredChannelMetrics" /></v-col>
+      <v-col cols="12" lg="7">
+        <v-card class="h-100">
+          <v-card-title class="d-flex align-center ga-2">
+            <v-icon color="primary" icon="mdi-lightbulb-on-outline" />
+            Channel Intelligence Highlights
+          </v-card-title>
+          <v-card-subtitle>Creative and placement signals from your top channels.</v-card-subtitle>
+          <v-card-text>
+            <v-row>
+              <v-col v-for="item in channelIntelligence" :key="`${item.channel}-${item.placement}`" cols="12" md="6">
+                <v-sheet class="pa-3 rounded-lg" color="transparent" border>
+                  <div class="text-subtitle-2 font-weight-semibold mb-1">{{ item.channel }}</div>
+                  <div class="text-body-2 mb-1">{{ item.topCreative || 'Creative insight pending' }}</div>
+                  <div class="text-caption text-medium-emphasis mb-2">Placement: {{ item.placement || 'Mixed placements' }}</div>
+                  <div class="d-flex align-center justify-space-between ga-2">
+                    <v-chip size="x-small" color="info" variant="tonal">Engagement {{ item.engagementRate.toFixed(2) }}%</v-chip>
+                    <v-chip size="x-small" color="success" variant="tonal">Revenue {{ formatCurrency(item.revenue) }}</v-chip>
+                  </div>
+                </v-sheet>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
 
     <v-row class="mb-4">
@@ -163,18 +232,43 @@ const weakestChannelAgainstBenchmark = computed(() => {
   return deltas[0] ?? null;
 });
 
+const performanceLeaders = computed(() => {
+  return [...filteredCampaigns.value]
+    .sort((a, b) => {
+      const aScore = a.roi * 80 + a.conversions * 2 + (a.revenue ?? 0) / 5000;
+      const bScore = b.roi * 80 + b.conversions * 2 + (b.revenue ?? 0) / 5000;
+      return bScore - aScore;
+    })
+    .slice(0, 3);
+});
+
+const channelIntelligence = computed(() => {
+  return [...filteredChannelMetrics.value]
+    .sort((a, b) => (b.revenue ?? 0) - (a.revenue ?? 0))
+    .slice(0, 4)
+    .map((metric) => ({
+      channel: metric.channel,
+      revenue: metric.revenue ?? 0,
+      engagementRate: metric.engagementRate ?? 0,
+      topCreative: metric.topCreative,
+      placement: metric.placement
+    }));
+});
+
 const kpis = computed(() => [
   {
     label: 'Impressions',
     value: formatCompact(totals.value.impressions),
     delta: safeDelta(percentDelta(trendTotals.value.latest.impressions, trendTotals.value.previous.impressions)),
-    deltaContext: 'Change versus previous week (filtered campaigns).'
+    deltaContext: 'Change versus previous week (filtered campaigns).',
+    icon: 'mdi-image-multiple-outline'
   },
   {
     label: 'Clicks',
     value: formatCompact(totals.value.clicks),
     delta: safeDelta(percentDelta(trendTotals.value.latest.clicks, trendTotals.value.previous.clicks)),
-    deltaContext: 'Change versus previous week (filtered campaigns).'
+    deltaContext: 'Change versus previous week (filtered campaigns).',
+    icon: 'mdi-cursor-default-click-outline'
   },
   {
     label: 'CTR',
@@ -185,25 +279,29 @@ const kpis = computed(() => [
         (trendTotals.value.previous.clicks / Math.max(trendTotals.value.previous.impressions, 1)) * 100
       )
     ),
-    deltaContext: 'CTR change versus previous week using aggregated trend points.'
+    deltaContext: 'CTR change versus previous week using aggregated trend points.',
+    icon: 'mdi-trending-up'
   },
   {
     label: 'Conversions',
     value: formatCompact(totals.value.conversions),
     delta: safeDelta(percentDelta(trendTotals.value.latest.conversions, trendTotals.value.previous.conversions)),
-    deltaContext: 'Change versus previous week (filtered campaigns).'
+    deltaContext: 'Change versus previous week (filtered campaigns).',
+    icon: 'mdi-check-decagram-outline'
   },
   {
     label: 'Spend',
     value: formatCurrency(totals.value.spend),
     delta: safeDelta(percentDelta(trendTotals.value.latest.spend, trendTotals.value.previous.spend)),
-    deltaContext: 'Change versus previous week (filtered campaigns).'
+    deltaContext: 'Change versus previous week (filtered campaigns).',
+    icon: 'mdi-cash-multiple'
   },
   {
     label: 'ROI',
     value: `${(filteredCampaigns.value.length === 0 ? 0 : filteredCampaigns.value.reduce((sum, campaign) => sum + campaign.roi, 0) / filteredCampaigns.value.length).toFixed(2)}x`,
     delta: roiDelta.value,
-    deltaContext: 'Delta versus overall campaign ROI baseline in the full dataset.'
+    deltaContext: 'Delta versus overall campaign ROI baseline in the full dataset.',
+    icon: 'mdi-finance'
   }
 ]);
 

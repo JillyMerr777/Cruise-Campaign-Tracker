@@ -107,6 +107,7 @@ const normalizeCampaign = (raw: unknown): Campaign | null => {
     conversions: asNumber(item.conversions ?? kpis.conversions),
     conversionRate: asNumber(item.conversionRate ?? kpis.conversionRate),
     roi: asNumber(item.roi ?? kpis.roi),
+    revenue: asNumber(item.revenue ?? kpis.revenue),
     featured: Boolean(item.featured),
     weeklyTrend
   };
@@ -122,7 +123,11 @@ const normalizeChannelMetric = (raw: unknown, campaignId: string): ChannelMetric
     clicks: asNumber(item.clicks),
     ctr: asNumber(item.ctr),
     conversions: asNumber(item.conversions),
-    spend: asNumber(item.spend)
+    spend: asNumber(item.spend),
+    revenue: asNumber(item.revenue),
+    engagementRate: asNumber(item.engagementRate),
+    topCreative: typeof item.topCreative === 'string' ? item.topCreative : undefined,
+    placement: typeof item.placement === 'string' ? item.placement : undefined
   };
 };
 

@@ -5,16 +5,16 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi';
 const cruiseTheme = {
   dark: false,
   colors: {
-    background: '#edf4ff',
+    background: '#f4f9ff',
     surface: '#ffffff',
-    'surface-bright': '#f6faff',
-    primary: '#00a8b9',
-    secondary: '#ff5fa2',
-    accent: '#ffe66e',
-    success: '#24c99a',
-    warning: '#ffaf45',
-    error: '#e94f64',
-    info: '#2f80ed'
+    'surface-bright': '#f6fbff',
+    primary: '#2fcfd6',
+    secondary: '#ff7fbf',
+    accent: '#f2ff76',
+    success: '#2acb9f',
+    warning: '#ffb44f',
+    error: '#f25c74',
+    info: '#5ea7ff'
   }
 };
 

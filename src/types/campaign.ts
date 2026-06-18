@@ -30,6 +30,7 @@ export interface Campaign {
   conversions: number;
   conversionRate: number;
   roi: number;
+  revenue?: number;
   featured?: boolean;
   weeklyTrend?: CampaignTrendPoint[];
 }

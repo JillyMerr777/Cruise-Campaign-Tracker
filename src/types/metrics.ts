@@ -6,4 +6,8 @@ export interface ChannelMetric {
   ctr: number;
   conversions: number;
   spend: number;
+  revenue?: number;
+  engagementRate?: number;
+  topCreative?: string;
+  placement?: string;
 }
