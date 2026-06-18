@@ -1,403 +1,405 @@
-# Cruise Line Marketing Campaign Dashboard — Project Brief
+## Cruise Campaign Tracker
 
-## Project Overview
+Single source of truth for the project. This file supersedes the old `README.md`, `PLAN.md`, and `DESIGN.md` documents.
 
-Design and build a **single-page internal marketing dashboard application** for a cruise line’s internal marketing team. The dashboard should provide a **bird’s-eye view of campaign performance** across major guest touchpoints so users can quickly understand what is performing well, what needs attention, and what actions to take next.
+## Project Summary
 
-This experience should feel like a polished internal product used by a real enterprise marketing team. It should be **responsive, mobile-first, highly visual, accessible, and presentation-ready**, with realistic campaign data and clean information hierarchy.
+Cruise Campaign Tracker is a responsive internal marketing intelligence application for cruise line teams. It gives stakeholders a fast, executive-level view of campaign performance across channels such as social, email, website, and app placements while still supporting deeper operational workflows like campaign creation, lifecycle tracking, and campaign detail review.
 
----
+The product is meant to feel like a polished internal SaaS tool rather than a static mock dashboard: useful, data-driven, visually distinctive, accessible, and presentation-ready.
 
-## Goal
+## Current Implementation
 
-Create an internal dashboard tool that enables the cruise line marketing team to:
+- Framework: Vue 3 + TypeScript + Vite
+- UI system: shadcn-vue + Tailwind CSS + reka-ui primitives
+- Routing: Vue Router
+- Data visualization: Chart.js + vue-chartjs
+- Icons: Lucide Vue
+- Styling: SCSS plus Tailwind utility composition
+- Data source: local mock JSON files only
 
-- Quickly understand active campaign performance
-- Compare performance across key channels and touchpoints
-- Identify high-performing and underperforming campaigns
-- View highlights from current and past campaigns
-- Start a new campaign
-- Track campaigns through their lifecycle from planning to launch and optimization
-- Surface actionable insights, alerts, and benchmarks to support decision-making
-
-The final experience should support internal stakeholders who need to monitor campaigns across channels such as:
-
-- Social media (Instagram, X/Twitter)
-- Email marketing
-- Website campaign modules / promotional placements
-- Mobile app campaign placements
-
----
-
-## Primary Users
-
-### Primary Audience
-- Internal cruise line marketing team members
-
-### Secondary Audiences
-- Marketing managers
-- Campaign managers
-- Content strategists
-- Creative/design stakeholders
-- Leadership reviewing executive-level campaign summaries
-
----
+Note: Earlier planning material referenced Vuetify. The current codebase has already been migrated away from Vuetify, so this document reflects the actual implemented stack.
 
 ## Product Vision
 
-This site should function as an **internal campaign intelligence hub** for the marketing team. The home dashboard is the landing experience and should surface the most important campaign information at a glance, while additional routed views support campaign creation and campaign lifecycle tracking.
+The app should function as a campaign intelligence hub for internal cruise marketing teams.
 
-The dashboard should not feel like passive reporting only. It should support:
-- monitoring
-- optimization
-- prioritization
-- campaign planning
-- performance storytelling
-- collaboration
+It should help users:
+
+- understand active campaign performance at a glance
+- compare channel and campaign outcomes quickly
+- identify high-performing and underperforming work
+- spot pacing, QA, and lifecycle risks early
+- take action through campaign creation, optimization, and review workflows
+- communicate campaign status clearly to leadership and stakeholders
 
 The experience should balance:
-- **Executive scanability**
-- **Practical marketing detail**
-- **Design polish**
-- **Clear interaction patterns**
-- **Strong usability on all screen sizes**
 
----
+- executive scanability
+- practical marketing detail
+- operational usefulness
+- polished visual design
+- strong usability on all screen sizes
 
-## Core Experience Requirements
+## Primary Users
 
-### Home / Dashboard
-The dashboard landing page should provide a high-level summary of campaign performance, including:
+Primary audience:
 
-- Current / active campaign spotlight
-- Performance summary cards
-- Cross-channel campaign comparison
-- Channel breakdowns
-- Trends over time
-- Top-performing past campaigns
-- Alerts / flags for campaigns needing attention
-- Quick links to create or manage campaigns
-- Benchmark context so performance is not shown in isolation
-- Recommended next actions or optimization insights
+- internal cruise line marketing team members
 
-### Additional Views / Pages
-Although this is a **single-page application**, it should include multiple routed views or app states, such as:
+Secondary audiences:
 
-1. **Dashboard (Home)**
-   - Bird’s-eye overview of active and historical campaign performance
+- marketing managers
+- campaign managers
+- content strategists
+- creative and design stakeholders
+- leadership reviewing executive summaries
 
-2. **Create New Campaign**
-   - A form or guided workflow for starting a new campaign
-   - Includes fields like campaign name, objective, target audience, channels, dates, budget, and owner
+## Core App Views
 
-3. **Campaign Lifecycle Tracker**
-   - A workflow/status view showing campaign progress through major stages
-   - Example stages:
-     - Briefing / intake
-     - Strategy / planning
-     - Copywriting
-     - Design
-     - Review / approval
-     - Deployment / launch
-     - QA / testing
-     - Monitoring
-     - Optimization / iteration
-     - Completed / archived
+The application is a single-page app with routed views.
 
-4. **Campaign Detail View**
-   - A deeper drill-down for a specific campaign
-   - Shows channel-level metrics, timeline, campaign health, creative references, performance trends, and recent updates
+Implemented views:
 
----
+1. Dashboard
+2. New Campaign
+3. Lifecycle Tracker
+4. Campaign Detail
+
+Expected responsibilities:
+
+- Dashboard: high-level campaign intelligence, KPIs, alerts, insights, comparisons, and quick actions
+- New Campaign: guided campaign setup with core business fields
+- Lifecycle Tracker: stage-based workflow visibility from intake to optimization and completion
+- Campaign Detail: deeper drill-down into metrics, trends, creative performance, notes, and recent updates
+
+## Dashboard Requirements
+
+The dashboard is the primary landing experience and command center.
+
+It should prioritize:
+
+- immediate KPI visibility
+- rapid health scanning
+- clear information hierarchy
+- minimal cognitive load
+- actionable insight within seconds
+
+Core dashboard sections:
+
+- featured campaign spotlight
+- KPI summary row
+- top campaign ranking
+- performance trend visualization
+- audience insights
+- channel intelligence
+- channel comparison
+- creative performance
+- alerts panel
+- optimization insights
+- budget pacing
+- campaign comparison table
+- past campaign highlights
+- quick actions
 
 ## Functional Requirements
 
-### Dashboard Must Include
-- Summary KPI cards
-- Cross-channel campaign tracking
-- Visual charts for performance trends
-- Filtering or sorting options
-- Keyboard-accessible interactions
-- Clear status indicators that use more than color alone
-- Meaningful labels and hierarchy for fast comprehension
-- Alerts panel
-- Benchmark comparison indicators
-- Budget visibility
-- Campaign health indicators
-- Quick actions for common tasks
+The product should support:
 
-### KPIs / Metrics to Represent
-The dashboard should reflect realistic campaign tracking metrics across different channel types.
+- summary KPI cards
+- cross-channel campaign tracking
+- trend and comparison charts
+- filtering and segmentation
+- benchmark context
+- campaign health indicators
+- alerts and recommendations
+- budget and pacing visibility
+- campaign lifecycle tracking
+- campaign notes, blockers, and activity history
+- quick actions for common operations
 
-#### Shared Campaign Metrics
-- Campaign name
-- Campaign objective
-- Campaign status
-- Campaign owner
-- Start date / end date
-- Budget
-- Spend
-- Reach / impressions
-- Clicks
-- Click-through rate (CTR)
-- Conversions
-- Conversion rate
-- ROI / performance summary
-- Audience segment
-- Destination or route
-- Offer type
-- Channel mix
+Status and health should never rely on color alone.
 
-#### Social Campaign Metrics
-- Platform
-- Impressions
-- Engagements
-- Engagement rate
-- Clicks
+## Metrics and Data Model
+
+Shared campaign metrics:
+
+- campaign name
+- objective
+- status
+- health
+- owner
+- start and end dates
+- budget and spend
+- impressions or reach
+- clicks
 - CTR
-- Conversions
-- Spend
-- Top creative / top post
-- Follower interaction or save/share behavior (optional)
+- conversions
+- conversion rate
+- ROI or ROAS
+- audience segment
+- destination
+- offer type
+- channel mix
 
-#### Email Campaign Metrics
-- Sends
-- Delivery rate
-- Open rate
-- Click rate
-- Click-through rate (if represented distinctly)
-- Unsubscribes
-- Bounce rate
-- Revenue / downstream conversion impact
-- A/B variant performance (optional)
+Channel- and tactic-specific metrics may include:
 
-#### Website / Mobile App Metrics
-- Module or placement name
-- Views
-- Clicks / taps
-- CTR
-- Conversion rate
-- Device split (mobile / desktop)
-- Placement performance by page or app surface
-- Funnel progression impact
-
-#### Budget & Efficiency Metrics
-- Budget vs spend
-- Cost per click (CPC)
-- Cost per acquisition (CPA)
-- Return on ad spend or ROI
-- Budget pacing status
-
----
+- social engagement and engagement rate
+- email sends, delivery, opens, clicks, unsubscribes, bounce rate
+- website or app placement performance
+- device split
+- budget efficiency metrics such as CPC and CPA
+- creative performance indicators
+- benchmark deltas and week-over-week movement
 
 ## Advanced Marketing Features
 
-### 1. Campaign Insights & Recommendations
-Include a dedicated insights section that surfaces useful observations such as:
-- top performing channel this week
-- below-benchmark campaign performance
-- strong email engagement
-- underperforming creative
-- campaign worth extending
-- campaign at risk and needing optimization
+Important feature areas:
 
-### 2. Benchmarking & Performance Context
-Marketing teams rarely evaluate campaigns in isolation. The product should support:
-- current campaign vs past campaign comparison
-- current campaign vs average benchmark
-- channel vs channel comparison
-- week-over-week or month-over-month change indicators
+1. Insights and recommendations
+2. Benchmark comparison
+3. Filtering and segmentation
+4. Campaign health states
+5. Alerts and notifications
+6. Activity feed and campaign timeline
+7. Creative performance insights
+8. Notes, blockers, and collaboration surfaces
+9. Simplified attribution or channel role context
+10. Quick actions
 
-### 3. Filtering & Segmentation
-Enable users to filter campaign data by:
-- channel
-- campaign status
-- date range
-- audience segment
-- destination / itinerary region
-- campaign objective
-- offer type
+## Cruise-Specific Business Context
 
-### 4. Campaign Health Status
-Introduce a clear health system with labels and icons:
-- Performing Well
-- Needs Attention
-- Underperforming
+The experience should feel specific to cruise marketing rather than generic digital marketing.
 
-Status should never rely on color alone.
+Support context such as:
 
-### 5. Alerts & Notifications Panel
-Add a lightweight alerts module showing:
-- drop in engagement
-- budget nearly depleted
-- campaign launch delayed
-- QA issue flagged
-- low delivery or low impressions
-- below-threshold conversion performance
-
-### 6. Campaign Timeline / Activity Feed
-Support a timeline showing:
-- campaign created
-- brief approved
-- copy finalized
-- design approved
-- launched
-- optimized
-- completed
-
-### 7. Creative Performance Insights
-Marketing teams need to evaluate asset effectiveness. Include:
-- top-performing creative
-- message / CTA comparison
-- A/B performance highlights
-- placeholder thumbnail or visual asset reference
-
-### 8. Collaboration Features
-Even if mocked visually only, include:
-- campaign notes
-- stakeholder comments
-- recent updates
-- blockers / risks
-- next steps
-
-### 9. Attribution / Channel Role View
-Provide a simplified view of how channels contribute to campaign success, for example:
-- social drives awareness
-- email drives conversion
-- website and app support mid-funnel engagement
-
-### 10. Quick Actions
-Include practical actions such as:
-- create new campaign
-- duplicate campaign
-- pause campaign
-- open campaign details
-- review lifecycle status
-
----
-
-## Cruise-Specific Context Enhancements
-
-To make this feel specific to cruise marketing rather than a generic dashboard, include data and UI patterns reflecting cruise business realities.
-
-### Guest Segmentation
-Support campaign audiences such as:
-- Families with kids
-- Couples / honeymoon travelers
-- Loyalty / returning guests
-- First-time cruisers
-- Luxury travelers
-
-### Destination-Based Tracking
-Allow campaigns to be tied to destinations such as:
-- Caribbean
-- Mediterranean
-- Alaska
-- Bahamas weekend sailings
-
-### Booking Funnel Awareness
-Represent a simplified booking journey:
-- Awareness
-- Consideration
-- Click
-- Booking
-- Upgrade / onboard purchase
-
-### Offer-Based Campaign Tracking
-Cruise campaigns are often offer-led. Include campaign types such as:
-- % off fares
-- onboard credit
-- drink packages
-- balcony or suite upgrades
-- kids sail free
-- limited-time booking window offers
-
----
+- audience segments like families, couples, loyalty guests, first-time cruisers, and luxury travelers
+- destination tracking like Caribbean, Mediterranean, Alaska, and Bahamas itineraries
+- offer-led campaigns such as onboard credit, drink packages, suite upgrades, and kids sail free
+- booking funnel awareness from awareness to booking and onboard upsell
 
 ## Design Direction
 
-### Overall Visual Style
-The design should feel:
-- Modern
-- Clean-line
-- Minimal but expressive
-- Internal enterprise-grade
-- Highly polished and presentation-ready
+The intended aesthetic is modern, premium, light, and energetic.
 
-### Specific Design Guidance
-- Mobile-first layout and thinking
-- Clean, minimal, uncluttered UI
-- Strong visual hierarchy for executive scanning
-- Consistent left/right page gutters aligned beneath the app bar across breakpoints
-- Use an **8px grid system**
-- Rounded, soft **sans-serif typography**
-- Modern dashboard styling with strong card layouts
-- Bright rainbow / neon-inspired accent colors
-- Bright, blown-out drop shadows used intentionally
-- Visual inspiration should reference the designs in the **INSPO folder**
-- Content should animate in subtly on scroll, with **quick fade-in behavior** instead of all content feeling instantly dumped onto the page on load
+Core principles:
 
-### Visual Tone
-The UI should balance:
-- professionalism for internal business users
-- visual personality and energy
-- high readability
-- clean dashboard organization
+1. Data first
+2. High clarity
+3. Spacious light-mode presentation
+4. Strong but controlled accent color use
+5. Polished enterprise-grade interaction design
 
----
+### Visual Language
 
-## UI / UX Best Practices
+- light, layered backgrounds
+- card-based layout throughout
+- rounded corners and soft geometry
+- restrained glass or frosted treatments where readability remains strong
+- vivid accent colors used intentionally rather than as heavy full-surface fills
+- subtle motion and fade-in behavior
+- clean typography with strong hierarchy
 
-The site design must follow **UI/UX industry best practices** for responsive dashboard experiences.
+### Brand and Color Direction
 
-### Required Principles
-- Strong hierarchy with clear page sections
-- Consistent spacing and alignment
-- Predictable navigation patterns
-- Components that scale cleanly across device sizes
-- Easy scanning of high-priority metrics first
-- Progressive disclosure for deeper campaign detail
-- Minimal clutter
-- Clear chart labeling
-- Meaningful card grouping
-- Consistency across components, spacing, and visual language
-- Empty states for no data / filtered states
-- Useful hover, focus, and feedback states
-- Skeleton loading patterns or placeholder states if appropriate
+The project should draw from the SunWave cruise brand assets in the repository.
 
----
+Priority accent families:
+
+- electric cyan and aqua
+- bright pink and fuchsia
+- warm orange and sunburst yellow
+- deep ocean blue and violet
+
+Accent colors should be used primarily for:
+
+- active navigation states
+- KPI and delta indicators
+- progress rings and charts
+- badges and status accents
+- primary action buttons
+- decorative background glows and shell accents
+
+Large saturated blocks should be avoided unless they are deliberate CTAs.
+
+### Typography
+
+Preferred type direction:
+
+- Manrope, Inter, or Plus Jakarta Sans
+
+Hierarchy targets:
+
+- display: 32px to 40px
+- section titles: 24px to 28px
+- card titles: 16px to 18px
+- body: 14px to 16px
+- metadata: 12px to 13px
+
+## Layout Architecture
+
+Global layout expectations:
+
+- persistent left navigation on desktop
+- collapsible or compact behavior for smaller widths
+- main content area centered within consistent gutters
+- smooth transitions around navigation state changes
+
+Navigation targets:
+
+- collapsed width: about 72px to 84px
+- expanded width: about 280px
+- transition timing: about 200ms to 250ms
+
+Sidebar content should include:
+
+- icon-based navigation
+- title and short description in expanded mode
+- user profile area anchored near the bottom
+- clear active and hover states
 
 ## Responsive Requirements
 
-- Must be designed **mobile-first**
-- Must scale cleanly upward to tablet and desktop
-- Cards should stack vertically on small screens
-- Maintain readability at all sizes
-- Maintain consistent gutters and spacing at all breakpoints
-- Charts must remain readable on smaller screens
-- Layout should adapt without feeling broken or cramped
-- Navigation should remain usable on mobile and desktop
-- No horizontal scrolling for core content areas
+- mobile-first implementation
+- clean stacking behavior on smaller screens
+- readable charts and controls at mobile widths
+- no horizontal scrolling in core content areas
+- consistent gutters and spacing across breakpoints
+- navigation remains usable on both desktop and mobile
 
----
+The large decorative shell logo may become partially obscured at smaller breakpoints. That is acceptable and intentional.
 
 ## Accessibility Requirements
 
-Accessibility must be treated as a core requirement, not an afterthought.
+Accessibility is a core requirement.
 
-### Required Accessibility Expectations
-- Include **AAA accessibility requirements in the design approach**
-- Ensure sufficient contrast, especially in dark mode
-- Do **not rely on color alone**
-- Use **icons + labels** together where meaning is important
-- Ensure readable typography and comfortable spacing
-- Maintain clear focus states
-- Ensure all filters and interactive controls are keyboard accessible
-- Use semantic structure and accessible labeling
-- Ensure charts and status indicators have readable context
-- Support screen-reader-friendly naming where relevant
+Minimum expectations:
 
-### Practical Accessibility Note
+- semantic HTML structure
+- keyboard-accessible interactions
+- visible focus states
+- descriptive ARIA labels where needed
+- chart context communicated beyond color alone
+- sufficient contrast for text and status indicators
+- touch targets of at least 44x44 where practical
+- support for reduced motion preferences
+- screen-reader-friendly naming and labels
+
+WCAG 2.1 AA is the minimum target. Stronger contrast and clarity should be preferred when possible.
+
+## Technical Architecture
+
+Recommended and current top-level structure:
+
+```txt
+src/
+   assets/
+      INSPO/
+      styles/
+   components/
+      campaign/
+      charts/
+      dashboard/
+      layout/
+      lifecycle/
+      shared/
+      ui/
+   composables/
+   data/
+   plugins/
+   router/
+   services/
+   types/
+   utils/
+   views/
+   App.vue
+   main.ts
+```
+
+Important implementation notes:
+
+- local JSON under `src/data` is the source of truth for mocked product behavior
+- routing lives under `src/router`
+- chart registration is centralized in `src/plugins/chart.ts`
+- shell, nav, and app chrome live under `src/components/layout`
+- reusable primitive UI components live under `src/components/ui`
+
+## Implementation Priorities
+
+If building or extending the app, recommended priority order is:
+
+1. shell, routing, theme, and layout primitives
+2. dashboard information architecture
+3. reusable cards, badges, filters, and status patterns
+4. chart wiring and mock data integration
+5. campaign comparison, insights, and alerts
+6. new campaign workflow
+7. lifecycle tracker workflow
+8. campaign detail drill-down
+9. accessibility and responsive QA
+10. final visual polish and micro-interaction refinement
+
+## Deliverables
+
+The project reference assumes the app should include:
+
+- a working Vue 3 + TypeScript application
+- routed campaign dashboard views
+- local mock JSON data
+- responsive layout behavior
+- accessible interactions and readable visual hierarchy
+- polished internal-tool presentation
+
+## Success Criteria
+
+The project is successful if it:
+
+- communicates campaign performance clearly at a glance
+- supports realistic internal marketing workflows
+- feels premium, modern, and useful
+- remains readable and stable across screen sizes
+- uses color expressively without harming clarity
+- integrates accessibility from the start
+- reflects cruise-specific campaign realities rather than generic dashboard content
+
+## Non-Goals
+
+Out of scope unless intentionally added later:
+
+- backend integration
+- authentication
+- real analytics APIs
+- live data refresh
+- CMS integration
+- user account management
+- advanced export or reporting pipelines
+
+## Development Commands
+
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
+```
+
+## Reference Assets
+
+The repository contains visual inspiration and brand assets that should continue to guide polish decisions:
+
+- `src/assets/INSPO/`
+- `src/assets/Cruise_Logo.png`
+- `public/Cruise_Favicon.png`
+
+## Document Ownership
+
+This file is the canonical project reference.
+
+Removed and replaced by this file:
+
+- `README.md`
+- `PLAN.md`
+- `DESIGN.md`
 Given the neon/brighter visual direction, accessibility should be preserved through:
 - carefully chosen contrast-safe accent colors
 - strong text contrast
