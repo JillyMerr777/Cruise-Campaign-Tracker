@@ -26,22 +26,19 @@
     </div>
 
     <nav class="app-drawer-nav flex flex-col gap-1 px-2 py-2">
-      <component
-        :is="item.disabled ? 'button' : RouterLink"
+      <RouterLink
         v-for="item in items"
         :key="item.title"
-        :to="item.disabled ? undefined : item.to"
-        type="button"
-        :disabled="item.disabled"
+        :to="item.to"
         :title="rail ? `${item.title} - ${item.description}` : undefined"
-        :aria-label="item.disabled ? `${item.title} coming soon` : `Go to ${item.title}`"
+        :aria-label="item.isSoon ? `${item.title} coming soon` : `Go to ${item.title}`"
         class="group flex w-full items-center gap-2 rounded-lg border px-2 py-2 text-left transition"
         :class="[
-          item.disabled
-            ? 'cursor-not-allowed border-transparent bg-transparent text-slate-400 opacity-75'
-            : isActive(item.to)
+          isActive(item.to)
               ? 'border-cyan-200 bg-cyan-50/90 text-[#142e95] shadow-[0_10px_20px_rgba(0,194,255,0.12)]'
-              : 'border-transparent text-slate-700 hover:border-fuchsia-100 hover:bg-fuchsia-50/40',
+              : item.isSoon
+                ? 'border-transparent text-slate-600 hover:border-amber-100 hover:bg-amber-50/45'
+                : 'border-transparent text-slate-700 hover:border-fuchsia-100 hover:bg-fuchsia-50/40',
           rail ? 'justify-center px-0 py-2.5' : ''
         ]"
       >
@@ -52,13 +49,13 @@
             <div class="truncate text-xs text-slate-500">{{ item.description }}</div>
           </div>
           <span
-            v-if="item.disabled"
-            class="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600"
+            v-if="item.isSoon"
+            class="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700"
           >
             Soon
           </span>
         </template>
-      </component>
+      </RouterLink>
     </nav>
 
     <div class="drawer-footer mt-auto p-3">
@@ -106,7 +103,7 @@ import {
   Users
 } from '@lucide/vue';
 import type { Component } from 'vue';
-import cruiseLogo from '../../assets/Cruise_Logo.png';
+import cruiseLogo from '../../assets/Cruise_Favicon.png';
 
 const route = useRoute();
 const rail = ref(false);
@@ -125,11 +122,11 @@ onBeforeUnmount(() => {
 });
 
 type NavItem = {
-  to?: string;
+  to: string;
   title: string;
   icon: Component;
   description: string;
-  disabled: boolean;
+  isSoon: boolean;
 };
 
 const isActive = (to?: string): boolean => {
@@ -144,35 +141,35 @@ const items: NavItem[] = [
     title: 'Dashboard',
     icon: LayoutDashboard,
     description: 'Campaign performance overview.',
-    disabled: false
+    isSoon: false
   },
   {
     to: '/campaigns/new',
     title: 'Campaigns',
     icon: PlusSquare,
     description: 'Manage and optimize campaigns.',
-    disabled: false
+    isSoon: false
   },
   {
     to: '/lifecycle',
     title: 'Analytics',
     icon: ChartLine,
     description: 'Performance reporting and stage insights.',
-    disabled: false
+    isSoon: false
   },
   {
-    to: undefined,
+    to: '/audiences',
     title: 'Audiences',
     icon: Users,
     description: 'Customer segments and reach analysis.',
-    disabled: true
+    isSoon: true
   },
   {
-    to: undefined,
+    to: '/settings',
     title: 'Settings',
     icon: Cog,
     description: 'Platform configuration.',
-    disabled: true
+    isSoon: true
   }
 ];
 </script>

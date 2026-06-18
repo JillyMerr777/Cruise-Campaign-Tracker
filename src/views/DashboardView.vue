@@ -1,7 +1,20 @@
 <template>
   <div class="mb-5 px-1 pt-1">
-    <h1 class="text-[2.2rem] leading-[1.08] font-bold tracking-[-0.02em] text-slate-900">Dashboard</h1>
-    <p class="mt-1 text-[0.94rem] text-slate-500">Welcome back, Ava. Here is what is happening with your cruise campaigns.</p>
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div>
+        <h1 class="text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-slate-900 sm:text-[2.2rem]">Dashboard</h1>
+        <p class="mt-1 text-[0.94rem] text-slate-500">Welcome back, Ava. Here is what is happening with your cruise campaigns.</p>
+      </div>
+
+      <div class="rounded-xl border border-cyan-100 bg-cyan-50/70 px-3 py-2 text-xs shadow-[0_10px_22px_rgba(12,71,153,0.09)]">
+        <div class="font-semibold uppercase tracking-wide text-cyan-900">Reporting Period</div>
+        <div class="text-sm font-semibold text-slate-800">Q1 2026 Campaign Performance</div>
+        <div class="mt-1 inline-flex items-center gap-1.5 text-cyan-900">
+          <span class="block size-2 rounded-full bg-rose-500" />
+          <span>3 active notifications</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <template v-if="featuredCampaign">
@@ -17,6 +30,9 @@
           <CardContent class="pb-4 pt-0">
             <div v-if="performanceLeaders.length > 0" class="space-y-2.5">
               <div v-for="(campaign, index) in performanceLeaders" :key="campaign.id" class="rounded-xl border border-slate-200 bg-white p-3">
+                <div class="mb-2 h-20 overflow-hidden rounded-lg border border-cyan-100/60">
+                  <img :src="leaderImage(index)" :alt="`${campaign.name} campaign visual`" class="h-full w-full object-cover" />
+                </div>
                 <div class="mb-2 flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <span :class="index === 0 ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-700'" class="grid h-7 w-7 place-items-center rounded-full text-xs font-bold">{{ index + 1 }}</span>
@@ -180,6 +196,9 @@ import { useDashboardMetrics } from '../composables/useDashboardMetrics';
 import { dataService } from '../services/dataService';
 import type { Campaign } from '../types/campaign';
 import { formatCompact, formatCurrency } from '../utils/formatters';
+import leaderVisualA from '../assets/CAMPAIGN IMAGES/Campaign-1.png';
+import leaderVisualB from '../assets/CAMPAIGN IMAGES/Campaign-2.png';
+import leaderVisualC from '../assets/CAMPAIGN IMAGES/Campaign-3.png';
 
 const campaigns = dataService.campaigns as Campaign[];
 const channelMetrics = dataService.channelMetrics;
@@ -187,6 +206,11 @@ const alerts = dataService.alerts;
 const benchmarks = dataService.benchmarks;
 
 const filters = reactive({ channel: 'All', status: 'All', destination: 'All', segment: '' });
+
+const leaderImage = (index: number): string => {
+  const visuals = [leaderVisualA, leaderVisualB, leaderVisualC];
+  return visuals[index % visuals.length];
+};
 
 const circleProgress = (value: number): string => {
   const clamped = Math.max(0, Math.min(100, value));

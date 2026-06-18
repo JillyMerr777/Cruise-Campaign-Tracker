@@ -7,9 +7,9 @@
       <div class="space-y-2">
         <div v-for="alert in alerts" :key="alert.id" class="flex gap-2 rounded-lg border border-sky-100/70 bg-sky-50/30 px-3 py-2">
           <component :is="icon(alert.type)" class="mt-0.5 size-4 text-amber-500" />
-          <div>
+          <div class="min-w-0">
             <div class="text-sm font-medium text-slate-800">{{ alert.title }}</div>
-            <div class="text-xs text-slate-500">{{ alert.message }}</div>
+            <div class="text-xs text-slate-500 break-words">{{ alert.message }}</div>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-[0.98rem] font-semibold text-slate-900">Performance Trend</CardTitle>
     </CardHeader>
-    <CardContent class="h-[312px] pb-4 pt-0">
+    <CardContent class="h-[240px] pb-4 pt-0 sm:h-[280px] lg:h-[312px]">
       <Line :data="chartData" :options="options" />
       <AccessibleChartSummary summary="Weekly clicks and conversions are trending upward with a mild plateau this week." />
     </CardContent>

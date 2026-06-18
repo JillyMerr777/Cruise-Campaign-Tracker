@@ -4,19 +4,19 @@
       <CardTitle class="text-base font-semibold text-slate-900">Quick Actions</CardTitle>
     </CardHeader>
     <CardContent class="flex flex-wrap gap-2 pb-4 pt-0">
-      <RouterLink :to="'/campaigns/new'" :class="buttonVariants({ variant: 'default' }) + ' bg-cyan-500 text-white hover:bg-cyan-400'">
+      <RouterLink :to="'/campaigns/new'" :class="buttonVariants({ variant: 'default' }) + ' w-full justify-center bg-cyan-500 text-white hover:bg-cyan-400 sm:w-auto'">
         <Plus class="mr-1 size-4" />
         Create Campaign
       </RouterLink>
-      <Button variant="secondary" class="bg-sky-100 text-sky-900 hover:bg-sky-200">
+      <Button variant="secondary" class="w-full justify-center bg-sky-100 text-sky-900 hover:bg-sky-200 sm:w-auto">
         <Copy class="mr-1 size-4" />
         Duplicate
       </Button>
-      <Button variant="secondary" class="bg-sky-100 text-sky-900 hover:bg-sky-200">
+      <Button variant="secondary" class="w-full justify-center bg-sky-100 text-sky-900 hover:bg-sky-200 sm:w-auto">
         <PauseCircle class="mr-1 size-4" />
         Pause
       </Button>
-      <RouterLink :to="'/lifecycle'" :class="buttonVariants({ variant: 'secondary' }) + ' bg-pink-100 text-pink-900 hover:bg-pink-200'">
+      <RouterLink :to="'/lifecycle'" :class="buttonVariants({ variant: 'secondary' }) + ' w-full justify-center bg-pink-100 text-pink-900 hover:bg-pink-200 sm:w-auto'">
         <ChartLine class="mr-1 size-4" />
         Review Lifecycle
       </RouterLink>

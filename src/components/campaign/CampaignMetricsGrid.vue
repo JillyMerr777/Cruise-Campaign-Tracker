@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
     <Card
       v-for="metric in metrics"
       :key="metric.label"
@@ -8,7 +8,7 @@
     >
       <CardContent class="pt-3">
         <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">{{ metric.label }}</div>
-        <div class="text-xl font-semibold text-slate-900">{{ metric.value }}</div>
+        <div class="break-words text-lg font-semibold text-slate-900 sm:text-xl">{{ metric.value }}</div>
       </CardContent>
     </Card>
   </div>

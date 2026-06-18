@@ -5,12 +5,12 @@
     </CardHeader>
     <CardContent>
       <Tabs v-model="tab" class="w-full">
-        <TabsList class="mb-3 w-full justify-start overflow-x-auto bg-sky-100/50">
+        <TabsList class="-mx-1 mb-3 w-full justify-start gap-1 overflow-x-auto whitespace-nowrap rounded-lg bg-sky-100/60 p-1">
           <TabsTrigger
             v-for="metric in metrics"
             :key="metric.channel"
             :value="metric.channel"
-            class="data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+            class="shrink-0 rounded-md px-3 text-xs data-[state=active]:bg-cyan-500 data-[state=active]:text-white sm:text-sm"
           >
             {{ metric.channel }}
           </TabsTrigger>
@@ -20,14 +20,14 @@
           v-for="metric in metrics"
           :key="metric.channel"
           :value="metric.channel"
-          class="rounded-lg border border-sky-100/70 bg-sky-50/30 p-3"
+          class="rounded-lg border border-sky-100/70 bg-sky-50/30 p-3 sm:p-4"
         >
-          <div class="grid grid-cols-2 gap-2 text-sm">
+          <div class="grid grid-cols-1 gap-y-2 text-sm sm:grid-cols-2 sm:gap-2">
             <div><span class="text-slate-500">Impressions:</span> <strong class="text-slate-800">{{ metric.impressions }}</strong></div>
             <div><span class="text-slate-500">Clicks:</span> <strong class="text-slate-800">{{ metric.clicks }}</strong></div>
             <div><span class="text-slate-500">CTR:</span> <strong class="text-slate-800">{{ metric.ctr }}%</strong></div>
             <div><span class="text-slate-500">Conversions:</span> <strong class="text-slate-800">{{ metric.conversions }}</strong></div>
-            <div class="col-span-2"><span class="text-slate-500">Spend:</span> <strong class="text-slate-800">{{ metric.spend }}</strong></div>
+            <div class="sm:col-span-2"><span class="text-slate-500">Spend:</span> <strong class="text-slate-800">{{ metric.spend }}</strong></div>
           </div>
         </TabsContent>
       </Tabs>

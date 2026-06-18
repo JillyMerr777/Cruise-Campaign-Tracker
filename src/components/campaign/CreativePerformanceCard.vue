@@ -11,8 +11,8 @@
           <div class="mb-3 text-xs text-slate-500">CTR 3.9% • Conversions 460 • Revenue $182K</div>
 
           <div class="flex items-center gap-3">
-            <div class="grid size-14 place-items-center rounded-full bg-white text-sm font-semibold text-emerald-700 shadow-sm" :style="resonanceCircleStyle">
-              <div class="grid size-10 place-items-center rounded-full bg-white">89</div>
+            <div class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white text-sm font-semibold text-cyan-700 shadow-sm" :style="resonanceCircleStyle">
+              <div class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white">89</div>
             </div>
             <div>
               <div class="text-xs text-slate-500">Resonance Score</div>
@@ -70,6 +70,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
 const resonanceCircleStyle = computed(() => ({
-  background: 'conic-gradient(rgb(16 185 129) 0% 89%, rgb(224 242 254) 89% 100%)'
+  background: 'conic-gradient(rgb(0 200 244) 0% 49%, rgb(255 79 162) 49% 89%, rgb(224 242 254) 89% 100%)'
 }));
 </script>

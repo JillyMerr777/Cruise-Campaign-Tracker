@@ -25,7 +25,7 @@
         </span>
       </div>
 
-      <div class="mb-2 min-h-9 text-[1.82rem] leading-none font-bold tabular-nums tracking-tight text-slate-900">{{ value }}</div>
+      <div class="mb-2 min-h-9 break-words text-[clamp(1.25rem,2.2vw,1.82rem)] leading-tight font-bold tabular-nums tracking-tight text-slate-900">{{ value }}</div>
 
       <div class="mt-auto flex items-center justify-between gap-2">
         <MetricDelta :delta="delta" />

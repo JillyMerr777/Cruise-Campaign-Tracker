@@ -14,11 +14,11 @@ body,
   min-height: 100%;
   font-family: 'Manrope', sans-serif;
   background:
-    radial-gradient(circle at 14% 84%, rgba(0, 210, 255, 0.24) 0%, rgba(0, 210, 255, 0) 26%),
-    radial-gradient(circle at 72% 18%, rgba(255, 95, 164, 0.2) 0%, rgba(255, 95, 164, 0) 28%),
-    radial-gradient(circle at 84% 12%, rgba(255, 190, 48, 0.18) 0%, rgba(255, 190, 48, 0) 22%),
-    radial-gradient(circle at 38% 100%, rgba(62, 64, 255, 0.12) 0%, rgba(62, 64, 255, 0) 34%),
-    linear-gradient(160deg, #f5f7ff 0%, #f8f4ff 46%, #f6fbff 100%);
+    radial-gradient(circle at 14% 84%, rgba(0, 199, 255, 0.28) 0%, rgba(0, 199, 255, 0) 28%),
+    radial-gradient(circle at 72% 18%, rgba(255, 36, 159, 0.2) 0%, rgba(255, 36, 159, 0) 30%),
+    radial-gradient(circle at 84% 12%, rgba(255, 184, 38, 0.22) 0%, rgba(255, 184, 38, 0) 24%),
+    radial-gradient(circle at 38% 100%, rgba(38, 68, 255, 0.14) 0%, rgba(38, 68, 255, 0) 36%),
+    linear-gradient(160deg, #f7faff 0%, #fff4fb 42%, #f4fdff 100%);
   color: #1a2b49;
 }
 
@@ -31,18 +31,29 @@ body,
 
 .app-shell-art {
   position: fixed;
-  left: clamp(8px, 2vw, 24px);
-  bottom: 0;
+  left: clamp(0px, calc((100vw - 1540px) / 2), 42px);
+  bottom: 10px;
+  width: clamp(270px, 22vw, 340px);
+  display: flex;
+  justify-content: center;
   z-index: 0;
   pointer-events: none;
   opacity: 0.95;
+  transform-origin: left bottom;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.app-shell-art-hidden {
+  opacity: 0;
+  transform: translateY(16px) scale(0.94);
 }
 
 .app-shell-art-logo {
-  width: clamp(280px, 28vw, 460px);
-  max-width: 34vw;
+  width: clamp(250px, 26vw, 380px);
+  max-width: 100%;
   height: auto;
   object-fit: contain;
+  transform: translateX(-2px);
   filter: saturate(1.08) drop-shadow(0 18px 50px rgba(2, 183, 255, 0.18)) drop-shadow(0 10px 36px rgba(255, 82, 162, 0.16));
 }
 
@@ -55,7 +66,7 @@ body,
 .workspace-surface {
   border: 1px solid rgba(215, 223, 238, 0.95);
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(247, 249, 255, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 252, 255, 0.94) 48%, rgba(255, 246, 252, 0.91) 100%);
   box-shadow: 0 18px 42px rgba(24, 40, 78, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.45) inset;
 }
 
@@ -72,9 +83,9 @@ body,
 
 .app-topbar {
   margin: 0 0 10px;
-  border: 1px solid rgba(206, 218, 242, 0.95);
+  border: 1px solid rgba(178, 220, 247, 0.9);
   border-radius: 12px !important;
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: linear-gradient(95deg, rgba(255, 255, 255, 0.94) 0%, rgba(238, 251, 255, 0.91) 48%, rgba(255, 240, 249, 0.9) 100%) !important;
   box-shadow: 0 10px 24px rgba(24, 40, 78, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
   backdrop-filter: blur(14px);
 }
@@ -83,30 +94,50 @@ body,
   min-width: 252px;
 }
 
+.topbar-layout {
+  row-gap: 0.65rem;
+}
+
+.topbar-primary {
+  min-width: 0;
+}
+
 .brand-logo {
-  width: 34px;
-  height: 34px;
+  width: 54px;
+  height: 54px;
   object-fit: contain;
   border-radius: 10px;
 }
 
 .topbar-brand-text {
   color: #122449;
-  font-size: 0.94rem;
+  font-size: 1rem;
 }
 
 .topbar-context-chip {
   border-color: rgba(112, 223, 255, 0.55) !important;
   background: rgba(235, 251, 255, 0.92) !important;
   color: #0b6b90 !important;
+  max-width: clamp(160px, 24vw, 280px);
+  overflow: hidden;
 }
 
 .topbar-search {
-  max-width: 220px;
+  width: min(100%, 290px);
+}
+
+.topbar-search input {
+  width: 100%;
 }
 
 .topbar-actions {
   gap: 0.375rem;
+}
+
+.topbar-actions > a,
+.topbar-actions > button,
+.topbar-actions > div {
+  flex-shrink: 0;
 }
 
 .app-drawer {
@@ -127,8 +158,8 @@ body,
 }
 
 .drawer-logo {
-  width: 28px;
-  height: 28px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
   border-radius: 8px;
 }
@@ -156,8 +187,8 @@ body,
 
 [data-slot='card'] {
   border-color: rgba(218, 226, 240, 0.95) !important;
-  background: rgba(255, 255, 255, 0.94) !important;
-  box-shadow: 0 8px 18px rgba(24, 40, 78, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.38) inset !important;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.97) 0%, rgba(242, 252, 255, 0.92) 44%, rgba(255, 243, 251, 0.9) 100%) !important;
+  box-shadow: 0 10px 22px rgba(24, 40, 78, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.42) inset !important;
 }
 
 .skip-link {
@@ -240,11 +271,22 @@ textarea:focus-visible {
   .topbar-brand-text {
     font-size: 0.86rem;
     line-height: 1.2;
+    max-width: 13.2rem;
   }
 
   .topbar-context-chip {
     font-size: 0.72rem;
     line-height: 1.05;
+  }
+
+  .topbar-search {
+    width: 100%;
+    max-width: none;
+  }
+
+  .topbar-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .workspace-surface {
@@ -259,14 +301,46 @@ textarea:focus-visible {
     display: none;
   }
 
-  .topbar-search {
-    max-width: 168px;
+  .app-shell-art-logo {
+    width: clamp(180px, 44vw, 260px);
+    max-width: 100%;
+    opacity: 0.9;
+  }
+
+  .app-shell-art {
+    left: 12px;
+    bottom: 8px;
+    width: clamp(180px, 35vw, 220px);
+    justify-content: flex-start;
+  }
+
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .drawer-logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar-brand-text {
+    max-width: 9.5rem;
   }
 
   .app-shell-art-logo {
-    width: clamp(220px, 54vw, 360px);
-    max-width: 62vw;
-    opacity: 0.9;
+    width: clamp(130px, 34vw, 180px);
+    max-width: 100%;
+    opacity: 0.82;
+  }
+
+  .topbar-context-chip {
+    max-width: calc(100vw - 96px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 

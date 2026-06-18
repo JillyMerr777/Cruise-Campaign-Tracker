@@ -3,7 +3,7 @@
     <CardHeader class="pb-2">
       <CardTitle class="text-base font-semibold text-slate-900">Channel Mix</CardTitle>
     </CardHeader>
-    <CardContent class="h-[260px]">
+    <CardContent class="h-[228px] sm:h-[248px] lg:h-[260px]">
       <Doughnut :data="chartData" :options="options" />
     </CardContent>
   </Card>

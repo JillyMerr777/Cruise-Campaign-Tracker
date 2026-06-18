@@ -20,6 +20,22 @@ const routes = [
     path: '/lifecycle',
     name: 'lifecycle',
     component: () => import('../views/LifecycleTrackerView.vue')
+  },
+  {
+    path: '/audiences',
+    name: 'audiences',
+    component: () => import('../views/ComingSoonView.vue'),
+    meta: {
+      title: 'Audience Analytics'
+    }
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../views/ComingSoonView.vue'),
+    meta: {
+      title: 'Settings'
+    }
   }
 ];
 

@@ -4,7 +4,8 @@
       <CardTitle class="text-base font-semibold text-slate-900">Campaign Comparison</CardTitle>
     </CardHeader>
     <CardContent class="pb-4 pt-0">
-      <Table>
+      <div class="overflow-x-auto">
+      <Table class="min-w-[760px]">
         <TableHeader>
           <TableRow>
             <TableHead>Campaign</TableHead>
@@ -34,6 +35,7 @@
           </TableRow>
         </TableBody>
       </Table>
+      </div>
     </CardContent>
   </Card>
 </template>

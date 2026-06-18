@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+  <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
     <div v-for="item in items" :key="item.label" class="h-full">
       <KpiCard
         :label="item.label"
