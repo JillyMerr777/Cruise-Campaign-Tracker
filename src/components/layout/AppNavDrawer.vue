@@ -10,13 +10,11 @@
   >
     <div class="drawer-header px-3 py-3">
       <div class="d-flex align-center justify-space-between">
-        <div v-if="!rail" class="drawer-brand d-flex align-center ga-2">
-          <v-avatar size="28" color="primary" variant="tonal">
-            <v-icon size="16" icon="mdi-finance" />
-          </v-avatar>
+        <div class="drawer-brand d-flex align-center ga-2">
+          <img class="drawer-logo" :src="cruiseLogo" alt="SunWave Cruises logo" />
           <div>
-            <div class="text-caption font-weight-bold">Marketing Intel</div>
-            <div class="text-caption text-medium-emphasis">Operations Hub</div>
+            <div v-if="!rail" class="text-caption font-weight-bold">SunWave Cruises</div>
+            <div v-if="!rail" class="text-caption text-medium-emphasis">Marketing Operations Hub</div>
           </div>
         </div>
         <v-btn
@@ -91,6 +89,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
+import cruiseLogo from '../../assets/Cruise_Logo.png';
 
 const display = useDisplay();
 const rail = ref(false);

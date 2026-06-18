@@ -69,6 +69,13 @@ body,
   min-width: 280px;
 }
 
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
 .topbar-brand-text {
   color: #1b2f53;
   font-size: 0.92rem;
@@ -99,6 +106,13 @@ body,
 
 .drawer-header {
   border-bottom: 1px solid rgba(95, 130, 190, 0.14);
+}
+
+.drawer-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .drawer-footer {

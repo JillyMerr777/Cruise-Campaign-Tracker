@@ -2,10 +2,8 @@
   <v-app-bar flat class="app-topbar px-2 px-sm-4" color="transparent">
     <div class="d-flex align-center ga-3 w-100 flex-wrap flex-md-nowrap">
       <div class="topbar-brand d-flex align-center ga-2">
-        <v-avatar size="28" color="primary" variant="tonal">
-          <v-icon size="16" icon="mdi-ferry" />
-        </v-avatar>
-        <span class="font-weight-bold topbar-brand-text">Cruise Campaign Intelligence</span>
+        <img class="brand-logo" :src="cruiseLogo" alt="SunWave Cruises logo" />
+        <span class="font-weight-bold topbar-brand-text">SunWave Cruise Intelligence</span>
       </div>
 
       <v-chip class="topbar-context-chip" color="info" variant="tonal" prepend-icon="mdi-chart-line">
@@ -36,6 +34,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
+import cruiseLogo from '../../assets/Cruise_Logo.png';
 
 const route = useRoute();
 
