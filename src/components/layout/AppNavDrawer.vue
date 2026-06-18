@@ -1,5 +1,11 @@
 <template>
-  <v-navigation-drawer :rail="display.smAndDown.value" permanent color="rgba(8,18,36,0.96)" aria-label="Primary navigation">
+  <v-navigation-drawer
+    :rail="display.smAndDown.value"
+    permanent
+    class="app-drawer"
+    color="transparent"
+    aria-label="Primary navigation"
+  >
     <v-list nav density="comfortable">
       <v-list-item
         v-for="item in items"

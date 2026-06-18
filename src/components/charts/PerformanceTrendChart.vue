@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>Performance Trend</v-card-title>
     <v-card-text style="height: 320px">
-      <Line :data="chartData" :options="defaultChartOptions" />
+      <Line :data="chartData" :options="options" />
       <AccessibleChartSummary summary="Weekly clicks and conversions are trending upward with a mild plateau this week." />
     </v-card-text>
   </v-card>
@@ -11,10 +11,37 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Line } from 'vue-chartjs';
-import { defaultChartOptions } from '../../utils/chartHelpers';
+import type { TooltipItem } from 'chart.js';
+import { chartPalette, defaultChartOptions } from '../../utils/chartHelpers';
+import { formatCompact } from '../../utils/formatters';
 import AccessibleChartSummary from '../shared/AccessibleChartSummary.vue';
 
 const props = defineProps<{ clicks: number; conversions: number }>();
+
+const tooltipValue = (context: TooltipItem<'line'>): number => context.parsed.y ?? 0;
+
+const options = computed(() => ({
+  ...defaultChartOptions,
+  scales: {
+    ...defaultChartOptions.scales,
+    y: {
+      ...defaultChartOptions.scales.y,
+      ticks: {
+        ...defaultChartOptions.scales.y.ticks,
+        callback: (value: string | number) => formatCompact(Number(value))
+      }
+    }
+  },
+  plugins: {
+    ...defaultChartOptions.plugins,
+    tooltip: {
+      ...defaultChartOptions.plugins.tooltip,
+      callbacks: {
+        label: (context: TooltipItem<'line'>) => `${context.dataset.label ?? 'Value'}: ${formatCompact(tooltipValue(context))}`
+      }
+    }
+  }
+}));
 
 const chartData = computed(() => ({
   labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'],
@@ -22,15 +49,23 @@ const chartData = computed(() => ({
     {
       label: 'Clicks',
       data: [props.clicks * 0.11, props.clicks * 0.14, props.clicks * 0.18, props.clicks * 0.16, props.clicks * 0.19, props.clicks * 0.22],
-      borderColor: '#2de2e6',
-      backgroundColor: 'rgba(45,226,230,0.18)',
+      borderColor: chartPalette.teal,
+      backgroundColor: 'rgba(0,168,185,0.16)',
       fill: true,
+      pointBackgroundColor: '#ffffff',
+      pointBorderColor: chartPalette.teal,
+      pointBorderWidth: 2,
+      pointRadius: 3,
       tension: 0.35
     },
     {
       label: 'Conversions',
       data: [props.conversions * 0.1, props.conversions * 0.12, props.conversions * 0.16, props.conversions * 0.18, props.conversions * 0.21, props.conversions * 0.23],
-      borderColor: '#ff6ec7',
+      borderColor: chartPalette.coral,
+      pointBackgroundColor: '#ffffff',
+      pointBorderColor: chartPalette.coral,
+      pointBorderWidth: 2,
+      pointRadius: 3,
       tension: 0.35
     }
   ]

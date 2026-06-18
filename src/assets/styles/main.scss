@@ -13,11 +13,22 @@ body,
   margin: 0;
   min-height: 100%;
   font-family: 'Manrope', sans-serif;
-  background: radial-gradient(circle at 15% 0%, #17305a 0%, #07101f 50%, #050915 100%);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(118, 239, 255, 0.35) 0%, rgba(118, 239, 255, 0) 48%),
+    radial-gradient(circle at 89% 10%, rgba(255, 167, 214, 0.34) 0%, rgba(255, 167, 214, 0) 45%),
+    radial-gradient(circle at 55% 100%, rgba(153, 197, 255, 0.22) 0%, rgba(153, 197, 255, 0) 48%),
+    linear-gradient(135deg, #e9f4ff 0%, #f6f8ff 45%, #effcfb 100%);
+  color: #132544;
 }
 
 .v-application {
   font-family: 'Manrope', sans-serif !important;
+  color: #132544;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: transparent;
 }
 
 .app-container {
@@ -28,6 +39,113 @@ body,
 
 .card-glow {
   box-shadow: var(--shadow-neon);
+}
+
+.app-topbar {
+  margin: 14px 18px 0;
+  border: 1px solid var(--stroke-soft);
+  border-radius: 20px !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(11, 35, 70, 0.08);
+}
+
+.app-drawer {
+  margin: 20px 0 20px 18px;
+  border: 1px solid var(--stroke-soft);
+  border-radius: 24px !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(11, 35, 70, 0.07);
+}
+
+.app-drawer .v-list-item {
+  margin: 4px 8px;
+  min-height: 44px;
+}
+
+.app-drawer .v-list-item--active {
+  background: linear-gradient(110deg, #01b5bf 0%, #5ad8e2 55%, #9be3ff 100%);
+  color: #062236 !important;
+  font-weight: 700;
+}
+
+.app-drawer .v-list-item--active .v-icon {
+  color: #062236 !important;
+}
+
+.v-main {
+  padding-top: 14px;
+}
+
+.v-card {
+  border: 1px solid var(--stroke-soft);
+  background: rgba(255, 255, 255, 0.86) !important;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-card);
+}
+
+.v-card-title {
+  color: #132544;
+  font-weight: 700;
+}
+
+.v-chip,
+.v-alert,
+.v-sheet {
+  border-radius: 14px !important;
+}
+
+.v-btn {
+  border-radius: 12px !important;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 650;
+}
+
+.v-btn--variant-elevated,
+.v-btn--variant-flat {
+  box-shadow: 0 8px 20px rgba(0, 168, 185, 0.18);
+}
+
+.v-input .v-field {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.v-table,
+.v-data-table {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.v-data-table thead th {
+  color: #163155 !important;
+  font-weight: 700 !important;
+  background: rgba(103, 200, 255, 0.09);
+}
+
+.v-data-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.v-data-table tbody tr:nth-child(odd) {
+  background: rgba(237, 249, 255, 0.72);
+}
+
+.v-data-table tbody tr:hover {
+  background: rgba(255, 230, 110, 0.2) !important;
+}
+
+.v-data-table tbody td {
+  color: #163155;
+  font-weight: 550;
+}
+
+.text-medium-emphasis,
+.text-body-2,
+.text-caption {
+  color: rgba(19, 37, 68, 0.74) !important;
 }
 
 .skip-link {
@@ -59,6 +177,16 @@ textarea:focus-visible,
 }
 
 @media (max-width: 960px) {
+  .app-topbar {
+    margin: 10px 10px 0;
+    border-radius: 16px !important;
+  }
+
+  .app-drawer {
+    margin: 10px;
+    border-radius: 16px !important;
+  }
+
   .app-container {
     padding: var(--space-2);
   }

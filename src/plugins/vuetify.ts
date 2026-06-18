@@ -3,18 +3,18 @@ import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 
 const cruiseTheme = {
-  dark: true,
+  dark: false,
   colors: {
-    background: '#07101f',
-    surface: '#111c31',
-    'surface-bright': '#192848',
-    primary: '#2de2e6',
-    secondary: '#ff6ec7',
-    accent: '#f4ff52',
-    success: '#5df4a4',
-    warning: '#ffb44f',
-    error: '#ff5f8f',
-    info: '#55a7ff'
+    background: '#edf4ff',
+    surface: '#ffffff',
+    'surface-bright': '#f6faff',
+    primary: '#00a8b9',
+    secondary: '#ff5fa2',
+    accent: '#ffe66e',
+    success: '#24c99a',
+    warning: '#ffaf45',
+    error: '#e94f64',
+    info: '#2f80ed'
   }
 };
 
@@ -31,7 +31,7 @@ export default createVuetify({
   defaults: {
     VCard: {
       rounded: 'xl',
-      elevation: 8
+      elevation: 0
     }
   }
 });
