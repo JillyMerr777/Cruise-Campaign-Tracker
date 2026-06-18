@@ -1,5 +1,5 @@
 <template>
-  <p class="text-caption text-medium-emphasis mt-2">
+  <p class="mt-2 text-xs text-slate-500">
     {{ summary }}
   </p>
 </template>

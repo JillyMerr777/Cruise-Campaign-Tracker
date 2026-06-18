@@ -1,16 +1,20 @@
 <template>
-  <v-row>
-    <v-col v-for="metric in metrics" :key="metric.label" cols="6" md="3">
-      <v-card>
-        <v-card-text>
-          <div class="text-caption">{{ metric.label }}</div>
-          <div class="text-h6">{{ metric.value }}</div>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+    <Card
+      v-for="metric in metrics"
+      :key="metric.label"
+      class="border-sky-100/60 bg-white/85 shadow-[0_10px_22px_rgba(41,71,125,0.1)] backdrop-blur-sm"
+      size="sm"
+    >
+      <CardContent class="pt-3">
+        <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">{{ metric.label }}</div>
+        <div class="text-xl font-semibold text-slate-900">{{ metric.value }}</div>
+      </CardContent>
+    </Card>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { Card, CardContent } from '@/components/ui/card';
 defineProps<{ metrics: Array<{ label: string; value: string | number }> }>();
 </script>

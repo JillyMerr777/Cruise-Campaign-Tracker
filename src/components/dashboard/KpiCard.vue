@@ -1,43 +1,79 @@
 <template>
-  <v-card class="kpi-card">
-    <v-card-text class="pa-4">
-      <div class="d-flex align-center justify-space-between mb-2">
-        <div class="d-flex align-center ga-1 text-caption text-medium-emphasis">
-          <span>{{ label }}</span>
-          <v-tooltip v-if="deltaContext" location="top">
-            <template #activator="{ props }">
-              <v-btn
-                v-bind="props"
-                icon="mdi-information-outline"
-                size="x-small"
-                density="compact"
-                variant="text"
-                :aria-label="`${label} delta context`"
-              />
-            </template>
-            <span>{{ deltaContext }}</span>
-          </v-tooltip>
+  <Card class="kpi-card h-full border-sky-100/60 bg-white/85 shadow-[0_12px_26px_rgba(41,71,125,0.12)] backdrop-blur-sm" size="sm">
+    <CardContent class="flex h-full flex-col pt-3">
+      <div class="mb-2 flex items-start justify-between gap-2">
+        <div class="min-h-9 max-w-[80%] flex items-start gap-1 text-[11px] font-semibold uppercase tracking-[0.03em] text-slate-500">
+          <span class="line-clamp-2">{{ label }}</span>
+          <TooltipProvider v-if="deltaContext">
+            <Tooltip>
+              <TooltipTrigger as-child>
+                <button
+                  type="button"
+                  class="inline-flex h-5 w-5 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                  :aria-label="`${label} delta context`"
+                >
+                  <Info class="size-3.5" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>{{ deltaContext }}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
 
-        <v-avatar :color="delta >= 0 ? 'success' : 'error'" variant="tonal" size="30">
-          <v-icon :icon="icon || 'mdi-chart-box-outline'" size="16" />
-        </v-avatar>
+        <span :class="delta >= 0 ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200/70' : 'bg-rose-50 text-rose-700 ring-1 ring-rose-200/70'" class="inline-flex h-8 w-8 items-center justify-center rounded-full">
+          <component :is="iconComponent" class="size-4" />
+        </span>
       </div>
 
-      <div class="kpi-value mb-1">{{ value }}</div>
+      <div class="mb-2 min-h-9 text-[1.95rem] leading-none font-bold tabular-nums tracking-tight text-slate-900">{{ value }}</div>
 
-      <div class="d-flex align-center justify-space-between">
+      <div class="mt-auto flex items-center justify-between gap-2">
         <MetricDelta :delta="delta" />
-        <v-chip :color="delta >= 0 ? 'success' : 'error'" size="x-small" variant="tonal" label>
+        <Badge
+          class="text-[11px] font-semibold tracking-[0.01em]"
+          :class="delta >= 0 ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200/80 hover:bg-emerald-50' : 'bg-rose-50 text-rose-800 ring-1 ring-rose-200/80 hover:bg-rose-50'"
+        >
           {{ delta >= 0 ? 'Improving' : 'Declining' }}
-        </v-chip>
+        </Badge>
       </div>
-    </v-card-text>
-  </v-card>
+    </CardContent>
+  </Card>
 </template>
 
 <script setup lang="ts">
+import { computed, type Component } from 'vue';
+import {
+  BarChart3,
+  Banknote,
+  CheckCircle2,
+  Coins,
+  Eye,
+  HeartPulse,
+  Image,
+  Info,
+  TrendingUp
+} from '@lucide/vue';
+import type { LucideIcon } from '@lucide/vue';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import MetricDelta from '../shared/MetricDelta.vue';
 
-defineProps<{ label: string; value: string; delta: number; deltaContext?: string; icon?: string }>();
+const props = defineProps<{ label: string; value: string; delta: number; deltaContext?: string; icon?: string }>();
+
+const iconMap: Record<string, LucideIcon> = {
+  'mdi-cash-multiple': Coins,
+  'mdi-bank-outline': Banknote,
+  'mdi-image-multiple-outline': Image,
+  'mdi-heart-pulse': HeartPulse,
+  'mdi-check-decagram-outline': CheckCircle2,
+  'mdi-finance': TrendingUp,
+  'mdi-chart-box-outline': BarChart3,
+  'mdi-eye-outline': Eye
+};
+
+const iconComponent = computed<Component>(() => {
+  if (!props.icon) return BarChart3;
+  return iconMap[props.icon] ?? BarChart3;
+});
 </script>

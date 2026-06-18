@@ -1,147 +1,194 @@
 <template>
-  <div class="mb-4 dashboard-hero-card pa-4 pa-md-5">
-    <div class="d-flex justify-space-between align-start flex-wrap ga-3">
-      <div>
+  <div class="dashboard-hero-card mb-4 rounded-2xl px-4 py-5 md:px-6">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div class="max-w-3xl">
         <h1 class="page-title">Start New Campaign</h1>
-        <p class="page-subtitle mb-0">Build launch-ready campaigns with audience clarity, budget discipline, and lifecycle ownership from day one.</p>
+        <p class="page-subtitle mb-0 mt-1">
+          Build launch-ready campaigns with audience clarity, budget discipline, and lifecycle ownership from day one.
+        </p>
       </div>
-      <div class="d-flex ga-2 flex-wrap">
-        <v-chip color="primary" variant="tonal" prepend-icon="mdi-target-account">Planning Studio</v-chip>
-        <v-chip color="success" variant="tonal" prepend-icon="mdi-shield-check-outline">Quality Gate Enabled</v-chip>
+      <div class="flex flex-wrap gap-2">
+        <Badge class="bg-cyan-100 text-cyan-900 hover:bg-cyan-100">
+          <Target class="mr-1 size-3.5" />
+          Planning Studio
+        </Badge>
+        <Badge class="bg-emerald-100 text-emerald-900 hover:bg-emerald-100">
+          <ShieldCheck class="mr-1 size-3.5" />
+          Quality Gate Enabled
+        </Badge>
       </div>
     </div>
   </div>
 
-  <v-row class="mb-4">
-    <v-col cols="12" lg="8">
+  <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+    <div class="lg:col-span-8">
       <CampaignForm />
 
-      <v-card class="mt-4">
-        <v-card-text class="d-flex ga-2 flex-wrap">
-          <v-btn color="primary" prepend-icon="mdi-content-save-outline">Save Campaign Draft</v-btn>
-          <v-btn color="secondary" variant="tonal" prepend-icon="mdi-send-outline">Submit For Approval</v-btn>
-          <v-btn variant="tonal" to="/">Cancel</v-btn>
-        </v-card-text>
-      </v-card>
-    </v-col>
+      <Card class="mt-4 border-sky-100/60 bg-white/85 shadow-[0_16px_34px_rgba(41,71,125,0.14)] backdrop-blur-sm">
+        <CardContent class="flex flex-wrap gap-2 pt-4">
+          <Button class="bg-cyan-500 text-white hover:bg-cyan-400">
+            <Save class="mr-1 size-4" />
+            Save Campaign Draft
+          </Button>
+          <Button variant="secondary" class="bg-pink-100 text-pink-900 hover:bg-pink-200">
+            <Send class="mr-1 size-4" />
+            Submit For Approval
+          </Button>
+          <RouterLink :to="'/'" :class="buttonVariants({ variant: 'outline' })">Cancel</RouterLink>
+        </CardContent>
+      </Card>
+    </div>
 
-    <v-col cols="12" lg="4">
-      <v-card class="mb-4">
-        <v-card-title class="d-flex align-center justify-space-between">
-          Launch Readiness
-          <v-chip size="small" color="warning" variant="tonal">{{ readinessPercent }}%</v-chip>
-        </v-card-title>
-        <v-card-text>
-          <v-progress-linear :model-value="readinessPercent" color="warning" bg-color="info" rounded height="10" class="mb-3" />
+    <div class="lg:col-span-4">
+      <Card class="mb-4 border-sky-100/60 bg-white/85 shadow-[0_16px_34px_rgba(41,71,125,0.14)] backdrop-blur-sm">
+        <CardHeader class="flex flex-row items-center justify-between pb-3">
+          <CardTitle>Launch Readiness</CardTitle>
+          <Badge class="bg-amber-100 text-amber-900 hover:bg-amber-100">{{ readinessPercent }}%</Badge>
+        </CardHeader>
+        <CardContent>
+          <Progress :model-value="readinessPercent" class="mb-4 h-2 bg-sky-100 [&>*]:bg-amber-400" />
 
-          <v-list density="compact" class="bg-transparent">
-            <v-list-item
+          <div class="space-y-2">
+            <div
               v-for="item in readinessChecklist"
               :key="item.label"
-              :prepend-icon="item.complete ? 'mdi-check-circle-outline' : 'mdi-alert-outline'"
-              :title="item.label"
+              class="flex items-center justify-between rounded-lg border border-sky-100/70 bg-sky-50/40 px-3 py-2"
             >
-              <template #append>
-                <v-chip :color="item.complete ? 'success' : 'warning'" size="x-small" variant="tonal">
-                  {{ item.complete ? 'Ready' : 'Pending' }}
-                </v-chip>
-              </template>
-            </v-list-item>
-          </v-list>
-        </v-card-text>
-      </v-card>
+              <div class="flex items-center gap-2 text-sm font-medium text-slate-800">
+                <CheckCircle2 v-if="item.complete" class="size-4 text-emerald-600" />
+                <AlertCircle v-else class="size-4 text-amber-600" />
+                {{ item.label }}
+              </div>
+              <Badge :class="item.complete ? 'bg-emerald-100 text-emerald-900 hover:bg-emerald-100' : 'bg-amber-100 text-amber-900 hover:bg-amber-100'">
+                {{ item.complete ? 'Ready' : 'Pending' }}
+              </Badge>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      <v-card class="mb-4">
-        <v-card-title>Budget Guardrails</v-card-title>
-        <v-card-text>
-          <div class="d-flex justify-space-between align-center mb-2">
-            <span class="text-caption">Planned investment</span>
+      <Card class="mb-4 border-sky-100/60 bg-white/85 shadow-[0_16px_34px_rgba(41,71,125,0.14)] backdrop-blur-sm">
+        <CardHeader class="pb-3">
+          <CardTitle class="text-base font-semibold text-slate-900">Budget Guardrails</CardTitle>
+        </CardHeader>
+        <CardContent class="space-y-2 text-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500">Planned investment</span>
             <strong>{{ budgetPlan }}</strong>
           </div>
-          <div class="d-flex justify-space-between align-center mb-2">
-            <span class="text-caption">Expected launch window</span>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500">Expected launch window</span>
             <strong>14 days</strong>
           </div>
-          <div class="d-flex justify-space-between align-center">
-            <span class="text-caption">Primary KPI</span>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500">Primary KPI</span>
             <strong>Booking conversion rate</strong>
           </div>
-        </v-card-text>
-      </v-card>
+        </CardContent>
+      </Card>
 
-      <v-card>
-        <v-card-title>Workflow Handoff</v-card-title>
-        <v-card-text>
-          <p class="text-body-2 mb-3">Once submitted, this campaign is routed into lifecycle operations for approvals, QA readiness, and monitored launch.</p>
+      <Card class="border-sky-100/60 bg-white/85 shadow-[0_16px_34px_rgba(41,71,125,0.14)] backdrop-blur-sm">
+        <CardHeader class="pb-3">
+          <CardTitle class="text-base font-semibold text-slate-900">Workflow Handoff</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p class="mb-3 text-sm text-slate-600">
+            Once submitted, this campaign is routed into lifecycle operations for approvals, QA readiness, and monitored launch.
+          </p>
 
-          <v-btn block color="secondary" variant="tonal" prepend-icon="mdi-chart-timeline-variant" to="/lifecycle">
+          <RouterLink :to="'/lifecycle'" :class="buttonVariants({ variant: 'secondary' }) + ' w-full bg-pink-100 text-pink-900 hover:bg-pink-200'">
+            <ChartLine class="mr-1 size-4" />
             Open Lifecycle Tracker
-          </v-btn>
+          </RouterLink>
 
-          <v-divider class="my-3" />
+          <Separator class="my-3" />
 
-          <div class="text-caption text-medium-emphasis mb-2">Recommended next action</div>
-          <div class="d-flex align-center ga-2">
-            <v-icon color="warning" icon="mdi-lightbulb-on-outline" />
-            <span class="text-body-2">Attach creative brief and approve spend before final submission.</span>
+          <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Recommended next action</div>
+          <div class="flex items-center gap-2">
+            <Lightbulb class="size-4 text-amber-500" />
+            <span class="text-sm text-slate-700">Attach creative brief and approve spend before final submission.</span>
           </div>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
 
-  <v-row>
-    <v-col cols="12" md="4">
-      <v-card>
-        <v-card-title>Audience Focus</v-card-title>
-        <v-card-text>
-          <p class="text-body-2 mb-2">Primary target: Luxury family and premium couple segments.</p>
-          <v-chip size="small" color="info" variant="tonal" class="mr-2 mb-2">Family Travel</v-chip>
-          <v-chip size="small" color="info" variant="tonal" class="mr-2 mb-2">Retiree Escapes</v-chip>
-          <v-chip size="small" color="info" variant="tonal" class="mb-2">Adventure Seekers</v-chip>
-        </v-card-text>
-      </v-card>
-    </v-col>
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <Card class="border-sky-100/60 bg-white/85 shadow-[0_16px_34px_rgba(41,71,125,0.14)] backdrop-blur-sm">
+      <CardHeader class="pb-3">
+        <CardTitle class="text-base font-semibold text-slate-900">Audience Focus</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="mb-3 text-sm text-slate-600">Primary target: Luxury family and premium couple segments.</p>
+        <div class="flex flex-wrap gap-2">
+          <Badge class="bg-cyan-100 text-cyan-900 hover:bg-cyan-100">Family Travel</Badge>
+          <Badge class="bg-cyan-100 text-cyan-900 hover:bg-cyan-100">Retiree Escapes</Badge>
+          <Badge class="bg-cyan-100 text-cyan-900 hover:bg-cyan-100">Adventure Seekers</Badge>
+        </div>
+      </CardContent>
+    </Card>
 
-    <v-col cols="12" md="4">
-      <v-card>
-        <v-card-title>Channel Split Recommendation</v-card-title>
-        <v-card-text>
-          <div class="d-flex justify-space-between mb-2">
-            <span class="text-body-2">Paid Search</span>
-            <strong>35%</strong>
-          </div>
-          <div class="d-flex justify-space-between mb-2">
-            <span class="text-body-2">Paid Social</span>
-            <strong>30%</strong>
-          </div>
-          <div class="d-flex justify-space-between mb-2">
-            <span class="text-body-2">Email</span>
-            <strong>20%</strong>
-          </div>
-          <div class="d-flex justify-space-between">
-            <span class="text-body-2">Display</span>
-            <strong>15%</strong>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-col>
+    <Card class="border-sky-100/60 bg-white/85 shadow-[0_16px_34px_rgba(41,71,125,0.14)] backdrop-blur-sm">
+      <CardHeader class="pb-3">
+        <CardTitle class="text-base font-semibold text-slate-900">Channel Split Recommendation</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span class="text-slate-700">Paid Search</span>
+          <strong>35%</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-700">Paid Social</span>
+          <strong>30%</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-700">Email</span>
+          <strong>20%</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-700">Display</span>
+          <strong>15%</strong>
+        </div>
+      </CardContent>
+    </Card>
 
-    <v-col cols="12" md="4">
-      <v-card>
-        <v-card-title>Launch SLA</v-card-title>
-        <v-card-text>
-          <p class="text-body-2 mb-2">Average time from draft to launch is 12.4 days for campaigns with completed creative documentation.</p>
-          <v-chip size="small" color="success" variant="tonal" prepend-icon="mdi-trending-up">2.3 days faster vs last quarter</v-chip>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+    <Card class="border-sky-100/60 bg-white/85 shadow-[0_16px_34px_rgba(41,71,125,0.14)] backdrop-blur-sm">
+      <CardHeader class="pb-3">
+        <CardTitle class="text-base font-semibold text-slate-900">Launch SLA</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="mb-2 text-sm text-slate-600">
+          Average time from draft to launch is 12.4 days for campaigns with completed creative documentation.
+        </p>
+        <Badge class="bg-emerald-100 text-emerald-900 hover:bg-emerald-100">
+          <TrendingUp class="mr-1 size-3.5" />
+          2.3 days faster vs last quarter
+        </Badge>
+      </CardContent>
+    </Card>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import {
+  AlertCircle,
+  ChartLine,
+  CheckCircle2,
+  Lightbulb,
+  Save,
+  Send,
+  ShieldCheck,
+  Target,
+  TrendingUp
+} from '@lucide/vue';
+import { RouterLink } from 'vue-router';
 import CampaignForm from '../components/campaign/CampaignForm.vue';
+import { Badge } from '@/components/ui/badge';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
 
 const readinessChecklist = [
   { label: 'Objective defined', complete: true },

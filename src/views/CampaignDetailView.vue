@@ -3,21 +3,27 @@
 
   <CampaignMetricsGrid class="mb-4" :metrics="metricCards" />
 
-  <v-row class="mb-4">
-    <v-col cols="12" lg="8"><PerformanceTrendChart :clicks="campaign.clicks" :conversions="campaign.conversions" /></v-col>
-    <v-col cols="12" lg="4"><BudgetSpendChart :budget="campaign.budget" :spend="campaign.spend" /></v-col>
-  </v-row>
+  <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+    <div class="lg:col-span-8">
+      <PerformanceTrendChart :clicks="campaign.clicks" :conversions="campaign.conversions" />
+    </div>
+    <div class="lg:col-span-4">
+      <BudgetSpendChart :budget="campaign.budget" :spend="campaign.spend" />
+    </div>
+  </div>
 
-  <v-row class="mb-4">
-    <v-col cols="12" lg="6"><BenchmarkComparisonCard :rows="benchmarkRows" /></v-col>
-    <v-col cols="12" lg="6"><ChannelMetricsTabs :metrics="channelMetrics" /></v-col>
-  </v-row>
+  <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <BenchmarkComparisonCard :rows="benchmarkRows" />
+    <ChannelMetricsTabs :metrics="channelMetrics" />
+  </div>
 
-  <v-row>
-    <v-col cols="12" lg="6"><CreativePerformanceCard /></v-col>
-    <v-col cols="12" lg="6"><ActivityFeed :items="activityFeed" /></v-col>
-    <v-col cols="12"><NotesPanel /></v-col>
-  </v-row>
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <CreativePerformanceCard />
+    <ActivityFeed :items="activityFeed" />
+    <div class="lg:col-span-2">
+      <NotesPanel />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,16 +1,19 @@
 <template>
-  <v-card>
-    <v-card-title>Performance Trend</v-card-title>
-    <v-card-text style="height: 320px">
+  <Card class="border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+    <CardHeader class="pb-2">
+      <CardTitle class="text-base font-semibold text-slate-900">Performance Trend</CardTitle>
+    </CardHeader>
+    <CardContent class="h-[320px]">
       <Line :data="chartData" :options="options" />
       <AccessibleChartSummary summary="Weekly clicks and conversions are trending upward with a mild plateau this week." />
-    </v-card-text>
-  </v-card>
+    </CardContent>
+  </Card>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Line } from 'vue-chartjs';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { TooltipItem } from 'chart.js';
 import { chartPalette, defaultChartOptions } from '../../utils/chartHelpers';
 import { formatCompact } from '../../utils/formatters';

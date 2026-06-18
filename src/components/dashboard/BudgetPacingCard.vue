@@ -1,19 +1,23 @@
 <template>
-  <v-card>
-    <v-card-title>Budget Pacing</v-card-title>
-    <v-card-text>
-      <div class="d-flex justify-space-between mb-2">
+  <Card class="border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+    <CardHeader class="pb-2">
+      <CardTitle class="text-base font-semibold text-slate-900">Budget Pacing</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div class="mb-2 flex justify-between text-sm">
         <span>Spend</span>
         <strong>{{ spendLabel }} / {{ budgetLabel }}</strong>
       </div>
-      <v-progress-linear :model-value="pace" color="warning" height="12" rounded />
-      <p class="text-caption mt-2">{{ pace.toFixed(1) }}% of budget consumed</p>
-    </v-card-text>
-  </v-card>
+      <Progress :model-value="pace" class="h-3 bg-sky-100 [&>*]:bg-amber-400" />
+      <p class="mt-2 text-xs text-slate-500">{{ pace.toFixed(1) }}% of budget consumed</p>
+    </CardContent>
+  </Card>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
 import { formatCurrency } from '../../utils/formatters';
 
 const props = defineProps<{ spend: number; budget: number }>();

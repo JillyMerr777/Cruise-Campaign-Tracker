@@ -1,6 +1,6 @@
 <template>
-  <v-row class="mt-1" dense>
-    <v-col v-for="item in items" :key="item.label" cols="12" sm="6" lg="4" xl="2">
+  <div class="mt-1 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+    <div v-for="item in items" :key="item.label" class="h-full">
       <KpiCard
         :label="item.label"
         :value="item.value"
@@ -8,8 +8,8 @@
         :delta-context="item.deltaContext"
         :icon="item.icon"
       />
-    </v-col>
-  </v-row>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

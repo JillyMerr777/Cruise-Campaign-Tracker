@@ -1,39 +1,37 @@
 <template>
-  <v-app-bar flat class="app-topbar px-2 px-sm-4" color="transparent">
-    <div class="d-flex align-center ga-3 w-100 flex-wrap flex-md-nowrap">
-      <div class="topbar-brand d-flex align-center ga-2">
+  <header class="app-topbar px-3 py-2">
+    <div class="flex w-full flex-wrap items-center gap-3 md:flex-nowrap">
+      <div class="topbar-brand flex items-center gap-2">
         <img class="brand-logo" :src="cruiseLogo" alt="SunWave Cruises logo" />
-        <span class="font-weight-bold topbar-brand-text">SunWave Cruise Intelligence</span>
+        <span class="topbar-brand-text font-bold">SunWave Cruise Intelligence</span>
       </div>
 
-      <v-chip class="topbar-context-chip" color="info" variant="tonal" prepend-icon="mdi-chart-line">
+      <Badge class="topbar-context-chip bg-sky-100 text-sky-900 hover:bg-sky-100">
+        <ChartLine class="mr-1 size-3.5" />
         {{ currentContext }}
-      </v-chip>
+      </Badge>
 
-      <v-spacer />
+      <div class="hidden flex-1 md:block" />
 
-      <v-text-field
-        class="topbar-search"
-        density="compact"
-        hide-details
-        variant="solo"
-        prepend-inner-icon="mdi-magnify"
-        aria-label="Search campaigns"
-        placeholder="Search campaigns"
-      />
+      <div class="topbar-search relative">
+        <Search class="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+        <Input class="pl-8" aria-label="Search campaigns" placeholder="Search campaigns" />
+      </div>
 
-      <v-btn icon="mdi-bell-outline" variant="text" aria-label="Open alerts" />
-      <v-btn icon="mdi-tune-variant" variant="text" aria-label="Open settings" />
-      <v-avatar size="34" class="ml-1" color="secondary">
-        <span class="text-caption font-weight-bold">AM</span>
-      </v-avatar>
+      <Button size="icon-sm" variant="ghost" aria-label="Open alerts"><Bell class="size-4" /></Button>
+      <Button size="icon-sm" variant="ghost" aria-label="Open settings"><SlidersHorizontal class="size-4" /></Button>
+      <div class="ml-1 grid size-[34px] place-items-center rounded-full bg-pink-100 text-xs font-bold text-pink-700">AM</div>
     </div>
-  </v-app-bar>
+  </header>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
+import { Bell, ChartLine, Search, SlidersHorizontal } from '@lucide/vue';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import cruiseLogo from '../../assets/Cruise_Logo.png';
 
 const route = useRoute();

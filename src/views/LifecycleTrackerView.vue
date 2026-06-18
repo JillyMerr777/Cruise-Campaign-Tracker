@@ -1,111 +1,122 @@
 <template>
-  <div class="mb-4 dashboard-hero-card pa-4 pa-md-5">
-    <div class="d-flex justify-space-between align-start flex-wrap ga-3">
-      <div>
+  <div class="dashboard-hero-card mb-4 rounded-2xl px-4 py-5 md:px-6">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div class="max-w-3xl">
         <h1 class="page-title">Campaign Lifecycle Tracker</h1>
-        <p class="page-subtitle mb-0">Coordinate execution from briefing to archive with clear stage ownership and deadline visibility.</p>
+        <p class="page-subtitle mb-0 mt-1">
+          Coordinate execution from briefing to archive with clear stage ownership and deadline visibility.
+        </p>
       </div>
-      <div class="d-flex ga-2 flex-wrap">
-        <v-chip color="warning" variant="tonal" prepend-icon="mdi-timer-sand">{{ pendingCount }} Items Need Attention</v-chip>
-        <v-chip color="info" variant="tonal" prepend-icon="mdi-account-group-outline">{{ activeOwners }} Active Owners</v-chip>
+      <div class="flex flex-wrap gap-2">
+        <Badge class="bg-amber-100 text-amber-900 hover:bg-amber-100">
+          <Hourglass class="mr-1 size-3.5" />
+          {{ pendingCount }} Items Need Attention
+        </Badge>
+        <Badge class="bg-sky-100 text-sky-900 hover:bg-sky-100">
+          <Users class="mr-1 size-3.5" />
+          {{ activeOwners }} Active Owners
+        </Badge>
       </div>
     </div>
   </div>
 
   <FilterBar v-model="filters" />
 
-  <v-row class="mb-4" dense>
-    <v-col cols="12" sm="6" md="3">
-      <v-card>
-        <v-card-text>
-          <div class="text-caption text-medium-emphasis mb-1">Completed Stages</div>
-          <div class="kpi-value">{{ completeCount }}</div>
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col cols="12" sm="6" md="3">
-      <v-card>
-        <v-card-text>
-          <div class="text-caption text-medium-emphasis mb-1">In Progress</div>
-          <div class="kpi-value">{{ inProgressCount }}</div>
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col cols="12" sm="6" md="3">
-      <v-card>
-        <v-card-text>
-          <div class="text-caption text-medium-emphasis mb-1">Pending</div>
-          <div class="kpi-value">{{ pendingCount }}</div>
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col cols="12" sm="6" md="3">
-      <v-card>
-        <v-card-text>
-          <div class="text-caption text-medium-emphasis mb-1">Stage Completion</div>
-          <div class="kpi-value">{{ completionRate }}%</div>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div class="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
+    <Card class="border-sky-100/60 bg-white/85 shadow-[0_12px_26px_rgba(41,71,125,0.12)] backdrop-blur-sm" size="sm">
+      <CardContent class="pt-3">
+        <div class="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">Completed Stages</div>
+        <div class="text-2xl font-semibold text-slate-900">{{ completeCount }}</div>
+      </CardContent>
+    </Card>
+    <Card class="border-sky-100/60 bg-white/85 shadow-[0_12px_26px_rgba(41,71,125,0.12)] backdrop-blur-sm" size="sm">
+      <CardContent class="pt-3">
+        <div class="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">In Progress</div>
+        <div class="text-2xl font-semibold text-slate-900">{{ inProgressCount }}</div>
+      </CardContent>
+    </Card>
+    <Card class="border-sky-100/60 bg-white/85 shadow-[0_12px_26px_rgba(41,71,125,0.12)] backdrop-blur-sm" size="sm">
+      <CardContent class="pt-3">
+        <div class="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">Pending</div>
+        <div class="text-2xl font-semibold text-slate-900">{{ pendingCount }}</div>
+      </CardContent>
+    </Card>
+    <Card class="border-sky-100/60 bg-white/85 shadow-[0_12px_26px_rgba(41,71,125,0.12)] backdrop-blur-sm" size="sm">
+      <CardContent class="pt-3">
+        <div class="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">Stage Completion</div>
+        <div class="text-2xl font-semibold text-slate-900">{{ completionRate }}%</div>
+      </CardContent>
+    </Card>
+  </div>
 
   <LifecycleStepper class="mb-4" />
 
-  <v-row class="mb-4">
-    <v-col cols="12" lg="6"><LifecycleStageCard :stages="stages" /></v-col>
-    <v-col cols="12" lg="6"><DeliverablesChecklist /></v-col>
-    <v-col cols="12" lg="6"><MilestonesTimeline /></v-col>
-    <v-col cols="12" lg="6"><BlockersPanel /></v-col>
-  </v-row>
+  <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <LifecycleStageCard :stages="stages" />
+    <DeliverablesChecklist />
+    <MilestonesTimeline />
+    <BlockersPanel />
+  </div>
 
-  <v-row>
-    <v-col cols="12" lg="7">
-      <v-card>
-        <v-card-title class="d-flex align-center ga-2">
-          <v-icon color="warning" icon="mdi-calendar-clock-outline" />
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
+    <div class="lg:col-span-7">
+      <Card class="border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+        <CardHeader class="pb-2">
+          <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900">
+            <CalendarClock class="size-4 text-amber-500" />
           Upcoming Deadlines
-        </v-card-title>
-        <v-card-subtitle>Ordered by nearest due date for non-complete stages.</v-card-subtitle>
-        <v-card-text>
-          <v-list v-if="upcomingStages.length > 0" lines="two" class="bg-transparent">
-            <v-list-item
+          </CardTitle>
+          <CardDescription>Ordered by nearest due date for non-complete stages.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div v-if="upcomingStages.length > 0" class="space-y-2">
+            <div
               v-for="stage in upcomingStages"
               :key="`${stage.name}-${stage.dueDate}`"
-              :title="stage.name"
-              :subtitle="`Owner: ${stage.owner || 'Unassigned'} • Due ${stage.dueDate || 'TBD'}`"
+              class="flex items-center justify-between rounded-lg border border-sky-100/70 bg-sky-50/30 px-3 py-2"
             >
-              <template #append>
-                <v-chip :color="stage.status === 'In Progress' ? 'info' : 'warning'" size="small" variant="tonal">
-                  {{ stage.status }}
-                </v-chip>
-              </template>
-            </v-list-item>
-          </v-list>
-          <p v-else class="text-body-2 mb-0">No pending deadlines in the current lifecycle view.</p>
-        </v-card-text>
-      </v-card>
-    </v-col>
+              <div>
+                <div class="text-sm font-medium text-slate-800">{{ stage.name }}</div>
+                <div class="text-xs text-slate-500">Owner: {{ stage.owner || 'Unassigned' }} • Due {{ stage.dueDate || 'TBD' }}</div>
+              </div>
+              <Badge :class="stage.status === 'In Progress' ? 'bg-sky-100 text-sky-900 hover:bg-sky-100' : 'bg-amber-100 text-amber-900 hover:bg-amber-100'">
+                {{ stage.status }}
+              </Badge>
+            </div>
+          </div>
+          <p v-else class="mb-0 text-sm text-slate-600">No pending deadlines in the current lifecycle view.</p>
+        </CardContent>
+      </Card>
+    </div>
 
-    <v-col cols="12" lg="5">
-      <v-card>
-        <v-card-title>Owner Capacity Snapshot</v-card-title>
-        <v-card-subtitle>Open stage assignments by owner.</v-card-subtitle>
-        <v-card-text>
-          <v-list density="compact" class="bg-transparent">
-            <v-list-item v-for="owner in ownerLoad" :key="owner.name" :title="owner.name">
-              <template #append>
-                <v-chip size="x-small" color="secondary" variant="tonal">{{ owner.count }} open</v-chip>
-              </template>
-            </v-list-item>
-          </v-list>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+    <div class="lg:col-span-5">
+      <Card class="border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+        <CardHeader class="pb-2">
+          <CardTitle class="text-base font-semibold text-slate-900">Owner Capacity Snapshot</CardTitle>
+          <CardDescription>Open stage assignments by owner.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div class="space-y-2">
+            <div
+              v-for="owner in ownerLoad"
+              :key="owner.name"
+              class="flex items-center justify-between rounded-lg border border-sky-100/70 bg-sky-50/30 px-3 py-2"
+            >
+              <span class="text-sm text-slate-800">{{ owner.name }}</span>
+              <Badge class="bg-pink-100 text-pink-900 hover:bg-pink-100">{{ owner.count }} open</Badge>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
+import { CalendarClock, Hourglass, Users } from '@lucide/vue';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import BlockersPanel from '../components/lifecycle/BlockersPanel.vue';
 import DeliverablesChecklist from '../components/lifecycle/DeliverablesChecklist.vue';
 import LifecycleStageCard from '../components/lifecycle/LifecycleStageCard.vue';

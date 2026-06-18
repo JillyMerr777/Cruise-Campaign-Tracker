@@ -1,30 +1,36 @@
 <template>
-  <v-card class="h-100">
-    <v-card-title class="d-flex align-center ga-2">
-      <v-icon color="info" icon="mdi-swap-horizontal-bold" />
+  <Card class="h-full border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+    <CardHeader class="pb-2">
+      <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900">
+        <ArrowLeftRight class="size-4 text-sky-600" />
       Channel Performance
-    </v-card-title>
-    <v-card-subtitle>Comparative ranking across paid, social, video, email, and organic channels.</v-card-subtitle>
-    <v-card-text>
+      </CardTitle>
+      <CardDescription>Comparative ranking across paid, social, video, email, and organic channels.</CardDescription>
+    </CardHeader>
+    <CardContent>
       <div v-if="rankedChannels.length > 0">
         <div v-for="channel in rankedChannels" :key="channel.label" class="mb-3">
-          <div class="d-flex align-center justify-space-between mb-1">
+          <div class="mb-1 flex items-center justify-between">
             <div>
-              <div class="text-body-2 font-weight-semibold">{{ channel.label }}</div>
-              <div class="text-caption text-medium-emphasis">CTR {{ channel.ctr.toFixed(2) }}% • {{ channel.conversions }} conversions</div>
+              <div class="text-sm font-semibold text-slate-800">{{ channel.label }}</div>
+              <div class="text-xs text-slate-500">CTR {{ channel.ctr.toFixed(2) }}% • {{ channel.conversions }} conversions</div>
             </div>
-            <v-chip size="x-small" color="primary" variant="tonal">Score {{ channel.score }}</v-chip>
+            <Badge class="bg-sky-100 text-sky-900 hover:bg-sky-100">Score {{ channel.score }}</Badge>
           </div>
-          <v-progress-linear :model-value="channel.score" color="info" rounded height="8" />
+          <Progress :model-value="channel.score" class="h-2 bg-sky-100 [&>*]:bg-sky-500" />
         </div>
       </div>
-      <p v-else class="text-body-2 mb-0">No channel metrics available for current filters.</p>
-    </v-card-text>
-  </v-card>
+      <p v-else class="mb-0 text-sm text-slate-600">No channel metrics available for current filters.</p>
+    </CardContent>
+  </Card>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { ArrowLeftRight } from '@lucide/vue';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
 import type { ChannelMetric } from '../../types/metrics';
 
 const props = defineProps<{ metrics: ChannelMetric[] }>();

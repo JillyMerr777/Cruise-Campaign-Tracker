@@ -1,12 +1,18 @@
 <template>
-  <v-app class="app-shell">
+  <div class="app-shell min-h-screen">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <AppTopBar />
-    <AppNavDrawer />
-    <PageContainer>
-      <router-view />
-    </PageContainer>
-  </v-app>
+    <div class="px-2 pb-3 md:px-4">
+      <div class="flex flex-col gap-3 md:flex-row md:items-start md:gap-4">
+        <AppNavDrawer class="shrink-0" />
+        <div class="min-w-0 flex-1">
+          <PageContainer>
+            <router-view />
+          </PageContainer>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

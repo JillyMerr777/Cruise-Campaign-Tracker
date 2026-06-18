@@ -1,15 +1,17 @@
 <template>
-  <div class="mb-4 dashboard-hero-card pa-4 pa-md-5">
-    <div class="d-flex justify-space-between align-start flex-wrap ga-3">
-      <div>
+  <div class="dashboard-hero-card mb-4 rounded-2xl px-4 py-5 md:px-6">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <div class="max-w-3xl">
         <h1 class="page-title">Campaign Performance Command Center</h1>
-        <p class="page-subtitle mb-0">Operate with live cruise demand signals, weekly momentum, and high-impact campaign recommendations.</p>
+        <p class="page-subtitle mb-0 mt-1">
+          Operate with live cruise demand signals, weekly momentum, and high-impact campaign recommendations.
+        </p>
       </div>
 
-      <div class="d-flex ga-2 flex-wrap">
-        <v-chip color="primary" variant="tonal" prepend-icon="mdi-ferry">Cruise Marketing Ops</v-chip>
-        <v-chip color="info" variant="tonal" prepend-icon="mdi-calendar-week">Weekly Pulse</v-chip>
-        <v-chip color="warning" variant="tonal" prepend-icon="mdi-lightning-bolt-outline">Decision Window: 48h</v-chip>
+      <div class="flex flex-wrap gap-2">
+        <Badge class="bg-cyan-100 text-cyan-900 hover:bg-cyan-100"><Ship class="mr-1 size-3.5" />Cruise Marketing Ops</Badge>
+        <Badge class="bg-sky-100 text-sky-900 hover:bg-sky-100"><CalendarDays class="mr-1 size-3.5" />Weekly Pulse</Badge>
+        <Badge class="bg-amber-100 text-amber-900 hover:bg-amber-100"><Zap class="mr-1 size-3.5" />Decision Window: 48h</Badge>
       </div>
     </div>
   </div>
@@ -19,149 +21,134 @@
   <template v-if="featuredCampaign">
     <CampaignSpotlightCard :campaign="featuredCampaign" class="mb-4" />
 
-    <v-alert
-      class="mb-3"
-      density="comfortable"
-      variant="tonal"
-      color="info"
-      icon="mdi-information-outline"
-      text="KPI deltas are week-over-week in the current filtered view. Use the Top 3 board to prioritize immediate budget and creative actions."
-    />
+    <Alert class="mb-3 border-sky-200 bg-sky-50/60 text-sky-900">
+      <Info class="size-4" />
+      <AlertTitle>KPI Context</AlertTitle>
+      <AlertDescription>
+        KPI deltas are week-over-week in the current filtered view. Use the Top 3 board to prioritize immediate budget and creative actions.
+      </AlertDescription>
+    </Alert>
 
     <KpiSummaryGrid :items="kpis" class="mb-5" />
 
-    <v-row class="mb-4">
-      <v-col cols="12" lg="8"><PerformanceTrendChart :clicks="totals.clicks" :conversions="totals.conversions" /></v-col>
-      <v-col cols="12" lg="4">
-        <v-card class="h-100">
-          <v-card-title class="d-flex align-center ga-2">
-            <v-icon color="success" icon="mdi-podium-gold" />
-            Top 3 Campaigns
-          </v-card-title>
-          <v-card-subtitle>Ranked by performance score, budget efficiency, and revenue impact.</v-card-subtitle>
-          <v-card-text>
-            <v-row v-if="performanceLeaders.length > 0" dense>
-              <v-col v-for="(campaign, index) in performanceLeaders" :key="campaign.id" cols="12">
-                <v-sheet class="pa-3 rounded-lg" color="transparent" border>
-                  <div class="d-flex justify-space-between align-center mb-2">
-                    <div class="d-flex align-center ga-2">
-                      <v-avatar size="28" :color="index === 0 ? 'warning' : 'info'" variant="tonal">
-                        <span class="text-caption font-weight-bold">{{ index + 1 }}</span>
-                      </v-avatar>
-                      <div>
-                        <div class="text-subtitle-2 font-weight-semibold">{{ campaign.name }}</div>
-                        <div class="text-caption text-medium-emphasis">{{ campaign.status }} | {{ campaign.destination }}</div>
-                      </div>
+    <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+      <div class="lg:col-span-8"><PerformanceTrendChart :clicks="totals.clicks" :conversions="totals.conversions" /></div>
+      <div class="lg:col-span-4">
+        <Card class="h-full border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+          <CardHeader class="pb-2">
+            <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Trophy class="size-4 text-amber-500" />Top 3 Campaigns</CardTitle>
+            <CardDescription>Ranked by performance score, budget efficiency, and revenue impact.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div v-if="performanceLeaders.length > 0" class="space-y-2">
+              <div v-for="(campaign, index) in performanceLeaders" :key="campaign.id" class="rounded-lg border border-sky-100/70 bg-sky-50/30 p-3">
+                <div class="mb-2 flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span :class="index === 0 ? 'bg-amber-200 text-amber-900' : 'bg-sky-200 text-sky-900'" class="grid h-7 w-7 place-items-center rounded-full text-xs font-bold">{{ index + 1 }}</span>
+                    <div>
+                      <div class="text-sm font-semibold text-slate-800">{{ campaign.name }}</div>
+                      <div class="text-xs text-slate-500">{{ campaign.status }} | {{ campaign.destination }}</div>
                     </div>
-                    <v-chip size="x-small" color="success" variant="tonal">Score {{ campaign.performanceScore }}</v-chip>
                   </div>
+                  <Badge class="bg-emerald-100 text-emerald-900 hover:bg-emerald-100">Score {{ campaign.performanceScore }}</Badge>
+                </div>
 
-                  <div class="d-flex justify-space-between text-caption mb-1">
-                    <span>Budget Utilization</span>
-                    <span>{{ campaign.budgetUtilization.toFixed(1) }}%</span>
-                  </div>
-                  <v-progress-linear :model-value="campaign.budgetUtilization" color="primary" rounded height="8" class="mb-2" />
+                <div class="mb-1 flex justify-between text-xs text-slate-600">
+                  <span>Budget Utilization</span>
+                  <span>{{ campaign.budgetUtilization.toFixed(1) }}%</span>
+                </div>
+                <Progress :model-value="campaign.budgetUtilization" class="mb-2 h-2 bg-sky-100 [&>*]:bg-cyan-500" />
 
-                  <div class="d-flex flex-wrap ga-2">
-                    <v-chip size="x-small" color="info" variant="tonal">{{ formatCompact(campaign.impressions) }} impressions</v-chip>
-                    <v-chip size="x-small" color="info" variant="tonal">CTR {{ campaign.ctr.toFixed(2) }}%</v-chip>
-                    <v-chip size="x-small" color="success" variant="tonal">{{ campaign.conversions }} conversions</v-chip>
-                    <v-chip size="x-small" color="secondary" variant="tonal">{{ formatCurrency(campaign.revenue) }} revenue</v-chip>
-                  </div>
-                </v-sheet>
-              </v-col>
-            </v-row>
+                <div class="flex flex-wrap gap-1.5">
+                  <Badge class="bg-sky-100 text-sky-900 hover:bg-sky-100">{{ formatCompact(campaign.impressions) }} impressions</Badge>
+                  <Badge class="bg-sky-100 text-sky-900 hover:bg-sky-100">CTR {{ campaign.ctr.toFixed(2) }}%</Badge>
+                  <Badge class="bg-emerald-100 text-emerald-900 hover:bg-emerald-100">{{ campaign.conversions }} conversions</Badge>
+                  <Badge class="bg-pink-100 text-pink-900 hover:bg-pink-100">{{ formatCurrency(campaign.revenue) }} revenue</Badge>
+                </div>
+              </div>
+            </div>
             <EmptyState v-else message="No campaign performance leaders in this filter set." />
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
 
-    <v-row class="mb-4">
-      <v-col cols="12" lg="5">
-        <v-card class="h-100">
-          <v-card-title class="d-flex align-center ga-2">
-            <v-icon color="secondary" icon="mdi-account-group-outline" />
-            Audience Insights
-          </v-card-title>
-          <v-card-subtitle>Segment, device, and geography breakdown for active campaigns.</v-card-subtitle>
-          <v-card-text>
-            <div class="text-caption text-medium-emphasis mb-2">Top Audience Segments</div>
-            <div class="d-flex flex-wrap ga-2 mb-3">
-              <v-chip v-for="item in audienceSegments" :key="item.label" size="small" color="secondary" variant="tonal">
-                {{ item.label }} {{ item.share }}%
-              </v-chip>
+    <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <Card class="h-full border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+          <CardHeader class="pb-2">
+            <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Users class="size-4 text-pink-500" />Audience Insights</CardTitle>
+            <CardDescription>Segment, device, and geography breakdown for active campaigns.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Top Audience Segments</div>
+            <div class="mb-3 flex flex-wrap gap-1.5">
+              <Badge v-for="item in audienceSegments" :key="item.label" class="bg-pink-100 text-pink-900 hover:bg-pink-100">{{ item.label }} {{ item.share }}%</Badge>
             </div>
 
-            <div class="text-caption text-medium-emphasis mb-2">Device Usage</div>
-            <div class="d-flex ga-3 mb-3 flex-wrap">
+            <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Device Usage</div>
+            <div class="mb-3 flex flex-wrap gap-3">
               <div v-for="device in deviceMix" :key="device.label" class="text-center">
-                <v-progress-circular :model-value="device.share" size="56" width="6" color="info">
-                  <span class="text-caption">{{ device.share }}%</span>
-                </v-progress-circular>
-                <div class="text-caption mt-1">{{ device.label }}</div>
+                <div class="grid size-14 place-items-center rounded-full bg-white text-xs font-semibold text-slate-700 shadow-sm" :style="circleProgress(device.share)">
+                  <div class="grid size-10 place-items-center rounded-full bg-white">{{ device.share }}%</div>
+                </div>
+                <div class="mt-1 text-xs text-slate-600">{{ device.label }}</div>
               </div>
             </div>
 
-            <div class="text-caption text-medium-emphasis mb-2">Demographic Distribution</div>
-            <div class="d-flex flex-wrap ga-2 mb-3">
-              <v-chip v-for="item in demographicMix" :key="item.label" size="small" color="primary" variant="tonal">
-                {{ item.label }} {{ item.share }}%
-              </v-chip>
+            <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Demographic Distribution</div>
+            <div class="mb-3 flex flex-wrap gap-1.5">
+              <Badge v-for="item in demographicMix" :key="item.label" class="bg-cyan-100 text-cyan-900 hover:bg-cyan-100">{{ item.label }} {{ item.share }}%</Badge>
             </div>
 
-            <div class="text-caption text-medium-emphasis mt-3 mb-2">Geographic Performance</div>
-            <v-list density="compact" class="bg-transparent py-0">
-              <v-list-item v-for="geo in audienceGeography" :key="geo.label" class="px-0" :title="geo.label">
-                <template #append>
-                  <v-chip size="x-small" color="primary" variant="tonal">{{ geo.share }}%</v-chip>
-                </template>
-              </v-list-item>
-            </v-list>
-          </v-card-text>
-        </v-card>
-      </v-col>
+            <div class="mb-2 mt-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Geographic Performance</div>
+            <div class="space-y-2">
+              <div v-for="geo in audienceGeography" :key="geo.label" class="flex items-center justify-between rounded-lg border border-sky-100/70 bg-sky-50/30 px-3 py-2">
+                <span class="text-sm text-slate-700">{{ geo.label }}</span>
+                <Badge class="bg-cyan-100 text-cyan-900 hover:bg-cyan-100">{{ geo.share }}%</Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-      <v-col cols="12" lg="7">
-        <v-card class="h-100">
-          <v-card-title class="d-flex align-center ga-2">
-            <v-icon color="primary" icon="mdi-lightbulb-on-outline" />
-            Channel Intelligence Highlights
-          </v-card-title>
-          <v-card-subtitle>Creative and placement signals from your top channels.</v-card-subtitle>
-          <v-card-text>
-            <v-row>
-              <v-col v-for="item in channelIntelligence" :key="`${item.channel}-${item.placement}`" cols="12" md="6">
-                <v-sheet class="pa-3 rounded-lg" color="transparent" border>
-                  <div class="text-subtitle-2 font-weight-semibold mb-1">{{ item.channel }}</div>
-                  <div class="text-body-2 mb-1">{{ item.topCreative || 'Creative insight pending' }}</div>
-                  <div class="text-caption text-medium-emphasis mb-2">Placement: {{ item.placement || 'Mixed placements' }}</div>
-                  <div class="d-flex align-center justify-space-between ga-2">
-                    <v-chip size="x-small" color="info" variant="tonal">Engagement {{ item.engagementRate.toFixed(2) }}%</v-chip>
-                    <v-chip size="x-small" color="success" variant="tonal">Revenue {{ formatCurrency(item.revenue) }}</v-chip>
-                  </div>
-                </v-sheet>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+      <div class="lg:col-span-7">
+        <Card class="h-full border-sky-100/60 bg-white/85 shadow-[0_14px_30px_rgba(41,71,125,0.13)] backdrop-blur-sm">
+          <CardHeader class="pb-2">
+            <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Lightbulb class="size-4 text-cyan-600" />Channel Intelligence Highlights</CardTitle>
+            <CardDescription>Creative and placement signals from your top channels.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div v-for="item in channelIntelligence" :key="`${item.channel}-${item.placement}`" class="rounded-lg border border-sky-100/70 bg-sky-50/30 p-3">
+                <div class="mb-1 text-sm font-semibold text-slate-800">{{ item.channel }}</div>
+                <div class="mb-1 text-sm text-slate-700">{{ item.topCreative || 'Creative insight pending' }}</div>
+                <div class="mb-2 text-xs text-slate-500">Placement: {{ item.placement || 'Mixed placements' }}</div>
+                <div class="flex items-center justify-between gap-2">
+                  <Badge class="bg-sky-100 text-sky-900 hover:bg-sky-100">Engagement {{ item.engagementRate.toFixed(2) }}%</Badge>
+                  <Badge class="bg-emerald-100 text-emerald-900 hover:bg-emerald-100">Revenue {{ formatCurrency(item.revenue) }}</Badge>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
 
-    <v-row class="mb-4">
-      <v-col cols="12" lg="7"><ChannelPerformanceCards :metrics="filteredChannelMetrics" /></v-col>
-      <v-col cols="12" lg="5"><CreativePerformanceCard /></v-col>
-    </v-row>
+    <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+      <div class="lg:col-span-7"><ChannelPerformanceCards :metrics="filteredChannelMetrics" /></div>
+      <div class="lg:col-span-5"><CreativePerformanceCard /></div>
+    </div>
 
-    <v-row class="mb-4">
-      <v-col cols="12" lg="6"><InsightsPanel :insights="insights" /></v-col>
-      <v-col cols="12" lg="6"><AlertsPanel :alerts="filteredAlerts" /></v-col>
-    </v-row>
+    <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <InsightsPanel :insights="insights" />
+      <AlertsPanel :alerts="filteredAlerts" />
+    </div>
 
-    <v-row class="mb-4">
-      <v-col cols="12" lg="6"><BudgetPacingCard :budget="totals.budget" :spend="totals.spend" /></v-col>
-      <v-col cols="12" lg="6"><QuickActionsCard /></v-col>
-    </v-row>
+    <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <BudgetPacingCard :budget="totals.budget" :spend="totals.spend" />
+      <QuickActionsCard />
+    </div>
 
     <CampaignComparisonTable :campaigns="filteredCampaigns" class="mb-4" />
     <PastCampaignHighlights :campaigns="filteredCampaigns" class="mb-4" />
@@ -172,6 +159,7 @@
 
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
+import { CalendarDays, Info, Lightbulb, Ship, Trophy, Users, Zap } from '@lucide/vue';
 import AlertsPanel from '../components/dashboard/AlertsPanel.vue';
 import BudgetPacingCard from '../components/dashboard/BudgetPacingCard.vue';
 import CampaignComparisonTable from '../components/dashboard/CampaignComparisonTable.vue';
@@ -185,6 +173,10 @@ import CreativePerformanceCard from '../components/campaign/CreativePerformanceC
 import PerformanceTrendChart from '../components/charts/PerformanceTrendChart.vue';
 import EmptyState from '../components/shared/EmptyState.vue';
 import FilterBar from '../components/shared/FilterBar.vue';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
 import { useDashboardMetrics } from '../composables/useDashboardMetrics';
 import { dataService } from '../services/dataService';
 import type { Campaign } from '../types/campaign';
@@ -196,6 +188,11 @@ const alerts = dataService.alerts;
 const benchmarks = dataService.benchmarks;
 
 const filters = reactive({ channel: 'All', status: 'All', destination: 'All', segment: '' });
+
+const circleProgress = (value: number): string => {
+  const clamped = Math.max(0, Math.min(100, value));
+  return `background: conic-gradient(rgb(14 165 233) ${clamped * 3.6}deg, rgb(224 242 254) 0deg);`;
+};
 
 const filteredCampaigns = computed(() =>
   campaigns.filter((campaign) => {
