@@ -1,0 +1,5 @@
+[
+  { "id": "act-001", "campaignId": "camp-001", "time": "2026-07-07T10:30:00Z", "message": "Copy approved for family itinerary variant." },
+  { "id": "act-002", "campaignId": "camp-001", "time": "2026-07-09T14:00:00Z", "message": "Optimization added to email CTA for loyalty segment." },
+  { "id": "act-003", "campaignId": "camp-002", "time": "2026-07-10T09:20:00Z", "message": "Launch delayed due to outstanding QA issue on mobile placement." }
+]

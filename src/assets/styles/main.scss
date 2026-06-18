@@ -1,0 +1,76 @@
+@use './variables';
+@use './utilities';
+@use './animations';
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Manrope', sans-serif;
+  background: radial-gradient(circle at 15% 0%, #17305a 0%, #07101f 50%, #050915 100%);
+}
+
+.v-application {
+  font-family: 'Manrope', sans-serif !important;
+}
+
+.app-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-3);
+}
+
+.card-glow {
+  box-shadow: var(--shadow-neon);
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 12px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #f4ff52;
+  color: #0d1730;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  top: 12px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.v-btn:focus-visible,
+.v-list-item:focus-visible {
+  outline: 2px solid #f4ff52;
+  outline-offset: 2px;
+}
+
+@media (max-width: 960px) {
+  .app-container {
+    padding: var(--space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "campaignId": "camp-001",
+    "stages": [
+      { "name": "Briefing", "status": "Complete", "owner": "Ava", "dueDate": "2026-06-20" },
+      { "name": "Planning", "status": "Complete", "owner": "Ava", "dueDate": "2026-06-23" },
+      { "name": "Copywriting", "status": "Complete", "owner": "Maya", "dueDate": "2026-06-25" },
+      { "name": "Design", "status": "Complete", "owner": "Leo", "dueDate": "2026-06-27" },
+      { "name": "Approval", "status": "Complete", "owner": "Jordan", "dueDate": "2026-06-29" },
+      { "name": "Launch", "status": "Complete", "owner": "Ops", "dueDate": "2026-07-01" },
+      { "name": "QA / Testing", "status": "Complete", "owner": "QA", "dueDate": "2026-07-01" },
+      { "name": "Monitoring", "status": "In Progress", "owner": "Ava", "dueDate": "2026-07-12" },
+      { "name": "Optimization", "status": "Pending", "owner": "Ava", "dueDate": "2026-07-20" },
+      { "name": "Archived", "status": "Pending", "owner": "Ops", "dueDate": "2026-08-20" }
+    ]
+  }
+]

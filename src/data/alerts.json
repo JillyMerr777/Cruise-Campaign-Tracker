@@ -1,0 +1,16 @@
+[
+  {
+    "id": "alert-001",
+    "campaignId": "camp-002",
+    "type": "warning",
+    "title": "Budget pacing ahead of plan",
+    "message": "Spend is 82% consumed with 40% of campaign duration remaining."
+  },
+  {
+    "id": "alert-002",
+    "campaignId": "camp-002",
+    "type": "error",
+    "title": "Launch timeline at risk",
+    "message": "Creative variant B is waiting on legal approval."
+  }
+]

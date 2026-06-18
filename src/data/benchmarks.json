@@ -1,0 +1,6 @@
+[
+  { "channel": "Email", "openRate": 28.5, "clickRate": 3.7, "ctr": 2.9, "conversionRate": 2.4 },
+  { "channel": "Instagram", "ctr": 2.7, "conversionRate": 1.8 },
+  { "channel": "Website", "ctr": 2.2, "conversionRate": 2.1 },
+  { "channel": "Mobile App", "ctr": 2.5, "conversionRate": 2.8 }
+]

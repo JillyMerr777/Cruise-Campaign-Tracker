@@ -1,0 +1,6 @@
+[
+  { "campaignId": "camp-001", "channel": "Instagram", "impressions": 950000, "clicks": 29100, "ctr": 3.06, "conversions": 740, "spend": 32000 },
+  { "campaignId": "camp-001", "channel": "Email", "impressions": 300000, "clicks": 9400, "ctr": 3.13, "conversions": 620, "spend": 14000 },
+  { "campaignId": "camp-001", "channel": "Website", "impressions": 620000, "clicks": 18900, "ctr": 3.05, "conversions": 780, "spend": 25500 },
+  { "campaignId": "camp-001", "channel": "Mobile App", "impressions": 330000, "clicks": 11000, "ctr": 3.33, "conversions": 310, "spend": 13000 }
+]
