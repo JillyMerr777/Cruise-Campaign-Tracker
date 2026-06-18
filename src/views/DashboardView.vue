@@ -1,9 +1,9 @@
 <template>
-  <div class="mb-5 px-1 pt-1">
+  <div class="mb-6 px-1 pt-1">
     <div class="flex flex-wrap items-start justify-between gap-3">
       <div>
         <h1 class="text-[2rem] leading-[1.08] font-bold tracking-[-0.02em] text-slate-900 sm:text-[2.2rem]">Dashboard</h1>
-        <p class="mt-1 text-[0.94rem] text-slate-500">Welcome back, Ava. Here is what is happening with your cruise campaigns.</p>
+        <p class="mt-1 text-[0.94rem] text-slate-500">Welcome back, Ava. Start here to see what needs action first.</p>
       </div>
 
       <div class="rounded-xl border border-cyan-100 bg-cyan-50/70 px-3 py-2 text-xs shadow-[0_10px_22px_rgba(12,71,153,0.09)]">
@@ -18,155 +18,240 @@
   </div>
 
   <template v-if="featuredCampaign">
-    <KpiSummaryGrid :items="kpis" class="mb-5" />
-
-    <div class="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-12">
-      <div class="lg:col-span-5">
-        <Card class="h-full border-slate-200 bg-white shadow-sm">
-          <CardHeader class="pb-2">
-            <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Trophy class="size-4 text-amber-500" />Top 3 Campaigns</CardTitle>
-            <CardDescription>Ranked by performance score, budget efficiency, and revenue impact.</CardDescription>
-          </CardHeader>
-          <CardContent class="pb-4 pt-0">
-            <div v-if="performanceLeaders.length > 0" class="space-y-2.5">
-              <div v-for="(campaign, index) in performanceLeaders" :key="campaign.id" class="rounded-xl border border-slate-200 bg-white p-3">
-                <div class="mb-2 h-20 overflow-hidden rounded-lg border border-cyan-100/60">
-                  <img :src="leaderImage(index)" :alt="`${campaign.name} campaign visual`" class="h-full w-full object-cover" />
-                </div>
-                <div class="mb-2 flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span :class="index === 0 ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-700'" class="grid h-7 w-7 place-items-center rounded-full text-xs font-bold">{{ index + 1 }}</span>
-                    <div>
-                      <div class="text-sm font-semibold text-slate-800">{{ campaign.name }}</div>
-                      <div class="text-xs text-slate-500">{{ campaign.status }} | {{ campaign.destination }}</div>
-                    </div>
-                  </div>
-                  <Badge class="bg-emerald-50 text-emerald-800 hover:bg-emerald-50">{{ campaign.performanceScore }}</Badge>
-                </div>
-
-                <div class="mb-1 flex justify-between text-xs text-slate-500">
-                  <span>Budget Utilization</span>
-                  <span>{{ campaign.budgetUtilization.toFixed(1) }}%</span>
-                </div>
-                <Progress :model-value="campaign.budgetUtilization" class="mb-2 h-1.5 bg-slate-100 [&>*]:bg-blue-500" />
-
-                <div class="grid grid-cols-3 gap-2 text-xs text-slate-500">
-                  <div>
-                    <div class="text-[10px] uppercase tracking-wide">Spend</div>
-                    <div class="font-semibold text-slate-700">{{ formatCurrency(campaign.spend) }}</div>
-                  </div>
-                  <div>
-                    <div class="text-[10px] uppercase tracking-wide">ROAS</div>
-                    <div class="font-semibold text-slate-700">{{ campaign.roi.toFixed(2) }}x</div>
-                  </div>
-                  <div>
-                    <div class="text-[10px] uppercase tracking-wide">Revenue</div>
-                    <div class="font-semibold text-slate-700">{{ formatCurrency(campaign.revenue) }}</div>
-                  </div>
-                </div>
-              </div>
+    <Card class="dashboard-primary-card mb-5 border-cyan-100/90 bg-white/95">
+      <CardHeader class="pb-3">
+        <CardTitle class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+          <AlertTriangle class="size-5 text-amber-500" />
+          What should I pay attention to?
+        </CardTitle>
+        <CardDescription>{{ primaryFocusHeadline }}</CardDescription>
+      </CardHeader>
+      <CardContent class="pt-0">
+        <div class="grid grid-cols-1 gap-3 lg:grid-cols-12">
+          <div class="lg:col-span-8">
+            <div class="rounded-xl border border-slate-200/80 bg-slate-50/70 p-4">
+              <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Priority Summary</div>
+              <div class="mb-2 text-lg font-semibold leading-snug text-slate-900">{{ primaryFocusNarrative }}</div>
+              <div class="text-sm text-slate-600">{{ primaryFocusSubtext }}</div>
             </div>
-            <EmptyState v-else message="No campaign performance leaders in this filter set." />
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+          <div class="space-y-2 lg:col-span-4">
+            <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Immediate Actions</div>
+            <div
+              v-for="item in primaryActionItems"
+              :key="item"
+              class="rounded-lg border border-cyan-100 bg-cyan-50/60 px-3 py-2.5 text-sm text-slate-700"
+            >
+              {{ item }}
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
 
-      <div class="lg:col-span-7">
-        <PerformanceTrendChart :clicks="totals.clicks" :conversions="totals.conversions" />
-      </div>
-    </div>
+    <KpiSummaryGrid :items="kpis" class="mb-5" />
 
     <FilterBar v-model="filters" />
 
-    <CampaignSpotlightCard :campaign="featuredCampaign" class="mb-5" />
+    <section class="mb-6">
+      <div class="mb-3 flex items-center gap-2">
+        <TrendingUp class="size-4 text-cyan-600" />
+        <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">Performance</h2>
+      </div>
 
-    <Alert class="mb-4 border-slate-200 bg-white text-slate-700 shadow-sm">
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
+        <div class="lg:col-span-7">
+          <PerformanceTrendChart :clicks="totals.clicks" :conversions="totals.conversions" class="h-full dashboard-card dashboard-card-interactive" />
+        </div>
+
+        <div class="lg:col-span-5">
+          <Card class="h-full dashboard-card dashboard-card-interactive">
+            <CardHeader class="pb-3">
+              <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Trophy class="size-4 text-amber-500" />Top Campaigns</CardTitle>
+              <CardDescription>Best opportunities ranked by performance and budget efficiency.</CardDescription>
+            </CardHeader>
+            <CardContent class="pb-4 pt-0">
+              <div v-if="performanceLeaders.length > 0" class="space-y-2.5">
+                <div v-for="(campaign, index) in performanceLeaders" :key="campaign.id" class="rounded-xl border border-slate-200 bg-white p-3">
+                  <div class="mb-2 h-20 overflow-hidden rounded-lg border border-cyan-100/60">
+                    <img :src="leaderImage(index)" :alt="`${campaign.name} campaign visual`" class="h-full w-full object-cover" />
+                  </div>
+                  <div class="mb-2 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span :class="index === 0 ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-700'" class="grid h-7 w-7 place-items-center rounded-full text-xs font-bold">{{ index + 1 }}</span>
+                      <div>
+                        <div class="text-sm font-semibold text-slate-800">{{ campaign.name }}</div>
+                        <div class="text-xs text-slate-500">{{ campaign.status }} | {{ campaign.destination }}</div>
+                      </div>
+                    </div>
+                    <Badge class="bg-emerald-50 text-emerald-800 hover:bg-emerald-50">Score {{ campaign.performanceScore }}</Badge>
+                  </div>
+
+                  <div class="mb-1 flex justify-between text-xs text-slate-500">
+                    <span>Spend Pace</span>
+                    <span>{{ campaign.budgetUtilization.toFixed(1) }}%</span>
+                  </div>
+                  <Progress :model-value="campaign.budgetUtilization" class="mb-2 h-1.5 bg-slate-100 [&>*]:bg-blue-500" />
+
+                  <div class="grid grid-cols-3 gap-2 text-xs text-slate-500">
+                    <div>
+                      <div class="text-[10px] uppercase tracking-wide">Spend</div>
+                      <div class="font-semibold text-slate-700">{{ formatCurrency(campaign.spend) }}</div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] uppercase tracking-wide">ROAS</div>
+                      <div class="font-semibold text-slate-700">{{ campaign.roi.toFixed(2) }}x</div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] uppercase tracking-wide">Revenue</div>
+                      <div class="font-semibold text-slate-700">{{ formatCurrency(campaign.revenue) }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <EmptyState v-else message="No campaign leaders in this filter view." />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+        <div class="lg:col-span-7"><ChannelPerformanceCards :metrics="filteredChannelMetrics" class="h-full dashboard-card dashboard-card-interactive" /></div>
+        <div class="lg:col-span-5"><CreativePerformanceCard class="h-full dashboard-card dashboard-card-interactive" /></div>
+      </div>
+    </section>
+
+    <section class="mb-6">
+      <div class="mb-3 flex items-center gap-2">
+        <Users class="size-4 text-pink-500" />
+        <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">Audience</h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <Card class="h-full dashboard-card dashboard-card-interactive">
+            <CardHeader class="pb-3">
+              <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Users class="size-4 text-pink-500" />Audience Signals</CardTitle>
+              <CardDescription>Segment, device, and geography shifts in active campaigns.</CardDescription>
+            </CardHeader>
+            <CardContent class="pb-4 pt-0">
+              <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Top Segments</div>
+              <div class="mb-3 flex flex-wrap gap-1.5">
+                <Badge v-for="item in audienceSegments" :key="item.label" class="bg-pink-100 text-pink-900 hover:bg-pink-100">{{ item.label }} {{ item.share }}%</Badge>
+              </div>
+
+              <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Device Mix</div>
+              <div class="mb-3 flex flex-wrap gap-3">
+                <div v-for="device in deviceMix" :key="device.label" class="text-center">
+                  <div class="grid size-14 place-items-center rounded-full bg-white text-xs font-semibold text-slate-700 shadow-sm" :style="circleProgress(device.share)">
+                    <div class="grid size-10 place-items-center rounded-full bg-white">{{ device.share }}%</div>
+                  </div>
+                  <div class="mt-1 text-xs text-slate-600">{{ device.label }}</div>
+                </div>
+              </div>
+
+              <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Demographics</div>
+              <div class="mb-3 flex flex-wrap gap-1.5">
+                <Badge v-for="item in demographicMix" :key="item.label" class="bg-slate-100 text-slate-700 hover:bg-slate-100">{{ item.label }} {{ item.share }}%</Badge>
+              </div>
+
+              <div class="mb-2 mt-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Top Destinations</div>
+              <div class="space-y-2">
+                <div v-for="geo in audienceGeography" :key="geo.label" class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50/70 px-3 py-2">
+                  <span class="text-sm text-slate-700">{{ geo.label }}</span>
+                  <Badge class="bg-slate-100 text-slate-700 hover:bg-slate-100">{{ geo.share }}%</Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div class="lg:col-span-7">
+          <Card class="h-full dashboard-card dashboard-card-interactive">
+            <CardHeader class="pb-3">
+              <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Radar class="size-4 text-cyan-600" />Channel Intelligence</CardTitle>
+              <CardDescription>Creative and placement signals from your top channels.</CardDescription>
+            </CardHeader>
+            <CardContent class="pb-4 pt-0">
+              <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div v-for="item in channelIntelligence" :key="`${item.channel}-${item.placement}`" class="rounded-lg border border-slate-200 bg-slate-50/70 p-3">
+                  <div class="mb-1 text-sm font-semibold text-slate-800">{{ item.channel }}</div>
+                  <div class="mb-1 text-sm text-slate-700">{{ item.topCreative || 'Creative insight pending' }}</div>
+                  <div class="mb-2 text-xs text-slate-500">Placement: {{ item.placement || 'Mixed placements' }}</div>
+                  <div class="flex items-center justify-between gap-2">
+                    <Badge class="bg-slate-100 text-slate-700 hover:bg-slate-100">Engagement {{ item.engagementRate.toFixed(2) }}%</Badge>
+                    <Badge class="bg-emerald-50 text-emerald-800 hover:bg-emerald-50">Revenue {{ formatCurrency(item.revenue) }}</Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-6">
+      <div class="mb-3 flex items-center gap-2">
+        <Activity class="size-4 text-indigo-500" />
+        <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">Campaign Activity</h2>
+      </div>
+
+      <CampaignSpotlightCard :campaign="featuredCampaign" class="mb-4 dashboard-card" />
+
+      <Alert class="mb-4 dashboard-card border-slate-200 bg-white text-slate-700">
       <Info class="size-4" />
       <AlertTitle>KPI Context</AlertTitle>
       <AlertDescription>
-        KPI deltas are week-over-week in the current filtered view. Use the Top 3 board to prioritize immediate budget and creative actions.
+        KPI deltas are week-over-week in the current filtered view. Use this section to prioritize campaign-level follow-up actions.
       </AlertDescription>
     </Alert>
 
-    <div class="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-12">
-      <div class="lg:col-span-5">
-        <Card class="h-full border-slate-200 bg-white shadow-sm">
-          <CardHeader class="pb-2">
-            <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Users class="size-4 text-pink-500" />Audience Insights</CardTitle>
-            <CardDescription>Segment, device, and geography breakdown for active campaigns.</CardDescription>
+      <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <InsightsPanel :insights="insights" class="h-full dashboard-card dashboard-card-interactive" />
+        <AlertsPanel :alerts="filteredAlerts" class="h-full dashboard-card dashboard-card-interactive" />
+      </div>
+
+      <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <CampaignComparisonTable :campaigns="filteredCampaigns" class="dashboard-card" />
+        <PastCampaignHighlights :campaigns="filteredCampaigns" class="dashboard-card" />
+      </div>
+    </section>
+
+    <section class="mb-1">
+      <div class="mb-3 flex items-center gap-2">
+        <Compass class="size-4 text-emerald-600" />
+        <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-slate-600">Destination Context</h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <BudgetPacingCard :budget="totals.budget" :spend="totals.spend" class="h-full dashboard-card dashboard-card-interactive" />
+        <QuickActionsCard class="h-full dashboard-card dashboard-card-interactive" />
+
+        <Card class="h-full dashboard-card dashboard-card-interactive">
+          <CardHeader class="pb-3">
+            <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><MapPinned class="size-4 text-emerald-600" />Destination Readiness</CardTitle>
+            <CardDescription>Where cruise demand is building and where follow-up is needed.</CardDescription>
           </CardHeader>
-          <CardContent class="pb-4 pt-0">
-            <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Top Audience Segments</div>
-            <div class="mb-3 flex flex-wrap gap-1.5">
-              <Badge v-for="item in audienceSegments" :key="item.label" class="bg-pink-100 text-pink-900 hover:bg-pink-100">{{ item.label }} {{ item.share }}%</Badge>
-            </div>
-
-            <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Device Usage</div>
-            <div class="mb-3 flex flex-wrap gap-3">
-              <div v-for="device in deviceMix" :key="device.label" class="text-center">
-                <div class="grid size-14 place-items-center rounded-full bg-white text-xs font-semibold text-slate-700 shadow-sm" :style="circleProgress(device.share)">
-                  <div class="grid size-10 place-items-center rounded-full bg-white">{{ device.share }}%</div>
-                </div>
-                <div class="mt-1 text-xs text-slate-600">{{ device.label }}</div>
-              </div>
-            </div>
-
-            <div class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Demographic Distribution</div>
-            <div class="mb-3 flex flex-wrap gap-1.5">
-              <Badge v-for="item in demographicMix" :key="item.label" class="bg-slate-100 text-slate-700 hover:bg-slate-100">{{ item.label }} {{ item.share }}%</Badge>
-            </div>
-
-            <div class="mb-2 mt-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Geographic Performance</div>
-            <div class="space-y-2">
-              <div v-for="geo in audienceGeography" :key="geo.label" class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50/70 px-3 py-2">
+          <CardContent class="pt-0">
+            <div v-if="audienceGeography.length > 0" class="space-y-2">
+              <div
+                v-for="geo in audienceGeography"
+                :key="`destination-${geo.label}`"
+                class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50/70 px-3 py-2"
+              >
                 <span class="text-sm text-slate-700">{{ geo.label }}</span>
-                <Badge class="bg-slate-100 text-slate-700 hover:bg-slate-100">{{ geo.share }}%</Badge>
+                <Badge class="bg-emerald-50 text-emerald-800 hover:bg-emerald-50">Demand {{ geo.share }}%</Badge>
               </div>
+            </div>
+            <div v-else class="rounded-lg border border-dashed border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-500">
+              No destination data in the current filter view.
             </div>
           </CardContent>
         </Card>
+
+        <DestinationWeatherCard class="h-full dashboard-card dashboard-card-interactive" />
       </div>
-
-      <div class="lg:col-span-7">
-        <Card class="h-full border-slate-200 bg-white shadow-sm">
-          <CardHeader class="pb-2">
-            <CardTitle class="flex items-center gap-2 text-base font-semibold text-slate-900"><Lightbulb class="size-4 text-cyan-600" />Channel Intelligence Highlights</CardTitle>
-            <CardDescription>Creative and placement signals from your top channels.</CardDescription>
-          </CardHeader>
-          <CardContent class="pb-4 pt-0">
-            <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-              <div v-for="item in channelIntelligence" :key="`${item.channel}-${item.placement}`" class="rounded-lg border border-slate-200 bg-slate-50/70 p-3">
-                <div class="mb-1 text-sm font-semibold text-slate-800">{{ item.channel }}</div>
-                <div class="mb-1 text-sm text-slate-700">{{ item.topCreative || 'Creative insight pending' }}</div>
-                <div class="mb-2 text-xs text-slate-500">Placement: {{ item.placement || 'Mixed placements' }}</div>
-                <div class="flex items-center justify-between gap-2">
-                  <Badge class="bg-slate-100 text-slate-700 hover:bg-slate-100">Engagement {{ item.engagementRate.toFixed(2) }}%</Badge>
-                  <Badge class="bg-emerald-50 text-emerald-800 hover:bg-emerald-50">Revenue {{ formatCurrency(item.revenue) }}</Badge>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-
-    <div class="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-12">
-      <div class="lg:col-span-7"><ChannelPerformanceCards :metrics="filteredChannelMetrics" /></div>
-      <div class="lg:col-span-5"><CreativePerformanceCard /></div>
-    </div>
-
-    <div class="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <InsightsPanel :insights="insights" />
-      <AlertsPanel :alerts="filteredAlerts" />
-    </div>
-
-    <div class="mb-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <BudgetPacingCard :budget="totals.budget" :spend="totals.spend" />
-      <QuickActionsCard />
-    </div>
-
-    <CampaignComparisonTable :campaigns="filteredCampaigns" class="mb-5" />
-    <PastCampaignHighlights :campaigns="filteredCampaigns" class="mb-1" />
+    </section>
   </template>
 
   <EmptyState v-else message="No campaigns match your current filters. Clear filters to view the full dashboard." />
@@ -174,12 +259,13 @@
 
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
-import { Info, Lightbulb, Trophy, Users } from '@lucide/vue';
+import { Activity, AlertTriangle, Compass, Info, MapPinned, Radar, TrendingUp, Trophy, Users } from '@lucide/vue';
 import AlertsPanel from '../components/dashboard/AlertsPanel.vue';
 import BudgetPacingCard from '../components/dashboard/BudgetPacingCard.vue';
 import CampaignComparisonTable from '../components/dashboard/CampaignComparisonTable.vue';
 import CampaignSpotlightCard from '../components/dashboard/CampaignSpotlightCard.vue';
 import ChannelPerformanceCards from '../components/dashboard/ChannelPerformanceCards.vue';
+import DestinationWeatherCard from '../components/dashboard/DestinationWeatherCard.vue';
 import InsightsPanel from '../components/dashboard/InsightsPanel.vue';
 import KpiSummaryGrid from '../components/dashboard/KpiSummaryGrid.vue';
 import PastCampaignHighlights from '../components/dashboard/PastCampaignHighlights.vue';
@@ -378,45 +464,45 @@ const channelIntelligence = computed(() => {
 
 const kpis = computed(() => [
   {
-    label: 'Total Campaign Spend',
+    label: 'Watch Spend',
     value: formatCurrency(totals.value.spend),
     delta: safeDelta(percentDelta(trendTotals.value.latest.spend, trendTotals.value.previous.spend)),
-    deltaContext: 'Spend change versus previous week (filtered campaigns).',
+    deltaContext: 'Spend change versus previous week.',
     icon: 'mdi-cash-multiple'
   },
   {
-    label: 'Revenue Generated',
+    label: 'Track Revenue',
     value: formatCurrency(totalRevenue.value),
     delta: safeDelta(percentDelta(totalRevenue.value, allRevenue.value === 0 ? totalRevenue.value : allRevenue.value)),
-    deltaContext: 'Relative revenue versus overall dataset baseline.',
+    deltaContext: 'Revenue versus overall baseline.',
     icon: 'mdi-bank-outline'
   },
   {
-    label: 'Impressions',
+    label: 'Boost Reach',
     value: formatCompact(totals.value.impressions),
     delta: safeDelta(percentDelta(trendTotals.value.latest.impressions, trendTotals.value.previous.impressions)),
-    deltaContext: 'Impressions change versus previous week (filtered campaigns).',
+    deltaContext: 'Impressions change versus previous week.',
     icon: 'mdi-image-multiple-outline'
   },
   {
-    label: 'Engagement Rate',
+    label: 'Raise Engagement',
     value: `${filteredEngagementRate.value.toFixed(2)}%`,
     delta: safeDelta(percentDelta(filteredEngagementRate.value, allEngagementRate.value === 0 ? filteredEngagementRate.value : allEngagementRate.value)),
-    deltaContext: 'Weighted engagement rate relative to overall channel baseline.',
+    deltaContext: 'Weighted engagement rate versus full baseline.',
     icon: 'mdi-heart-pulse'
   },
   {
-    label: 'Conversion Rate',
+    label: 'Lift Conversion',
     value: `${filteredConversionRate.value.toFixed(2)}%`,
     delta: safeDelta(percentDelta(filteredConversionRate.value, previousConversionRate.value === 0 ? filteredConversionRate.value : previousConversionRate.value)),
     deltaContext: 'Conversion rate change versus previous week.',
     icon: 'mdi-check-decagram-outline'
   },
   {
-    label: 'ROAS',
+    label: 'Improve ROAS',
     value: `${filteredRoas.value.toFixed(2)}x`,
     delta: safeDelta(percentDelta(filteredRoas.value, allRoas.value === 0 ? filteredRoas.value : allRoas.value)),
-    deltaContext: 'Delta versus overall ROAS baseline in the full dataset.',
+    deltaContext: 'ROAS delta versus full dataset baseline.',
     icon: 'mdi-finance'
   }
 ]);
@@ -556,5 +642,46 @@ const insights = computed(() => {
   }
 
   return nextInsights.slice(0, 4);
+});
+
+const primaryFocusHeadline = computed(() => {
+  if (weakestChannelAgainstBenchmark.value && weakestChannelAgainstBenchmark.value.delta < 0) {
+    return `${weakestChannelAgainstBenchmark.value.channel} is trailing benchmark and needs immediate optimization.`;
+  }
+
+  if (filteredAlerts.value.length > 0) {
+    return `${filteredAlerts.value.length} active alert${filteredAlerts.value.length > 1 ? 's' : ''} need follow-up in the current filter view.`;
+  }
+
+  return 'Performance is stable. Prioritize scaling what is already converting efficiently.';
+});
+
+const primaryFocusNarrative = computed(() => {
+  if (!topRoiCampaign.value) {
+    return 'No campaign is currently selected. Update filters to restore key opportunities.';
+  }
+
+  return `${topRoiCampaign.value.name} is your strongest performer at ${topRoiCampaign.value.roi.toFixed(2)}x ROI in ${topRoiCampaign.value.destination}.`;
+});
+
+const primaryFocusSubtext = computed(() => {
+  const pace = totals.value.budget === 0 ? 0 : (totals.value.spend / totals.value.budget) * 100;
+  return `Budget pacing is ${pace.toFixed(1)}%. Keep high-performing channels funded and reduce spend leakage in low-CTR placements.`;
+});
+
+const primaryActionItems = computed(() => {
+  const items: string[] = [];
+
+  if (weakestChannelAgainstBenchmark.value) {
+    items.push(`Review ${weakestChannelAgainstBenchmark.value.channel} targeting and creative.`);
+  }
+
+  items.push('Audit alerts and clear blockers impacting conversion volume.');
+
+  if (topRoiCampaign.value) {
+    items.push(`Replicate winning elements from ${topRoiCampaign.value.name}.`);
+  }
+
+  return items.slice(0, 3);
 });
 </script>

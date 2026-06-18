@@ -1,8 +1,8 @@
 <template>
-  <Card class="kpi-card h-full border-slate-200 bg-white shadow-sm" size="sm">
-    <CardContent class="flex h-full flex-col pb-3 pt-3.5">
+  <Card class="kpi-card h-full rounded-xl border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-[1px] hover:shadow-[0_12px_26px_rgba(24,40,78,0.1)]" size="sm">
+    <CardContent class="flex h-full flex-col pb-2.5 pt-2.5">
       <div class="mb-2 flex items-start justify-between gap-2">
-        <div class="min-h-9 max-w-[80%] flex items-start gap-1 text-[10.5px] font-semibold uppercase tracking-[0.045em] text-slate-500">
+        <div class="min-h-8 max-w-[80%] flex items-start gap-1 text-[10px] font-semibold uppercase tracking-[0.04em] text-slate-500">
           <span class="line-clamp-2">{{ label }}</span>
           <TooltipProvider v-if="deltaContext">
             <Tooltip>
@@ -20,17 +20,17 @@
           </TooltipProvider>
         </div>
 
-        <span :class="delta >= 0 ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200/70' : 'bg-rose-50 text-rose-700 ring-1 ring-rose-200/70'" class="inline-flex h-8 w-8 items-center justify-center rounded-full">
-          <component :is="iconComponent" class="size-4" />
+        <span :class="delta >= 0 ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200/70' : 'bg-rose-50 text-rose-700 ring-1 ring-rose-200/70'" class="inline-flex h-7 w-7 items-center justify-center rounded-full">
+          <component :is="iconComponent" class="size-3.5" />
         </span>
       </div>
 
-      <div class="mb-2 min-h-9 break-words text-[clamp(1.25rem,2.2vw,1.82rem)] leading-tight font-bold tabular-nums tracking-tight text-slate-900">{{ value }}</div>
+      <div class="mb-1.5 min-h-8 break-words text-[clamp(1.1rem,1.7vw,1.46rem)] leading-tight font-bold tabular-nums tracking-tight text-slate-900">{{ value }}</div>
 
-      <div class="mt-auto flex items-center justify-between gap-2">
+      <div class="mt-auto flex items-center justify-between gap-2 border-t border-slate-100 pt-1.5">
         <MetricDelta :delta="delta" />
         <Badge
-          class="text-[10.5px] font-semibold tracking-[0.015em]"
+          class="text-[10px] font-semibold tracking-[0.015em]"
           :class="delta >= 0 ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200/80 hover:bg-emerald-50' : 'bg-rose-50 text-rose-800 ring-1 ring-rose-200/80 hover:bg-rose-50'"
         >
           {{ delta >= 0 ? 'Improving' : 'Declining' }}
